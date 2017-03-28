@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CLLSAClock.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="SLLList.cpp" />
+    <ClCompile Include="CLTransactionalObject.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLSnapShot.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="CLBasicData.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObjectProxy.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObjectProxyTable.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLLSAReadAnalysiser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{ab427eb0-1875-43e8-ab08-8c8cdc2b15b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{b747548e-d535-4ae4-8db6-a5781a4cd227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\LSA">
+      <UniqueIdentifier>{398666f7-4ed9-4444-8668-1c5a6b13fef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\LSA">
+      <UniqueIdentifier>{547222b8-928c-48ff-9006-3a5c20aad6e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Tool">
+      <UniqueIdentifier>{9dfc2ccf-cfe1-4cf5-af14-8af3b7bc4658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Object">
+      <UniqueIdentifier>{bc6639d2-df16-48ab-98ad-7a96cd706941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object">
+      <UniqueIdentifier>{36ffbe47-5fd6-48f7-a44a-a171830121e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{04fd9ebf-2044-4664-b504-5045fe0b3e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Container">
+      <UniqueIdentifier>{6f687055-04c7-464c-90bb-e9d7ea52d4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Container">
+      <UniqueIdentifier>{9dff7715-59cf-436f-a93b-5428c38d0d8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AtomicOperation.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicFunctions.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CLLSAClock.h">
+      <Filter>Header\LSA</Filter>
+    </ClInclude>
+    <ClInclude Include="LSATimeStamp.h">
+      <Filter>Header\LSA</Filter>
+    </ClInclude>
+    <ClInclude Include="SLLList.h" />
+    <ClInclude Include="CLTransactionalObject.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLSnapShot.h">
+      <Filter>Header\LSA</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLBasicData.h">
+      <Filter>Header\LSA</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObjectProxy.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObjectProxyTable.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLLSAReadAnalysiser.h" />
+  </ItemGroup>
+</Project>
