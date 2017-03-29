@@ -9,12 +9,12 @@ class CLTransactionalObject;
 class CLReadedObject
 {
 public:
-	CLReadedObject(CLTransactionalObject * pTransactionalObject, void * pReadedVersion, LSATimeStamp lower, LSATimeStamp upper);
+	CLReadedObject(CLTransactionalObject * pTransactionalObject, void * pUserObject, LSATimeStamp lower, LSATimeStamp upper);
 	~CLReadedObject();
 
 private:
 	CLTransactionalObject * m_pTransactionalObject;
-	void * m_pReadedVersion;
+	void * m_pUserObject;
 	LSATimeStamp m_lower;
 	LSATimeStamp m_upper;
 };

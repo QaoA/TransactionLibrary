@@ -12,16 +12,42 @@
     <ClCompile Include="CLSnapShot.cpp">
       <Filter>Source\LSA</Filter>
     </ClCompile>
-    <ClCompile Include="CLBasicData.cpp">
+    <ClCompile Include="CLLSAReadAnalysiser.cpp">
       <Filter>Source\LSA</Filter>
     </ClCompile>
-    <ClCompile Include="CLTransactionalObjectProxy.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CLTransactionalObjectProxyTable.cpp">
+    <ClCompile Include="CLReadedObject.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
-    <ClCompile Include="CLLSAReadAnalysiser.cpp" />
+    <ClCompile Include="CLLocator.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObjectTable.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadTransactionReadedObjects.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLObject.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="CLBasicData.cpp">
+      <Filter>Source\DataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CLThreadTransactionManager.cpp">
+      <Filter>Source\DataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CLWriteTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="SLUserObjectInfo.h">
+      <Filter>Header\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -54,6 +80,18 @@
     <Filter Include="Source\Container">
       <UniqueIdentifier>{9dff7715-59cf-436f-a93b-5428c38d0d8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Transaction">
+      <UniqueIdentifier>{83fc6f8f-efbc-494f-8a0e-05a609050a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Transaction">
+      <UniqueIdentifier>{2ddf9fa5-dd8f-46ca-ab43-a033dac960f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\DataManager">
+      <UniqueIdentifier>{799c5244-153b-4fd0-b000-78bc53490297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DataManager">
+      <UniqueIdentifier>{26756da6-ba7e-47ef-837e-031f215dd689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AtomicOperation.h">
@@ -75,18 +113,44 @@
     <ClInclude Include="CLSnapShot.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CLBasicData.h">
+    <ClInclude Include="CLLSAReadAnalysiser.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
-    <ClInclude Include="CLTransactionalObjectProxy.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CLTransactionalObjectProxyTable.h">
+    <ClInclude Include="CLReadedObject.h">
       <Filter>Header\Container</Filter>
     </ClInclude>
-    <ClInclude Include="CLLSAReadAnalysiser.h" />
+    <ClInclude Include="CLLocator.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObjectTable.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadTransactionReadedObjects.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLObject.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLBasicData.h">
+      <Filter>Header\DataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTLSVariable.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CLThreadTransactionManager.h">
+      <Filter>Header\DataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWriteTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectOpenMode.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

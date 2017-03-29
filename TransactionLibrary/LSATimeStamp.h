@@ -5,5 +5,6 @@ typedef unsigned long LSATimeStamp ;
 
 #define  LSA_TIME_STAMP_INFINITE (LSATimeStamp)(~0)
 #define  LSA_TIME_STAMP_INVALID (LSATimeStamp)(~0)
+#define  LSA_TIME_STAMP_START (LSATimeStamp)(0)
 
 #endif

@@ -4,6 +4,7 @@
 #include "LSATimeStamp.h"
 #include "CLBasicData.h"
 #include "CLLSAClock.h"
+#include "BasicFunctions.h"
 
 class CLSnapShot
 {
