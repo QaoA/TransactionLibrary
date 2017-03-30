@@ -3,8 +3,8 @@
 
 #include "ObjectOpenMode.h"
 #include "AtomicOperation.h"
+#include "CLLocator.h"
 
-class CLLocator;
 struct SLUserObjectInfo;
 class CLTransaction;
 class CLReadedObject;
@@ -13,9 +13,20 @@ class CLReadTransactionReadedObjects;
 
 class CLTransactionalObject
 {
+private:
+	struct SLTransactionalObjectCreatArgs
+	{
+		CLTransaction & m_ownerWriteTransaction;
+		void * m_pNVMUserObject;
+		SLUserObjectInfo * m_pUserObjectInfo;
+	};
+
 public:
 	CLTransactionalObject(CLTransaction & ownerTransaction, void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
 	~CLTransactionalObject();
+
+public:
+	static CLTransactionalObject * MakeATransactionalObject(void * constructorArgs);
 
 public:
 	bool TryOpenForWriteTransaction(CLTransaction & writeTransaction);

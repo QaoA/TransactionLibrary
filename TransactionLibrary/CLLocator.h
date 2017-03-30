@@ -33,7 +33,7 @@ public:
 	void DoCloneInvalidClearOperation();
 
 public:
-	static void DoRelease(void * locator);
+	static void ReleaseOldLocator(void * locator);
 
 private:
 	inline SLVersion * MakeVersion(void * pNVMUserObject, size_t userObjectSize);

@@ -1,6 +1,7 @@
 #include "CLTransactionalObject.h"
 #include "CLLocator.h"
 #include "CLGarbageCollector.h"
+#include <cassert>
 
 CLTransactionalObject::CLTransactionalObject(CLTransaction & ownerTransaction, void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo) :
 m_locator(new CLLocator(ownerTransaction,pNVMUserObject,pUserObjectInfo))
@@ -9,6 +10,13 @@ m_locator(new CLLocator(ownerTransaction,pNVMUserObject,pUserObjectInfo))
 
 CLTransactionalObject::~CLTransactionalObject()
 {
+}
+
+CLTransactionalObject * CLTransactionalObject::MakeATransactionalObject(void * constructorArgs)
+{
+	assert(constructorArgs);
+	SLTransactionalObjectCreatArgs * args = static_cast<SLTransactionalObjectCreatArgs *>(constructorArgs);
+	return new CLTransactionalObject(args->m_ownerWriteTransaction,args->m_pNVMUserObject,args->m_pUserObjectInfo);
 }
 
 bool CLTransactionalObject::TryOpenForWriteTransaction(CLTransaction & writeTransaction)
@@ -26,6 +34,6 @@ bool CLTransactionalObject::TryOpenForWriteTransaction(CLTransaction & writeTran
 	}
 	else
 	{
-		CLGarbageCollector::GetInstance().CollectGarbage(oldLocator, CLLocator::DoRelease);
+		CLGarbageCollector::GetInstance().CollectGarbage(oldLocator, CLLocator::ReleaseOldLocator);
 	}
 }

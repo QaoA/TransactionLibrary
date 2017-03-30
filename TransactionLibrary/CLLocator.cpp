@@ -86,7 +86,7 @@ void CLLocator::DoCloneInvalidClearOperation()
 	delete this;
 }
 
-void CLLocator::DoRelease(void * locator)
+void CLLocator::ReleaseOldLocator(void * locator)
 {
 	delete static_cast<CLLocator *>(locator);
 }

@@ -62,9 +62,9 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="CLBasicData.cpp" />
+    <ClCompile Include="CLGarbageCollector.cpp" />
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLLSAReadAnalysiser.cpp" />
-    <ClCompile Include="CLObject.cpp" />
     <ClCompile Include="CLReadedObject.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
     <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
@@ -73,7 +73,7 @@
     <ClCompile Include="CLTransaction.cpp" />
     <ClCompile Include="CLTransactionalObject.cpp" />
     <ClCompile Include="CLLocator.cpp" />
-    <ClCompile Include="CLTransactionalObjectTable.cpp" />
+    <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
     <ClCompile Include="CLWriteTransaction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SLLList.cpp" />
@@ -83,6 +83,7 @@
     <ClInclude Include="AtomicOperation.h" />
     <ClInclude Include="BasicFunctions.h" />
     <ClInclude Include="CLBasicData.h" />
+    <ClInclude Include="CLGarbageCollector.h" />
     <ClInclude Include="CLLSAClock.h" />
     <ClInclude Include="CLLSAReadAnalysiser.h" />
     <ClInclude Include="CLReadedObject.h" />
@@ -92,10 +93,9 @@
     <ClInclude Include="CLThreadTransactionManager.h" />
     <ClInclude Include="CLTLSVariable.h" />
     <ClInclude Include="CLTransaction.h" />
-    <ClInclude Include="CLTransactionalObjectTable.h" />
-    <ClInclude Include="CLObject.h" />
     <ClInclude Include="CLSnapShot.h" />
     <ClInclude Include="CLTransactionalObject.h" />
+    <ClInclude Include="CLTransactionalObjectLookupTable.h" />
     <ClInclude Include="CLWriteTransaction.h" />
     <ClInclude Include="LSATimeStamp.h" />
     <ClInclude Include="ObjectOpenMode.h" />

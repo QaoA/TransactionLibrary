@@ -21,14 +21,8 @@
     <ClCompile Include="CLLocator.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CLTransactionalObjectTable.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
     <ClCompile Include="CLReadTransactionReadedObjects.cpp">
       <Filter>Source\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="CLObject.cpp">
-      <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="CLTransaction.cpp">
       <Filter>Source\Transaction</Filter>
@@ -47,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="SLUserObjectInfo.h">
       <Filter>Header\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLGarbageCollector.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObjectLookupTable.cpp">
+      <Filter>Source\Container</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +92,12 @@
     <Filter Include="Source\DataManager">
       <UniqueIdentifier>{26756da6-ba7e-47ef-837e-031f215dd689}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\GC">
+      <UniqueIdentifier>{ffee83e2-a39d-4430-85f1-718e63fde078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GC">
+      <UniqueIdentifier>{a2c0c455-5f62-40a4-a4a5-d6c2cfaf9432}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AtomicOperation.h">
@@ -122,14 +128,8 @@
     <ClInclude Include="CLLocator.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CLTransactionalObjectTable.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
     <ClInclude Include="CLReadTransactionReadedObjects.h">
       <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="CLObject.h">
-      <Filter>Header\Object</Filter>
     </ClInclude>
     <ClInclude Include="CLTransaction.h">
       <Filter>Header\Transaction</Filter>
@@ -151,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="ObjectOpenMode.h">
       <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLGarbageCollector.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObjectLookupTable.h">
+      <Filter>Header\Container</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
