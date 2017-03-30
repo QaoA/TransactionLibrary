@@ -48,6 +48,24 @@
     <ClCompile Include="CLTransactionalObjectLookupTable.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
+    <ClCompile Include="CLSpinLock.cpp">
+      <Filter>Source\Tool\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="CLMutex.cpp">
+      <Filter>Source\Tool\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="CLCriticalSection.cpp">
+      <Filter>Source\Tool\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="CLRadixTreeNode.cpp">
+      <Filter>Source\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="CLQuiescentStateManager.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
+    <ClCompile Include="CLHeapManager.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -97,6 +115,15 @@
     </Filter>
     <Filter Include="Source\GC">
       <UniqueIdentifier>{a2c0c455-5f62-40a4-a4a5-d6c2cfaf9432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Tool\Lock">
+      <UniqueIdentifier>{e9c6580f-dcf7-4859-a067-4016ea1e3482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tool">
+      <UniqueIdentifier>{6fb63669-2a3e-4563-9a65-ac4777db3ac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tool\Lock">
+      <UniqueIdentifier>{51de13ca-e623-46c8-a501-892aab0227ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +184,30 @@
     </ClInclude>
     <ClInclude Include="CLTransactionalObjectLookupTable.h">
       <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLSpinLock.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="ILLock.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="CLMutex.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="CLCriticalSection.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="CLRadixTree.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CLRadixTreeNode.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CLQuiescentStateManager.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
+    <ClInclude Include="CLHeapManager.h">
+      <Filter>Header\GC</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

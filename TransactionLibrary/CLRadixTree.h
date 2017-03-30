@@ -44,28 +44,28 @@ template<class LeafType>
 void CLRadixTree<LeafType>::Insert(LeafType * pNewNode, void * key)
 {
 	assert(pNewNode);
-	CLCriticalSection(&m_lock);
+	CLCriticalSection cs(&m_lock);
 	m_root.Insert(reinterpret_cast<unsigned long>(key), pNewNode, SLOT_INIT_MASK);
 }
 
 template<class LeafType>
 LeafType * CLRadixTree<LeafType>::Get(void * key)
 {
-	CLCriticalSection(&m_lock);
+	CLCriticalSection cs(&m_lock);
 	return static_cast<LeafType *>(m_root.Get(reinterpret_cast<unsigned long>(key), SLOT_INIT_MASK));
 }
 
 template<class LeafType>
 LeafType * CLRadixTree<LeafType>::GetAndRemove(void * key)
 {
-	CLCriticalSection(&m_lock);
+	CLCriticalSection cs(&m_lock);
 	return static_cast<LeafType *>(m_root.Remove(reinterpret_cast<unsigned long>(key), SLOT_INIT_MASK));
 }
 
 template<class LeafType>
 inline LeafType * CLRadixTree<LeafType>::GetOrCreate(void * key, CreateFunc leafCreateFunc, void * createArgs)
 {
-	CLCriticalSection(&m_lock);
+	CLCriticalSection cs(&m_lock);
 	LeafType * pReturnLeaf = static_cast<LeafType *>(m_root.Get(reinterpret_cast<unsigned long>(key), SLOT_INIT_MASK));
 	if (pReturnLeaf == nullptr)
 	{
