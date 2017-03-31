@@ -24,7 +24,8 @@ CLTransactionalObject * CLTransactionalObject::MakeATransactionalObject(void * c
 
 void CLTransactionalObject::ReleaseATransactionalObject(CLTransactionalObject * pObject)
 {
-
+	//对于读事务，单纯减少引用计数
+	//对于写事务，如果是new出来的，那么需要将nvm上数据的引用计数+1，如果是delete，那么需要将引用计数-1，如果减完后是0，那么还需要将该NVM对象归还
 }
 
 CLTransactionalObject * CLTransactionalObject::OpenATransactionalObject(void * pNVMUserObject, CLTransaction * pOwnerTransaction, SLUserObjectInfo * pUserObjectInfo)
@@ -45,23 +46,25 @@ void CLTransactionalObject::CloseATransactionalObject(CLTransactionalObject * pO
 	}
 }
 
-bool CLTransactionalObject::TryOpenForWriteTransaction(CLTransaction & writeTransaction)
+void * CLTransactionalObject::TryOpenForWriteTransaction(CLTransaction & writeTransaction)
 {
 	CLLocator * newLocator = m_locator.load()->TryCloneLocator(writeTransaction);
 	if (newLocator == nullptr)
 	{
-		return false;
+		return nullptr;
 	}
 	CLLocator * oldLocator = m_locator;
 	bool isSuccess = m_locator.compare_exchange_weak(oldLocator, newLocator);
 	if (!isSuccess)
 	{
 		newLocator->DoCloneInvalidClearOperation();
+		return nullptr;
 	}
 	else
 	{
 		CLGarbageCollector::GetInstance().CollectGarbage(oldLocator, CLLocator::ReleaseOldLocator);
 	}
+	return m_locator.load()->GetTentativeUserObject();
 }
 
 CLReadedObject * CLTransactionalObject::ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet)

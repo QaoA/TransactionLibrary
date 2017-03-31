@@ -15,7 +15,6 @@ public:
 
 public:
 	const T * operator->() const;
-	T * operator->();
 
 private:
 	CLTransactionalObject * m_pTransactionalObject;
@@ -48,12 +47,6 @@ const T * CLReadOnlyPointer<T>::operator->() const
 		}
 	}
 	return static_cast<T *>(m_readedObject->GetUserObject());
-}
-
-template<typename T>
-inline T * CLReadOnlyPointer<T>::operator->()
-{
-	return const_cast<T *>(static_cast<const CLReadOnlyPointer &>(*this).operator->());
 }
 
 #endif

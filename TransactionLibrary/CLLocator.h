@@ -4,6 +4,7 @@
 #include "LSATimeStamp.h"
 #include "SLUserObjectInfo.h"
 #include <cstring>
+#include <cassert>
 
 class CLSnapShot;
 class CLTransaction;
@@ -30,6 +31,7 @@ public:
 	CLReadedObject * ReadForReadTransaction(CLTransactionalObject & ownerTransactionalObject, CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
 	CLLocator * TryCloneLocator(CLTransaction & ownerTransaction);
 	void DoCloneInvalidClearOperation();
+	inline void * GetTentativeUserObject();
 
 public:
 	static void ReleaseOldLocator(void * locator);
@@ -47,6 +49,12 @@ private:
 	SLUserObjectInfo * m_pUserObjectInfo;
 	SLVersion * m_TentativeVersion;
 };
+
+inline void * CLLocator::GetTentativeUserObject()
+{
+	assert(m_TentativeVersion && m_TentativeVersion->m_pObject);
+	return m_TentativeVersion->m_pObject;
+}
 
 inline CLLocator::SLVersion * CLLocator::MakeVersion(void * pNVMUserObject, size_t userObjectSize)
 {

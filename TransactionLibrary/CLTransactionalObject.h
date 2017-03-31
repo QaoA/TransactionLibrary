@@ -34,7 +34,7 @@ public:
 	static void CloseATransactionalObject(CLTransactionalObject * pObject);
 
 public:
-	bool TryOpenForWriteTransaction(CLTransaction & writeTransaction);
+	void * TryOpenForWriteTransaction(CLTransaction & writeTransaction);
 	CLReadedObject * ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
 
 public:
