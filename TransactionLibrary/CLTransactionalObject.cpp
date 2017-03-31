@@ -48,23 +48,27 @@ void CLTransactionalObject::CloseATransactionalObject(CLTransactionalObject * pO
 
 void * CLTransactionalObject::TryOpenForWriteTransaction(CLTransaction & writeTransaction)
 {
-	CLLocator * newLocator = m_locator.load()->TryCloneLocator(writeTransaction);
+	CLLocator * oldLocator = m_locator.load();
+	CLLocator * newLocator = oldLocator->OpenForWriteTransaction(writeTransaction);
 	if (newLocator == nullptr)
 	{
 		return nullptr;
 	}
-	CLLocator * oldLocator = m_locator;
+	if (newLocator == oldLocator)
+	{
+		return newLocator->GetTentativeUserObject();
+	}
 	bool isSuccess = m_locator.compare_exchange_weak(oldLocator, newLocator);
 	if (!isSuccess)
 	{
-		newLocator->DoCloneInvalidClearOperation();
+		newLocator->DoCloneInvalidCleanOperation();
 		return nullptr;
 	}
 	else
 	{
 		CLGarbageCollector::GetInstance().CollectGarbage(oldLocator, CLLocator::ReleaseOldLocator);
 	}
-	return m_locator.load()->GetTentativeUserObject();
+	return newLocator->GetTentativeUserObject();
 }
 
 CLReadedObject * CLTransactionalObject::ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet)

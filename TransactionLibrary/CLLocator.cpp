@@ -20,12 +20,20 @@ CLLocator::CLLocator(CLTransaction * pOwnerTransaction, void * pNVMUserObject, S
 m_owner(pOwnerTransaction),
 m_pNVMUserObject(pNVMUserObject),
 m_pUserObjectInfo(pUserObjectInfo),
-m_TentativeVersion(MakeVersion(pNVMUserObject,pUserObjectInfo->m_objectSize))
+m_TentativeVersion(new SLVersion(LSA_TIME_STAMP_START,CloneUserObject(pNVMUserObject,pUserObjectInfo->m_objectSize),nullptr))
 {
 	assert(pNVMUserObject && pUserObjectInfo);
 }
 
 CLLocator::~CLLocator()
+{
+}
+
+CLLocator::CLLocator(CLLocator & anotherLocator, CLTransaction & ownerWriteTransaction):
+m_owner(&ownerWriteTransaction),
+m_pNVMUserObject(anotherLocator.m_pNVMUserObject),
+m_pUserObjectInfo(anotherLocator.m_pUserObjectInfo),
+m_TentativeVersion(new SLVersion(LSA_TIME_STAMP_INFINITE,CloneUserObject(anotherLocator.m_TentativeVersion->m_pObject,anotherLocator.m_pUserObjectInfo->m_objectSize),anotherLocator.m_TentativeVersion))
 {
 }
 
@@ -60,18 +68,20 @@ CLReadedObject * CLLocator::ReadForReadTransaction(CLTransactionalObject & owner
 	return nullptr;
 }
 
-CLLocator * CLLocator::TryCloneLocator(CLTransaction & ownerTransaction)
+CLLocator * CLLocator::OpenForWriteTransaction(CLTransaction & ownerTransaction)
 {
+	if (m_owner == &ownerTransaction)
+	{
+		return this;
+	}
 	if (m_owner && m_owner->GetStatus() == ACTIVE)
 	{
 		return nullptr;
 	}
-	CLLocator * newLocator = new CLLocator(*this);
-	newLocator->PrepareDataAfterClone(ownerTransaction);
-	return newLocator;
+	return new CLLocator(*this, ownerTransaction);
 }
 
-void CLLocator::DoCloneInvalidClearOperation()
+void CLLocator::DoCloneInvalidCleanOperation()
 {
 	assert(m_owner&&m_TentativeVersion&&m_TentativeVersion->m_pNextVersion == nullptr);
 	delete[](char *)m_TentativeVersion->m_pObject;

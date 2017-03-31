@@ -27,21 +27,21 @@ public:
 	CLLocator(CLTransaction * ownerTransaction,void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
 	~CLLocator();
 
+private:
+	CLLocator(CLLocator & anotherLocator, CLTransaction & ownerWriteTransaction);
+
 public:
 	CLReadedObject * ReadForReadTransaction(CLTransactionalObject & ownerTransactionalObject, CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
-	CLLocator * TryCloneLocator(CLTransaction & ownerTransaction);
-	void DoCloneInvalidClearOperation();
+	CLLocator * OpenForWriteTransaction(CLTransaction & ownerTransaction);
+	void DoCloneInvalidCleanOperation();
 	inline void * GetTentativeUserObject();
 
 public:
 	static void ReleaseOldLocator(void * locator);
 
 private:
-	inline SLVersion * MakeVersion(void * pNVMUserObject, size_t userObjectSize);
-	inline SLVersion * CloneVersion(SLVersion * pVersion, size_t userObjectSize);
 	inline void * CloneUserObject(const void * pObject, size_t objectSize);
 	SLVersion * FindNewestValidVersion();
-	inline void PrepareDataAfterClone(CLTransaction & ownerTransaction);
 
 private:
 	CLTransaction * m_owner;
@@ -56,27 +56,11 @@ inline void * CLLocator::GetTentativeUserObject()
 	return m_TentativeVersion->m_pObject;
 }
 
-inline CLLocator::SLVersion * CLLocator::MakeVersion(void * pNVMUserObject, size_t userObjectSize)
-{
-	return new SLVersion(LSA_TIME_STAMP_START, CloneUserObject(pNVMUserObject, userObjectSize), nullptr);
-}
-
-inline CLLocator::SLVersion * CLLocator::CloneVersion(SLVersion * pVersion, size_t userObjectSize)
-{
-	return new SLVersion(LSA_TIME_STAMP_INFINITE, CloneUserObject(pVersion->m_pObject, userObjectSize), pVersion);
-}
-
 inline void * CLLocator::CloneUserObject(const void * pObject, size_t objectSize)
 {
 	void * pReturnObject = new char[objectSize];
 	memcpy(pReturnObject, pObject, objectSize);
 	return pReturnObject;
-}
-
-inline void CLLocator::PrepareDataAfterClone(CLTransaction & ownerTransaction)
-{
-	m_owner = &ownerTransaction;
-	m_TentativeVersion = CloneVersion(m_TentativeVersion, m_pUserObjectInfo->m_objectSize);
 }
 
 #endif
