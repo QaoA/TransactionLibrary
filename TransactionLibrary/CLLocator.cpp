@@ -16,20 +16,13 @@ m_pNextVersion(pNextVersion)
 {
 }
 
-CLLocator::CLLocator(void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo):
-m_owner(nullptr),
+CLLocator::CLLocator(CLTransaction * pOwnerTransaction, void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo):
+m_owner(pOwnerTransaction),
 m_pNVMUserObject(pNVMUserObject),
 m_pUserObjectInfo(pUserObjectInfo),
 m_TentativeVersion(MakeVersion(pNVMUserObject,pUserObjectInfo->m_objectSize))
 {
-}
-
-CLLocator::CLLocator(CLTransaction & ownerTransaction, void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo):
-m_owner(&ownerTransaction),
-m_pNVMUserObject(pNVMUserObject),
-m_pUserObjectInfo(pUserObjectInfo),
-m_TentativeVersion(MakeVersion(pNVMUserObject,pUserObjectInfo->m_objectSize))
-{
+	assert(pNVMUserObject && pUserObjectInfo);
 }
 
 CLLocator::~CLLocator()

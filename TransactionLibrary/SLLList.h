@@ -1,8 +1,6 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
-#include "CLTransactionalObject.h"
-
 class SLList
 {
 public:
@@ -10,11 +8,14 @@ public:
 	~SLList();
 
 public:
-	void Append(CLTransactionalObject<SLList> * pPrevious);
+	void Append(SLList * pPrevious);
 	void Remove();
+	static void Find(SLList * start, int value);
+
 public:
-	CLTransactionalObject<SLList> * m_pNext;
-	CLTransactionalObject<SLList> * m_pPrevious;
+	SLList * m_pNext;
+	SLList * m_pPrevious;
+	int m_value;
 };
 
 #endif

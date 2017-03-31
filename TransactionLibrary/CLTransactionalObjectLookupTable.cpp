@@ -9,3 +9,9 @@ CLTransactionalObjectLookupTable::CLTransactionalObjectLookupTable()
 CLTransactionalObjectLookupTable::~CLTransactionalObjectLookupTable()
 {
 }
+
+CLTransactionalObjectLookupTable & CLTransactionalObjectLookupTable::GetInstance()
+{
+	static CLTransactionalObjectLookupTable instance;
+	return instance;
+}

@@ -66,6 +66,9 @@
     <ClCompile Include="CLHeapManager.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
+    <ClCompile Include="CLTransactionAbort.cpp">
+      <Filter>Source\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -124,6 +127,15 @@
     </Filter>
     <Filter Include="Source\Tool\Lock">
       <UniqueIdentifier>{51de13ca-e623-46c8-a501-892aab0227ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\SmartPointer">
+      <UniqueIdentifier>{c6806d5d-d770-4fc1-83a4-ae618793f656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Exception">
+      <UniqueIdentifier>{fbd5cc99-35f8-4ded-854b-3fec7bebf614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Exception">
+      <UniqueIdentifier>{e2ac50d5-7baf-495a-937b-0511e58075ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="CLHeapManager.h">
       <Filter>Header\GC</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadOnlyPointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionAbort.h">
+      <Filter>Header\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

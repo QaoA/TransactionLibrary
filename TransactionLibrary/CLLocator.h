@@ -23,8 +23,7 @@ private:
 	};
 
 public:
-	CLLocator(void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
-	CLLocator(CLTransaction & ownerTransaction,void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
+	CLLocator(CLTransaction * ownerTransaction,void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
 	~CLLocator();
 
 public:

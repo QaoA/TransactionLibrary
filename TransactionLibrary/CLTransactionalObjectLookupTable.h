@@ -7,9 +7,16 @@ class CLTransactionalObject;
 
 class CLTransactionalObjectLookupTable
 {
-public:
+private:
 	CLTransactionalObjectLookupTable();
+	CLTransactionalObjectLookupTable(const CLTransactionalObjectLookupTable &);
+	CLTransactionalObjectLookupTable & operator=(const CLTransactionalObjectLookupTable &);
+
+public:
 	~CLTransactionalObjectLookupTable();
+
+public:
+	static CLTransactionalObjectLookupTable & GetInstance();
 
 public:
 	inline CLTransactionalObject * FindOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs);

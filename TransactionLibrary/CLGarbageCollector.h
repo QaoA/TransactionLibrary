@@ -1,7 +1,7 @@
 #ifndef __GABAGE_COLLECTOR_H__
 #define __GABAGE_COLLECTOR_H__
 
-typedef void(*DestructFunc)(void *);
+typedef void (*DestructFunc)(void *);
 
 class CLGarbageCollector
 {
