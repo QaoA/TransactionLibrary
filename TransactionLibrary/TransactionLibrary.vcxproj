@@ -1,124 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|ARM">
+    <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
-      <Platform>ARM</Platform>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|ARM">
+    <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x86">
-      <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x86">
-      <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{d7f25667-f901-44db-8317-5465a2f4652a}</ProjectGuid>
-    <Keyword>Linux</Keyword>
-    <RootNamespace>TransactionLibrary</RootNamespace>
-    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
-    <ApplicationType>Linux</ApplicationType>
-    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
-    <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
-    <LinuxProjectType>{D51BCBC9-82E9-4017-911E-C93873C4EA2B}</LinuxProjectType>
+    <ProjectGuid>{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
-    <UseDebugLibraries>true</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
-    <UseDebugLibraries>false</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <UseDebugLibraries>true</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings" />
-  <ImportGroup Label="Shared" />
-  <ImportGroup Label="PropertySheets" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>$(ProjectDir)\gcc_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakePreprocessorDefinitions>__VisualGDB_CFG_Debug;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /rebuild "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeReBuildCommandLine>
+    <NMakeOutput>$(ProjectDir)TransactionLibrary-Debug.vgdbsettings</NMakeOutput>
+    <IncludePath />
+    <ReferencePath />
+    <LibraryPath />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>$(ProjectDir)\gcc_Release.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakePreprocessorDefinitions>__VisualGDB_CFG_Release;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /rebuild "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeReBuildCommandLine>
+    <NMakeOutput>$(ProjectDir)TransactionLibrary-Release.vgdbsettings</NMakeOutput>
+    <IncludePath />
+    <ReferencePath />
+    <LibraryPath />
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CLBasicData.cpp" />
-    <ClCompile Include="CLCriticalSection.cpp" />
-    <ClCompile Include="CLGarbageCollector.cpp" />
-    <ClCompile Include="CLHeapManager.cpp" />
-    <ClCompile Include="CLLSAClock.cpp" />
-    <ClCompile Include="CLLSAReadAnalysiser.cpp" />
-    <ClCompile Include="CLMutex.cpp" />
-    <ClCompile Include="CLQuiescentStateManager.cpp" />
-    <ClCompile Include="CLRadixTreeNode.cpp" />
-    <ClCompile Include="CLReadedObject.cpp" />
-    <ClCompile Include="CLReadTransaction.cpp" />
-    <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
-    <ClCompile Include="CLSnapShot.cpp" />
-    <ClCompile Include="CLSpinLock.cpp" />
-    <ClCompile Include="CLThreadTransactionManager.cpp" />
-    <ClCompile Include="CLTransaction.cpp" />
-    <ClCompile Include="CLTransactionAbort.cpp" />
-    <ClCompile Include="CLTransactionalObject.cpp" />
-    <ClCompile Include="CLLocator.cpp" />
-    <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
-    <ClCompile Include="CLWriteTransaction.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="SLLList.cpp" />
-    <ClCompile Include="SLUserObjectInfo.h" />
+    <ClCompile Include="TransactionLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AtomicOperation.h" />
-    <ClInclude Include="BasicFunctions.h" />
-    <ClInclude Include="CLBasicData.h" />
-    <ClInclude Include="CLCriticalSection.h" />
-    <ClInclude Include="CLGarbageCollector.h" />
-    <ClInclude Include="CLHeapManager.h" />
-    <ClInclude Include="CLLSAClock.h" />
-    <ClInclude Include="CLLSAReadAnalysiser.h" />
-    <ClInclude Include="CLMutex.h" />
-    <ClInclude Include="CLQuiescentStateManager.h" />
-    <ClInclude Include="CLRadixTree.h" />
-    <ClInclude Include="CLRadixTreeNode.h" />
-    <ClInclude Include="CLReadedObject.h" />
-    <ClInclude Include="CLReadOnlyPointer.h" />
-    <ClInclude Include="CLReadTransaction.h" />
-    <ClInclude Include="CLReadTransactionReadedObjects.h" />
-    <ClInclude Include="CLLocator.h" />
-    <ClInclude Include="CLSpinLock.h" />
-    <ClInclude Include="CLThreadTransactionManager.h" />
-    <ClInclude Include="CLTLSVariable.h" />
-    <ClInclude Include="CLTransaction.h" />
-    <ClInclude Include="CLSnapShot.h" />
-    <ClInclude Include="CLTransactionAbort.h" />
-    <ClInclude Include="CLTransactionalObject.h" />
-    <ClInclude Include="CLTransactionalObjectLookupTable.h" />
-    <ClInclude Include="CLWriteTransaction.h" />
-    <ClInclude Include="ILLock.h" />
-    <ClInclude Include="LSATimeStamp.h" />
-    <ClInclude Include="ObjectOpenMode.h" />
-    <ClInclude Include="SLLList.h" />
+    <None Include="debug.mak" />
+    <None Include="Makefile" />
+    <None Include="release.mak" />
+    <None Include="TransactionLibrary-Debug.vgdbsettings" />
+    <None Include="TransactionLibrary-Release.vgdbsettings" />
   </ItemGroup>
-  <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

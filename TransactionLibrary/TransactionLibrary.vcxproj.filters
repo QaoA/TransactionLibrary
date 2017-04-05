@@ -221,11 +221,17 @@
     <ClInclude Include="CLHeapManager.h">
       <Filter>Header\GC</Filter>
     </ClInclude>
-    <ClInclude Include="CLReadOnlyPointer.h">
-      <Filter>Header\SmartPointer</Filter>
-    </ClInclude>
     <ClInclude Include="CLTransactionAbort.h">
       <Filter>Header\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWritePointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadPointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="NVMUserObject.h">
+      <Filter>Header\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
