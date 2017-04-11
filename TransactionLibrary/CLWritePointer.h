@@ -9,19 +9,19 @@ template<typename T>
 class CLWritePointer
 {
 public:
-	CLWritePointer(const T * pUserObject);
+	CLWritePointer(T * pUserObject);
 	~CLWritePointer();
 
 public:
 	inline T * operator->();
 
-protected:
+private:
 	CLTransactionalObject * m_pTransactionalObject;
 	void * m_pObject;
 };
 
 template<typename T>
-CLWritePointer<T>::CLWritePointer(const T * pUserObject) :
+CLWritePointer<T>::CLWritePointer(T * pUserObject) :
 	m_pTransactionalObject(CLTransactionalObject::OpenATransactionalObject(pUserObject, CLThreadTransactionManager::GetWriteTransaction(), T::GetUserInfo())),
 	m_pObject(nullptr)
 {

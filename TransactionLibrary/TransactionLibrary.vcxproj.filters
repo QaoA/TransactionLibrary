@@ -1,73 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="CLLSAClock.cpp">
-      <Filter>Source\LSA</Filter>
-    </ClCompile>
-    <ClCompile Include="SLLList.cpp" />
-    <ClCompile Include="CLTransactionalObject.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CLSnapShot.cpp">
-      <Filter>Source\LSA</Filter>
-    </ClCompile>
-    <ClCompile Include="CLLSAReadAnalysiser.cpp">
-      <Filter>Source\LSA</Filter>
-    </ClCompile>
-    <ClCompile Include="CLReadedObject.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="CLLocator.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CLReadTransactionReadedObjects.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="CLTransaction.cpp">
-      <Filter>Source\Transaction</Filter>
-    </ClCompile>
     <ClCompile Include="CLBasicData.cpp">
       <Filter>Source\DataManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CLThreadTransactionManager.cpp">
-      <Filter>Source\DataManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CLWriteTransaction.cpp">
-      <Filter>Source\Transaction</Filter>
-    </ClCompile>
-    <ClCompile Include="CLReadTransaction.cpp">
-      <Filter>Source\Transaction</Filter>
-    </ClCompile>
-    <ClCompile Include="SLUserObjectInfo.h">
-      <Filter>Header\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CLGarbageCollector.cpp">
-      <Filter>Source\GC</Filter>
-    </ClCompile>
-    <ClCompile Include="CLTransactionalObjectLookupTable.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="CLSpinLock.cpp">
-      <Filter>Source\Tool\Lock</Filter>
-    </ClCompile>
-    <ClCompile Include="CLMutex.cpp">
-      <Filter>Source\Tool\Lock</Filter>
     </ClCompile>
     <ClCompile Include="CLCriticalSection.cpp">
       <Filter>Source\Tool\Lock</Filter>
     </ClCompile>
-    <ClCompile Include="CLRadixTreeNode.cpp">
-      <Filter>Source\Tool</Filter>
-    </ClCompile>
-    <ClCompile Include="CLQuiescentStateManager.cpp">
+    <ClCompile Include="CLGarbageCollector.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
     <ClCompile Include="CLHeapManager.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
+    <ClCompile Include="CLLSAClock.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="CLLSAReadAnalysiser.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="CLMutex.cpp">
+      <Filter>Source\Tool\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="CLQuiescentStateManager.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
+    <ClCompile Include="CLRadixTreeNode.cpp">
+      <Filter>Source\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadedObject.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadTransactionReadedObjects.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLSnapShot.cpp">
+      <Filter>Source\LSA</Filter>
+    </ClCompile>
+    <ClCompile Include="CLSpinLock.cpp">
+      <Filter>Source\Tool\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="CLThreadTransactionManager.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
     <ClCompile Include="CLTransactionAbort.cpp">
       <Filter>Source\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObjectLookupTable.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLWriteTransaction.cpp">
+      <Filter>Source\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="SLLList.cpp">
+      <Filter>Source\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SLTransactionalObjectFlag.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionalObject.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLLogItemsSet.cpp" />
+    <ClCompile Include="CLWriteTransactionWriteObjects.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="CLWriteTransactionReadObjects.cpp">
+      <Filter>Source\Container</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +145,22 @@
     <Filter Include="Source\Exception">
       <UniqueIdentifier>{e2ac50d5-7baf-495a-937b-0511e58075ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Makefile">
+      <UniqueIdentifier>{a9344de4-5607-4839-b044-7d5ebd683f44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TransactionLibrary-Debug.vgdbsettings" />
+    <None Include="TransactionLibrary-Release.vgdbsettings" />
+    <None Include="debug.mak">
+      <Filter>Makefile</Filter>
+    </None>
+    <None Include="Makefile">
+      <Filter>Makefile</Filter>
+    </None>
+    <None Include="release.mak">
+      <Filter>Makefile</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AtomicOperation.h">
@@ -145,69 +169,29 @@
     <ClInclude Include="BasicFunctions.h">
       <Filter>Header\Tool</Filter>
     </ClInclude>
+    <ClInclude Include="CLBasicData.h">
+      <Filter>Header\DataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CLCriticalSection.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="CLGarbageCollector.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
+    <ClInclude Include="CLHeapManager.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
     <ClInclude Include="CLLSAClock.h">
-      <Filter>Header\LSA</Filter>
-    </ClInclude>
-    <ClInclude Include="LSATimeStamp.h">
-      <Filter>Header\LSA</Filter>
-    </ClInclude>
-    <ClInclude Include="SLLList.h" />
-    <ClInclude Include="CLTransactionalObject.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CLSnapShot.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
     <ClInclude Include="CLLSAReadAnalysiser.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
-    <ClInclude Include="CLReadedObject.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="CLLocator.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CLReadTransactionReadedObjects.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="CLTransaction.h">
-      <Filter>Header\Transaction</Filter>
-    </ClInclude>
-    <ClInclude Include="CLBasicData.h">
-      <Filter>Header\DataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CLTLSVariable.h">
-      <Filter>Header\Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="CLThreadTransactionManager.h">
-      <Filter>Header\DataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CLWriteTransaction.h">
-      <Filter>Header\Transaction</Filter>
-    </ClInclude>
-    <ClInclude Include="CLReadTransaction.h">
-      <Filter>Header\Transaction</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectOpenMode.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CLGarbageCollector.h">
-      <Filter>Header\GC</Filter>
-    </ClInclude>
-    <ClInclude Include="CLTransactionalObjectLookupTable.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="CLSpinLock.h">
-      <Filter>Header\Tool\Lock</Filter>
-    </ClInclude>
-    <ClInclude Include="ILLock.h">
-      <Filter>Header\Tool\Lock</Filter>
-    </ClInclude>
     <ClInclude Include="CLMutex.h">
       <Filter>Header\Tool\Lock</Filter>
     </ClInclude>
-    <ClInclude Include="CLCriticalSection.h">
-      <Filter>Header\Tool\Lock</Filter>
+    <ClInclude Include="CLQuiescentStateManager.h">
+      <Filter>Header\GC</Filter>
     </ClInclude>
     <ClInclude Include="CLRadixTree.h">
       <Filter>Header\Tool</Filter>
@@ -215,23 +199,81 @@
     <ClInclude Include="CLRadixTreeNode.h">
       <Filter>Header\Tool</Filter>
     </ClInclude>
-    <ClInclude Include="CLQuiescentStateManager.h">
-      <Filter>Header\GC</Filter>
-    </ClInclude>
-    <ClInclude Include="CLHeapManager.h">
-      <Filter>Header\GC</Filter>
-    </ClInclude>
-    <ClInclude Include="CLTransactionAbort.h">
-      <Filter>Header\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="CLWritePointer.h">
-      <Filter>Header\SmartPointer</Filter>
+    <ClInclude Include="CLReadedObject.h">
+      <Filter>Header\Container</Filter>
     </ClInclude>
     <ClInclude Include="CLReadPointer.h">
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
+    <ClInclude Include="CLReadTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadTransactionReadedObjects.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLSnapShot.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLSpinLock.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="CLThreadTransactionManager.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTLSVariable.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionAbort.h">
+      <Filter>Header\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObjectLookupTable.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWritePointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWriteTransaction.h">
+      <Filter>Header\Transaction</Filter>
+    </ClInclude>
     <ClInclude Include="NVMUserObject.h">
       <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectOpenMode.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SLLList.h">
+      <Filter>Header\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="SLUserObjectInfo.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LSATimeStamp.h">
+      <Filter>Header\LSA</Filter>
+    </ClInclude>
+    <ClInclude Include="ILLock.h">
+      <Filter>Header\Tool\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="SLTransactionalObjectFlag.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionalObject.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLLogItemsSet.h" />
+    <ClInclude Include="CLReadOnlyPointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadWritePointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWriteTransactionWriteObjects.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWriteTransactionReadObjects.h">
+      <Filter>Header\Container</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

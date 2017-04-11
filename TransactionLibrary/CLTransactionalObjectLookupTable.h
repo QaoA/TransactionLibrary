@@ -2,11 +2,19 @@
 #define __TRANSACTIONAL_OBJECT_LOOKUP_TABLE_H__
 
 #include "CLRadixTree.h"
+#include "CLMutex.h"
 
 class CLTransactionalObject;
 
 class CLTransactionalObjectLookupTable
 {
+private:
+	struct SLTransactionalObjectWrapper
+	{
+		CLTransactionalObject * m_pObject;
+		unsigned long m_referenceCount;
+	};
+
 private:
 	CLTransactionalObjectLookupTable();
 	CLTransactionalObjectLookupTable(const CLTransactionalObjectLookupTable &);
@@ -19,24 +27,12 @@ public:
 	static CLTransactionalObjectLookupTable & GetInstance();
 
 public:
-	inline CLTransactionalObject * FindOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs);
-	inline CLTransactionalObject * Remove(void * pNVMObject);
+	CLTransactionalObject * GetOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs);
+	void Put(void * pNVMObject);
 
 private:
-	CLRadixTree<CLTransactionalObject> m_objectTree;
+	CLRadixTree<SLTransactionalObjectWrapper> m_objectTree;
+	CLMutex m_lock;
 };
-
-inline CLTransactionalObject * CLTransactionalObjectLookupTable::FindOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs)
-{
-	assert(pNVMObject);
-	return m_objectTree.GetOrCreate(pNVMObject, CLTransactionalObject::MakeATransactionalObject, transactionalObjectCreateArgs);
-}
-
-inline CLTransactionalObject * CLTransactionalObjectLookupTable::Remove(void * pNVMObject)
-{
-	assert(pNVMObject);
-	return m_objectTree.GetAndRemove(pNVMObject);
-}
-
 
 #endif
