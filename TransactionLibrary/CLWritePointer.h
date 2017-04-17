@@ -4,6 +4,7 @@
 #include "CLTransactionalObject.h"
 #include "CLThreadTransactionManager.h"
 #include "CLTransactionAbort.h"
+#include "CLWriteTransaction.h"
 
 template<typename T>
 class CLWritePointer
@@ -14,38 +15,38 @@ public:
 
 public:
 	inline T * operator->();
+	inline bool IsValid();
 
 private:
-	CLTransactionalObject * m_pTransactionalObject;
-	void * m_pObject;
+	CLTransactionalObject * m_pObject;
 };
 
 template<typename T>
 CLWritePointer<T>::CLWritePointer(T * pUserObject) :
-	m_pTransactionalObject(CLTransactionalObject::OpenATransactionalObject(pUserObject, CLThreadTransactionManager::GetWriteTransaction(), T::GetUserInfo())),
-	m_pObject(nullptr)
+m_pObject(nullptr)
 {
-	if (m_pTransactionalObject == nullptr)
+	if (pUserObject != nullptr)
 	{
-		throw CLTransactionAbort(UNEXPECTED_ERROR);
-	}
-	m_pObject = m_pTransactionalObject->TryOpenForWriteTransaction(CLThreadTransactionManager::GetWriteTransaction());
-	if (m_pObject == nullptr)
-	{
-		throw CLTransactionAbort(OBJECT_OCCUPIED_BY_ANOTHER_WRITE_TRANSACTION);
+		m_pObject = CLThreadTransactionManager::GetInstance().GetWriteTransaction().OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
 	}
 }
 
 template<typename T>
 CLWritePointer<T>::~CLWritePointer()
 {
-	CLTransactionalObject::CloseATransactionalObject(m_pTransactionalObject);
 }
 
 template<typename T>
 inline T * CLWritePointer<T>::operator->()
 {
-	return m_pObject;
+	assert(m_pObject);
+	return m_pObject->GetTentativeVersionUserObjectCopy();
+}
+
+template<typename T>
+inline bool CLWritePointer<T>::IsValid()
+{
+	return !!m_pObject;
 }
 
 #endif

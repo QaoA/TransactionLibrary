@@ -4,41 +4,43 @@
 #include "SLUserObjectInfo.h"
 #include "CLWritePointer.h"
 #include "NVMMalloc.h"
-#include <stddef.h>
+#include <cstddef>
 #include <new>
 
-#define NVM_OBJECT \
+#define NVM_OBJECT(ObjectType) \
 public:\
 static SLUserObjectInfo * GetUserObjectInfo()\
 {\
 	static SLUserObjectInfo userInfo = \
 		{\
-			.m_objectSize = sizeof(*this);\		//这里有问题
-		}\
+			.m_objectSize = sizeof(ObjectType)\
+		};\
 	return &userInfo;\
 }\
 static void * operator new(std::size_t size) throw(std::bad_alloc)\
 {\
-	void * ptr = MallocOnNVM(size);\
+	void * ptr = NVMMalloc::MallocOnNVM(size);\
 	if(ptr == nullptr)\
 	{\
 		throw std::bad_alloc();\
 	}\
 }\
-static void operator delete(void * ptr,std::size size) throw()\
+static void operator delete(void * ptr,std::size_t size) throw()\
 {\
 	if(ptr == nullptr)\
 	{\
 		return;\
 	}\
-	FreeOnNVM(ptr);\
+	NVMMalloc::FreeOnNVM(ptr);\
 }\
+private:\
 
-#define NVM_NEW() \
-//T * pt = new T(xxx);
-//CLWritePointer<T> ptrName(pt);
 
-#define NVM_DELETE\
+//#define NVM_NEW() \
+////T * pt = new T(xxx);
+////CLWritePointer<T> ptrName(pt);
+//
+//#define NVM_DELETE\
 
 
 #endif

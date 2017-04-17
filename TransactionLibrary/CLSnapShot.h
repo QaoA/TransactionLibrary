@@ -13,6 +13,9 @@ public:
 	~CLSnapShot();
 
 public:
+	void Reset();
+
+public:
 	inline bool HasIntersection(LSATimeStamp lower);
 	inline bool IsValid();
 	inline LSATimeStamp GetUpper();

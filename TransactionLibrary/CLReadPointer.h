@@ -1,6 +1,8 @@
 #ifndef __READ_POINTER_H__
 #define __READ_POINTER_H__
 
+class CLTransactionalObject;
+
 template<typename T>
 class CLReadPointer
 {

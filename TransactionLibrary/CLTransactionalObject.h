@@ -3,6 +3,7 @@
 
 #include <atomic>
 #include "LSATimeStamp.h"
+#include "SLObjectVersion.h"
 
 #define TRANSACTIONAL_OBJECT_MAX_CACHE_VERSION_COUNT 3
 
@@ -22,13 +23,6 @@ private:
 		READ = 0x2,
 		WRITE = 0x4
 	};
-	struct SLVersion
-	{
-		SLVersion(void * pUserObject, LSATimeStamp timestamp, SLVersion * nextVersion);
-		void * m_pUserObject;
-		LSATimeStamp m_commitTime;
-		SLVersion * m_pNextVersion;
-	};
 	struct SLTransactionalObjectCreatArgs
 	{
 		CLWriteTransaction * m_owner;
@@ -44,21 +38,22 @@ public:
 	static CLTransactionalObject * MakeObject(void * pArgs);
 	static void ReleaseObject(CLTransactionalObject * pObject);
 	static CLTransactionalObject * ReadOnlyOpen(void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
-	static CLTransactionalObject * ReadWriteOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo);
+	static CLTransactionalObject * ReadOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo);
 	static CLTransactionalObject * WriteOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo);
 
 public:
-	void ReadOnlyClose();
+	void ReadOnlyCommit();
 	void ReadOnlyAbort();
-	void ReadWriteClose(CLWriteTransaction * pOwner);
-	void ReadWriteAbort(CLWriteTransaction * pOwner);
+	void ReadCommit(CLWriteTransaction * pOwner);
+	void ReadAbort(CLWriteTransaction * pOwner);
 	void WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime);
 	void WriteClose(CLWriteTransaction * pOwner);
 	void WriteAbort(CLWriteTransaction * pOwner);
+	bool ConvertReadToWrite(CLWriteTransaction * pOwner);
 	CLReadedObject * ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
 
 public:
-	inline void * GetUserObjectCopy();
+	inline void * GetTentativeVersionUserObjectCopy();
 
 private:
 	static inline bool TryOccupyObject(CLTransactionalObject * pObject, CLWriteTransaction * pOwner);
@@ -66,22 +61,22 @@ private:
 
 private:
 	void TryCleanOldVersion();
-	inline SLVersion * FindNewestValidVersion();
+	inline SLObjectVersion * FindNewestValidVersion();
 
 private:
-	SLVersion * CloneANewVersion(SLVersion * pVersion);
-	SLVersion * MakeANewVersion(void * pUserObject);
+	SLObjectVersion * CloneANewVersion(SLObjectVersion * pVersion);
+	SLObjectVersion * MakeANewVersion(void * pUserObject);
 
 private:
 	std::atomic<CLWriteTransaction *> m_pOwner;
-	SLVersion * m_TentativeVersion;
+	SLObjectVersion * m_TentativeVersion;
 	SLUserObjectInfo  * m_pUserInfo;
 	void * m_pNVMAddress;
 };
 
-inline CLTransactionalObject::SLVersion * CLTransactionalObject::FindNewestValidVersion()
+inline SLObjectVersion * CLTransactionalObject::FindNewestValidVersion()
 {
-	SLVersion * tentativeVersion = m_TentativeVersion;
+	SLObjectVersion * tentativeVersion = m_TentativeVersion;
 	if (tentativeVersion->m_commitTime == LSA_TIME_STAMP_INFINITE)
 	{
 		return tentativeVersion->m_pNextVersion;
@@ -89,7 +84,7 @@ inline CLTransactionalObject::SLVersion * CLTransactionalObject::FindNewestValid
 	return tentativeVersion;
 }
 
-inline void * CLTransactionalObject::GetUserObjectCopy()
+inline void * CLTransactionalObject::GetTentativeVersionUserObjectCopy()
 {
 	return m_TentativeVersion->m_pUserObject;
 }

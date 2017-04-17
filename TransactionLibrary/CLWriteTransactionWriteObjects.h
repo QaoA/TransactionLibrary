@@ -2,7 +2,7 @@
 #define __WRITE_TRANSACTION_WRITE_OBJECTS_H__
 
 #include "LSATimeStamp.h"
-#include <list>
+#include <set>
 #include <cassert>
 
 class CLWriteTransaction;
@@ -16,19 +16,14 @@ public:
 	~CLWriteTransactionWriteObjects();
 
 public:
-	inline void AddObject(CLTransactionalObject * pObject);
+	void Reset();
+	void AddObject(CLTransactionalObject * pObject);
 	void Commit(CLLogItemsSet & itemSet, LSATimeStamp commitTime);
-	void CloseAll(CLWriteTransaction * pOwner);
 	void Abort(CLWriteTransaction * pOwner);
+	void CloseAll(CLWriteTransaction * pOwner);
 
 private:
-	std::list<CLTransactionalObject *> m_writeSet;
+	std::set<CLTransactionalObject *> m_writeSet;
 };
-
-inline void CLWriteTransactionWriteObjects::AddObject(CLTransactionalObject * pObject)
-{
-	assert(pObject);
-	m_writeSet.push_back(pObject);
-}
 
 #endif

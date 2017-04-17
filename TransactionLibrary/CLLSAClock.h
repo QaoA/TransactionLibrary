@@ -2,6 +2,7 @@
 #define __CLOCK_H__
 
 #include "LSATimeStamp.h"
+#include <atomic>
 
 class CLLSAClock
 {
@@ -14,7 +15,7 @@ public:
 	LSATimeStamp GetClock();
 
 private:
-	volatile LSATimeStamp m_clock;
+	std::atomic<LSATimeStamp> m_clock;
 };
 
 #endif

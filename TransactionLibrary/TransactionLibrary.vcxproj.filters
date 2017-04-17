@@ -10,9 +10,6 @@
     <ClCompile Include="CLGarbageCollector.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
-    <ClCompile Include="CLHeapManager.cpp">
-      <Filter>Source\GC</Filter>
-    </ClCompile>
     <ClCompile Include="CLLSAClock.cpp">
       <Filter>Source\LSA</Filter>
     </ClCompile>
@@ -21,9 +18,6 @@
     </ClCompile>
     <ClCompile Include="CLMutex.cpp">
       <Filter>Source\Tool\Lock</Filter>
-    </ClCompile>
-    <ClCompile Include="CLQuiescentStateManager.cpp">
-      <Filter>Source\GC</Filter>
     </ClCompile>
     <ClCompile Include="CLRadixTreeNode.cpp">
       <Filter>Source\Tool</Filter>
@@ -70,12 +64,20 @@
     <ClCompile Include="CLTransactionalObject.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CLLogItemsSet.cpp" />
     <ClCompile Include="CLWriteTransactionWriteObjects.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
     <ClCompile Include="CLWriteTransactionReadObjects.cpp">
       <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="SLObjectVersion.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLLogItemsSet.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="SLTList.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +180,6 @@
     <ClInclude Include="CLGarbageCollector.h">
       <Filter>Header\GC</Filter>
     </ClInclude>
-    <ClInclude Include="CLHeapManager.h">
-      <Filter>Header\GC</Filter>
-    </ClInclude>
     <ClInclude Include="CLLSAClock.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
@@ -189,9 +188,6 @@
     </ClInclude>
     <ClInclude Include="CLMutex.h">
       <Filter>Header\Tool\Lock</Filter>
-    </ClInclude>
-    <ClInclude Include="CLQuiescentStateManager.h">
-      <Filter>Header\GC</Filter>
     </ClInclude>
     <ClInclude Include="CLRadixTree.h">
       <Filter>Header\Tool</Filter>
@@ -241,9 +237,6 @@
     <ClInclude Include="NVMUserObject.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectOpenMode.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
     <ClInclude Include="SLLList.h">
       <Filter>Header\Tool</Filter>
     </ClInclude>
@@ -262,7 +255,6 @@
     <ClInclude Include="CLTransactionalObject.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CLLogItemsSet.h" />
     <ClInclude Include="CLReadOnlyPointer.h">
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
@@ -274,6 +266,15 @@
     </ClInclude>
     <ClInclude Include="CLWriteTransactionReadObjects.h">
       <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="SLObjectVersion.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLLogItemsSet.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="SLTList.h">
+      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

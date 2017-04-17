@@ -1,7 +1,7 @@
 #ifndef __BASIC_DATA_H__
 #define __BASIC_DATA_H__
 
-class CLLSAClock;
+#include "CLLSAClock.h"
 
 class CLBasicData
 {

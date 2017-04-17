@@ -1,10 +1,8 @@
 #include "CLReadedObject.h"
 
-CLReadedObject::CLReadedObject(CLTransactionalObject * pTransactionalObject, void * pUserObject, LSATimeStamp lower, LSATimeStamp upper):
+CLReadedObject::CLReadedObject(CLTransactionalObject * pTransactionalObject, SLObjectVersion * pUserObejctVersion):
 m_pTransactionalObject(pTransactionalObject),
-m_pUserObject(pUserObject),
-m_lower(lower),
-m_upper(upper)
+m_pUserObjectVersion(pUserObejctVersion)
 {
 }
 

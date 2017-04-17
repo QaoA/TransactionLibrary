@@ -39,7 +39,7 @@ void CLTransactionalObjectLookupTable::Put(void * pNVMObject)
 	assert(pWrapper != nullptr);
 	if (pWrapper->m_referenceCount == 1)
 	{
-		CLTransactionalObject::ReleaseATransactionalObject(pWrapper->m_pObject);
+		CLTransactionalObject::ReleaseObject(pWrapper->m_pObject);
 	}
 	delete pWrapper;
 }

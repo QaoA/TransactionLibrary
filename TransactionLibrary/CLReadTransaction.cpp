@@ -11,6 +11,26 @@ CLReadTransaction::~CLReadTransaction()
 {
 }
 
+void CLReadTransaction::Initialize()
+{
+	m_snapShot.Reset();
+	m_readSet.Reset();
+}
+
+void CLReadTransaction::Uninitialize()
+{
+}
+
+void CLReadTransaction::OnCommit()
+{
+	m_readSet.Commit();
+}
+
+void CLReadTransaction::OnAbort(CLTransactionAbort &)
+{
+	m_readSet.Abort();
+}
+
 CLReadedObject * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
 {
 	assert(pUserObjectInfo);

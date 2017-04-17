@@ -1,6 +1,8 @@
 #include "CLWriteTransactionReadObjects.h"
 #include "CLTransactionalObject.h"
 
+using namespace std;
+
 CLWriteTransactionReadObjects::CLWriteTransactionReadObjects()
 {
 }
@@ -9,20 +11,36 @@ CLWriteTransactionReadObjects::~CLWriteTransactionReadObjects()
 {
 }
 
+void CLWriteTransactionReadObjects::Reset()
+{
+	assert(m_readSet.empty());
+}
+
+void CLWriteTransactionReadObjects::AddObject(CLTransactionalObject * pObject)
+{
+	assert(pObject);
+	m_readSet.insert(pObject);
+}
+
+bool CLWriteTransactionReadObjects::RemoveObject(CLTransactionalObject * pObject)
+{
+	return !!m_readSet.erase(pObject);
+}
+
 void CLWriteTransactionReadObjects::Commit(CLWriteTransaction * pOwner)
 {
-	for (CLTransactionalObject * pObject : m_readSet)
+	for (set<CLTransactionalObject *>::iterator it = m_readSet.begin(); it != m_readSet.end(); )
 	{
-		pObject->ReadClose(pOwner);
+		(*it)->ReadCommit(pOwner);
+		m_readSet.erase(it++);
 	}
-	m_readSet.clear();
 }
 
 void CLWriteTransactionReadObjects::Abort(CLWriteTransaction * pOwner)
 {
-	for (CLTransactionalObject * pObject : m_readSet)
+	for (set<CLTransactionalObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
 	{
-		pObject->ReadAbort(pOwner);
+		(*it)->ReadAbort(pOwner);
+		m_readSet.erase(it++);
 	}
-	m_readSet.clear();
 }

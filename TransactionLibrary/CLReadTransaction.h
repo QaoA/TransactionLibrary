@@ -14,6 +14,12 @@ public:
 	virtual ~CLReadTransaction();
 
 public:
+	virtual void Initialize() override;
+	virtual void Uninitialize() override;
+	virtual void OnCommit() override;
+	virtual void OnAbort(CLTransactionAbort &) override;
+
+public:
 	CLReadedObject * OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
 
 private:

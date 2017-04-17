@@ -66,12 +66,10 @@
     <ClCompile Include="CLBasicData.cpp" />
     <ClCompile Include="CLCriticalSection.cpp" />
     <ClCompile Include="CLGarbageCollector.cpp" />
-    <ClCompile Include="CLHeapManager.cpp" />
     <ClCompile Include="CLLogItemsSet.cpp" />
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLLSAReadAnalysiser.cpp" />
     <ClCompile Include="CLMutex.cpp" />
-    <ClCompile Include="CLQuiescentStateManager.cpp" />
     <ClCompile Include="CLRadixTreeNode.cpp" />
     <ClCompile Include="CLReadedObject.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
@@ -88,6 +86,8 @@
     <ClCompile Include="CLWriteTransactionWriteObjects.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SLLList.cpp" />
+    <ClCompile Include="SLObjectVersion.cpp" />
+    <ClCompile Include="SLTList.cpp" />
     <ClCompile Include="SLTransactionalObjectFlag.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,12 +103,10 @@
     <ClInclude Include="CLBasicData.h" />
     <ClInclude Include="CLCriticalSection.h" />
     <ClInclude Include="CLGarbageCollector.h" />
-    <ClInclude Include="CLHeapManager.h" />
     <ClInclude Include="CLLogItemsSet.h" />
     <ClInclude Include="CLLSAClock.h" />
     <ClInclude Include="CLLSAReadAnalysiser.h" />
     <ClInclude Include="CLMutex.h" />
-    <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLRadixTree.h" />
     <ClInclude Include="CLRadixTreeNode.h" />
     <ClInclude Include="CLReadedObject.h" />
@@ -132,8 +130,9 @@
     <ClInclude Include="ILLock.h" />
     <ClInclude Include="LSATimeStamp.h" />
     <ClInclude Include="NVMUserObject.h" />
-    <ClInclude Include="ObjectOpenMode.h" />
+    <ClInclude Include="SLTList.h" />
     <ClInclude Include="SLLList.h" />
+    <ClInclude Include="SLObjectVersion.h" />
     <ClInclude Include="SLTransactionalObjectFlag.h" />
     <ClInclude Include="SLUserObjectInfo.h" />
   </ItemGroup>

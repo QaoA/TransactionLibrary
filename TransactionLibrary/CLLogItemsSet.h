@@ -2,9 +2,12 @@
 #define __LOG_ITEMS_SET_H__
 
 #include <list>
+#include "CLLogArea.h"
+#include "CLLogItem.h"
+#include "TransactionLibraryNameSpace.h"
 
-class CLLogItem;
-class CLLogArea;
+using NVMMalloc::CLLogItem;
+using NVMMalloc::CLLogArea;
 
 class CLLogItemsSet
 {
@@ -13,6 +16,7 @@ public:
 	~CLLogItemsSet();
 
 public:
+	void Reset();
 	void AddItem(CLLogItem * item);
 	void AddItem(void * pNVMAddress, unsigned long size, void * pValue);
 	void WriteLogs(CLLogArea & logArea);

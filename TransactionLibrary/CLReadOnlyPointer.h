@@ -22,7 +22,7 @@ private:
 };
 
 template<typename T>
-inline CLReadOnlyPointer<T>::CLReadOnlyPointer(void * pUserObject):
+CLReadOnlyPointer<T>::CLReadOnlyPointer(void * pUserObject):
 m_readedVersion(nullptr)
 {
 	if (pUserObject != nullptr)
@@ -43,7 +43,7 @@ inline const T * CLReadOnlyPointer<T>::operator->()
 }
 
 template<typename T>
-inline bool CLReadOnlyPointer<T>::IsValid()
+bool CLReadOnlyPointer<T>::IsValid()
 {
 	return !!m_readedVersion;
 }

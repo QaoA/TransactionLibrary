@@ -1,6 +1,9 @@
 #include "CLLogItemsSet.h"
 #include "CLLogItem.h"
 #include "CLLogArea.h"
+#include <cassert>
+
+using NVMMalloc::CLLogItem;
 
 CLLogItemsSet::CLLogItemsSet()
 {
@@ -8,6 +11,11 @@ CLLogItemsSet::CLLogItemsSet()
 
 CLLogItemsSet::~CLLogItemsSet()
 {
+}
+
+void CLLogItemsSet::Reset()
+{
+	assert(m_itemsSet.empty());
 }
 
 void CLLogItemsSet::AddItem(CLLogItem * item)

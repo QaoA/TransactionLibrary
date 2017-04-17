@@ -1,0 +1,7 @@
+#ifndef __TRANSACTION_LIBRARY_NAMESPACE_H__
+#define __TRANSACTION_LIBRARY_NAMESPACE_H__
+
+#define TRANSACTIONLIB_NS_BEGIN namespace NVMTransaction{
+#define TRANSACTIONLIB_NS_END }
+
+#endif

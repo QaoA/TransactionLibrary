@@ -1,12 +1,25 @@
 #include "CLWriteTransactionWriteObjects.h"
 #include "CLTransactionalObject.h"
 
+using namespace std;
+
 CLWriteTransactionWriteObjects::CLWriteTransactionWriteObjects()
 {
 }
 
 CLWriteTransactionWriteObjects::~CLWriteTransactionWriteObjects()
 {
+}
+
+void CLWriteTransactionWriteObjects::Reset()
+{
+	assert(m_writeSet.empty());
+}
+
+void CLWriteTransactionWriteObjects::AddObject(CLTransactionalObject * pObject)
+{
+	assert(pObject);
+	m_writeSet.insert(pObject);
 }
 
 void CLWriteTransactionWriteObjects::Commit(CLLogItemsSet & itemSet, LSATimeStamp commitTime)
@@ -17,18 +30,19 @@ void CLWriteTransactionWriteObjects::Commit(CLLogItemsSet & itemSet, LSATimeStam
 	}
 }
 
-void CLWriteTransactionWriteObjects::CloseAll(CLWriteTransaction * pOwner)
+void CLWriteTransactionWriteObjects::Abort(CLWriteTransaction * pOwner)
 {
-	for (CLTransactionalObject * pObject : m_writeSet)
+	for (set<CLTransactionalObject *>::iterator it = m_writeSet.begin(); it != m_writeSet.end(); )
 	{
-		pObject->WriteClose(pOwner);
+		(*it)->WriteAbort(pOwner);
 	}
 }
 
-void CLWriteTransactionWriteObjects::Abort(CLWriteTransaction * pOwner)
+void CLWriteTransactionWriteObjects::CloseAll(CLWriteTransaction * pOwner)
 {
-	for (CLTransactionalObject * pObject : m_writeSet)
+	for (set<CLTransactionalObject *>::iterator it = m_writeSet.begin(); it != m_writeSet.end(); )
 	{
-		pObject->WriteAbort(pOwner);
+		(*it)->WriteClose(pOwner);
+		m_writeSet.erase(it++);
 	}
 }
