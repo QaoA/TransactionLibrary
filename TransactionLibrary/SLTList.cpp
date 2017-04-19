@@ -1,4 +1,9 @@
 #include "SLTList.h"
+#include "CLReadOnlyPointer.h"
+#include <iostream>
+
+using namespace std;
+using namespace NVMTransaction;
 
 SLTList::SLTList(int data) :
 	m_pPrevious(this),
@@ -27,7 +32,38 @@ SLTList * SLTList::MakeList(const int min, const int max)
 		else
 		{
 			SLTList * pTmpList = new SLTList(i);
+			NVMMalloc::NotifyNVMMemoryGet(pTmpList);
 			pList->Append(pTmpList);
 		}
 	}
+	return pList;
+}
+
+void SLTList::ShowList(SLTList * pList)
+{
+	SLTList * pHead = pList;
+	SLTList * pTmp = pHead;
+	do 
+	{
+		cout << pTmp->m_data << "\t" << endl;
+		pTmp = pTmp->m_pNext;
+	} while (pTmp!= pHead);
+}
+
+void SLTList::ShowListReadOnly(SLTList * pList)
+{
+	//SLTList * pHead = pList;
+	//SLTList * pTmp = pHead;
+	//do
+	//{
+	//	cout << pTmp->m_data << "\t" << endl; _
+	//		pTmp = pTmp->m_pNext;
+	//} while (pTmp != pHead);
+	CLReadOnlyPointer<SLTList> pHead(pList);
+	CLReadOnlyPointer<SLTList> pTmp = pHead;
+	do 
+	{
+		cout << pTmp->m_data << "\t" << endl;
+		pTmp = pTmp->m_pNext;
+	} while (!(pTmp == pHead));
 }

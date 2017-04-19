@@ -3,6 +3,8 @@
 #include "CLLogArea.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 using NVMMalloc::CLLogItem;
 
 CLLogItemsSet::CLLogItemsSet()
@@ -52,3 +54,5 @@ void CLLogItemsSet::ReleaseAllItems()
 	}
 	m_itemsSet.erase(m_itemsSet.begin(), m_itemsSet.end());
 }
+
+TRANSACTIONLIB_NS_END

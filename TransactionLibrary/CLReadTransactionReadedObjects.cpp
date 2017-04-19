@@ -3,6 +3,8 @@
 #include "CLTransactionalObject.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 using namespace std;
 
 CLReadTransactionReadedObjects::CLReadTransactionReadedObjects():
@@ -26,7 +28,7 @@ void CLReadTransactionReadedObjects::Reset()
 void CLReadTransactionReadedObjects::AppendObject(CLReadedObject * pObject)
 {
 	assert(pObject);
-	m_readSet.push_back(pObject);
+	m_readSet.insert(make_pair(pObject->GetUserObjectNVMAddress(),pObject));
 }
 
 LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
@@ -40,9 +42,10 @@ LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
 	{
 		return LSA_TIME_STAMP_INFINITE;
 	}
-	LSATimeStamp minValidUpper = (*m_readSet.begin())->GetUpperTime();
-	for (CLReadedObject * pObject : m_readSet)
+	LSATimeStamp minValidUpper = (m_readSet.begin()->second)->GetUpperTime();
+	for (pair<void * ,CLReadedObject *> it : m_readSet)
 	{
+		CLReadedObject * pObject = it.second;
 		if (pObject->GetUpperTime() < minValidUpper)
 		{
 			minValidUpper = pObject->GetUpperTime();
@@ -58,20 +61,40 @@ LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
 
 void CLReadTransactionReadedObjects::Commit()
 {
-	for (std::list<CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
+	for (map<void *, CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
 	{
-		(*it)->GetTransactionalObject()->ReadOnlyCommit();
-		delete (*it);
-		it = m_readSet.erase(it);
+		CLReadedObject * pObject = it->second;
+		pObject->GetTransactionalObject()->ReadOnlyCommit();
+		delete pObject;
+		m_readSet.erase(it++);
 	}
 }
 
 void CLReadTransactionReadedObjects::Abort()
 {
-	for (std::list<CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
+	for (map<void *, CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
 	{
-		(*it)->GetTransactionalObject()->ReadOnlyAbort();
-		delete (*it);
-		it = m_readSet.erase(it);
+		CLReadedObject * pObject = it->second;
+		pObject->GetTransactionalObject()->ReadOnlyAbort();
+		delete pObject;
+		m_readSet.erase(it++);
 	}
 }
+
+CLReadedObject * CLReadTransactionReadedObjects::FindObject(void * pUserObject)
+{
+	assert(pUserObject);
+	map<void *, CLReadedObject *>::iterator it = m_readSet.find(pUserObject);
+	if (it == m_readSet.end())
+	{
+		return nullptr;
+	}
+	return it->second;
+}
+
+bool CLReadTransactionReadedObjects::CompareReadedObject(CLReadedObject * pObject1, CLReadedObject * pObject2)
+{
+	assert(pObject1 && pObject2);
+}
+
+TRANSACTIONLIB_NS_END

@@ -17,6 +17,8 @@ public:
 
 public:
 	static SLTList * MakeList(const int min, const int max);
+	static void ShowList(SLTList * pList);
+	static void ShowListReadOnly(SLTList * pList);
 };
 
 #endif

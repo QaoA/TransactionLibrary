@@ -2,7 +2,10 @@
 #define __MUTEX_H__
 
 #include "ILLock.h"
+#include "TransactionLibraryNameSpace.h"
 #include <pthread.h>
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLMutex:public ILLock
 {
@@ -19,4 +22,5 @@ private:
 	pthread_mutex_t m_lock;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

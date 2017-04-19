@@ -3,6 +3,9 @@
 
 #include "CLReadTransaction.h"
 #include "CLWriteTransaction.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLThreadTransactionManager
 {
@@ -35,5 +38,7 @@ inline CLWriteTransaction & CLThreadTransactionManager::GetWriteTransaction()
 {
 	return m_writeTransaction;
 }
+
+TRANSACTIONLIB_NS_END
 
 #endif

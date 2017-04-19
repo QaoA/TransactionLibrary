@@ -1,6 +1,10 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
+
 class SLList
 {
 public:
@@ -18,4 +22,5 @@ public:
 	int m_value;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

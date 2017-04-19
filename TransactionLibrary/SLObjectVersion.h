@@ -1,7 +1,10 @@
 #ifndef __OBJECT_VERSION_H__
 #define __OBJECT_VERSION_H__
 
+#include "TransactionLibraryNameSpace.h"
 #include "LSATimeStamp.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 struct SLObjectVersion
 {
@@ -16,4 +19,5 @@ public:
 	SLObjectVersion * m_pNextVersion;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

@@ -5,6 +5,9 @@
 #include "CLWriteTransactionReadObjects.h"
 #include "CLWriteTransactionWriteObjects.h"
 #include "CLLogItemsSet.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 struct SLUserObjectInfo;
 
@@ -31,4 +34,5 @@ public:
 	CLLogItemsSet m_itemSet;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

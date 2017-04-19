@@ -1,6 +1,8 @@
 #include "SLLList.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 SLList::SLList():
 m_pPrevious(nullptr),
 m_pNext(nullptr)
@@ -38,3 +40,5 @@ void SLList::Find(SLList * start, int value)
 		current = current->m_pNext;
 	}
 }
+
+TRANSACTIONLIB_NS_END

@@ -3,6 +3,8 @@
 #include "CLTransactionAbort.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLReadTransaction::CLReadTransaction()
 {
 }
@@ -34,12 +36,19 @@ void CLReadTransaction::OnAbort(CLTransactionAbort &)
 CLReadedObject * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
 {
 	assert(pUserObjectInfo);
+
+	CLReadedObject * pReadedObject = m_readSet.FindObject(pUserObject);
+	if (pReadedObject)
+	{
+		return pReadedObject;
+	}
+
 	CLTransactionalObject * pObject = CLTransactionalObject::ReadOnlyOpen(pUserObject, pUserObjectInfo);
 	if (pObject == nullptr)
 	{
 		throw CLTransactionAbort(UNEXPECTED_ERROR);
 	}
-	CLReadedObject * pReadedObject = pObject->ReadForReadTransaction(m_snapShot, m_readSet);
+	pReadedObject = pObject->ReadForReadTransaction(m_snapShot, m_readSet);
 	if (pReadedObject == nullptr)
 	{
 		pObject->ReadOnlyAbort();
@@ -48,3 +57,5 @@ CLReadedObject * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectI
 	m_readSet.AppendObject(pReadedObject);
 	return pReadedObject;
 }
+
+TRANSACTIONLIB_NS_END

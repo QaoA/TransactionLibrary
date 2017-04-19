@@ -2,6 +2,9 @@
 #define __SPIN_LOCK_H__
 
 #include "ILLock.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLSpinLock:public ILLock
 {
@@ -18,4 +21,5 @@ private:
 	bool m_lock;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

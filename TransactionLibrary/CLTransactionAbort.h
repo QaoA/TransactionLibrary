@@ -1,6 +1,10 @@
 #ifndef __TRANSACTION_ABORT_H__
 #define __TRANSACTION_ABORT_H__
 
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
+
 enum EMAbortReason
 {
 	NO_VALID_VERSION_IN_READ_TRANSACION,
@@ -18,4 +22,5 @@ private:
 	EMAbortReason m_reason;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

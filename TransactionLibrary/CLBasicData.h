@@ -1,7 +1,10 @@
 #ifndef __BASIC_DATA_H__
 #define __BASIC_DATA_H__
 
+#include "TransactionLibraryNameSpace.h"
 #include "CLLSAClock.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLBasicData
 {
@@ -23,4 +26,5 @@ private:
 	CLLSAClock m_clock;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

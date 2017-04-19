@@ -2,6 +2,9 @@
 #define __RADIX_TREE_NODE_H__
 
 #include <vector>
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 #define SLOT_COUNT_BIT 6
 #define SLOT_COUNT (1<<SLOT_COUNT_BIT)
@@ -30,5 +33,7 @@ private:
 	unsigned int m_count;
 	SLRadixTreeSlot m_slots[SLOT_COUNT];
 };
+
+TRANSACTIONLIB_NS_END
 
 #endif

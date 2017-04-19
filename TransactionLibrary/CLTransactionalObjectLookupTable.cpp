@@ -3,6 +3,8 @@
 #include "CLCriticalSection.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLTransactionalObjectLookupTable::CLTransactionalObjectLookupTable()
 {
 }
@@ -43,3 +45,5 @@ void CLTransactionalObjectLookupTable::Put(void * pNVMObject)
 	}
 	delete pWrapper;
 }
+
+TRANSACTIONLIB_NS_END

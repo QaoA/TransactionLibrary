@@ -6,6 +6,8 @@
 #include "CLLogItem.h"
 #include "TransactionLibraryNameSpace.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 using NVMMalloc::CLLogItem;
 using NVMMalloc::CLLogArea;
 
@@ -27,4 +29,5 @@ private:
 	std::list<CLLogItem *> m_itemsSet;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

@@ -5,6 +5,9 @@
 #include "CLThreadTransactionManager.h"
 #include "CLTransactionAbort.h"
 #include "CLWriteTransaction.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 template<typename T>
 class CLWritePointer
@@ -48,5 +51,7 @@ inline bool CLWritePointer<T>::IsValid()
 {
 	return !!m_pObject;
 }
+
+TRANSACTIONLIB_NS_END
 
 #endif

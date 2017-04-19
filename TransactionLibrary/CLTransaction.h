@@ -1,6 +1,10 @@
 #ifndef __TRANSACTION_H__
 #define __TRANSACTION_H__
 
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
+
 class CLTransactionAbort;
 
 typedef void(*TransactionFunc)(void * arg);
@@ -21,4 +25,5 @@ public:
 	void RunTransaction(TransactionFunc func, void * arg);
 };
 
+TRANSACTIONLIB_NS_END
 #endif

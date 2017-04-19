@@ -3,6 +3,8 @@
 #include <cstring>
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLRadixTreeNode::CLRadixTreeNode(const unsigned int height) :
 m_height(height),
 m_count(0)
@@ -63,8 +65,15 @@ void * CLRadixTreeNode::Get(unsigned long key, unsigned long mask)
 	unsigned long index = ((key & mask) >> (m_height*SLOT_COUNT_BIT));
 	if (m_height != 0)
 	{
-		assert(m_slots[index].m_pNextLayerNode != nullptr);
-		void * pLeaf = m_slots[index].m_pNextLayerNode->Get(key, mask >> SLOT_COUNT_BIT);
+		void * pLeaf = nullptr;
+		if (m_slots[index].m_pNextLayerNode != nullptr)
+		{
+			pLeaf = m_slots[index].m_pNextLayerNode->Get(key, mask >> SLOT_COUNT_BIT);
+		}
+		else
+		{
+			return nullptr;
+		}
 		return pLeaf;
 	}
 	else
@@ -72,3 +81,5 @@ void * CLRadixTreeNode::Get(unsigned long key, unsigned long mask)
 		return m_slots[index].m_leaf;
 	}
 }
+
+TRANSACTIONLIB_NS_END

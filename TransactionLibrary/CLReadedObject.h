@@ -6,6 +6,8 @@
 #include "CLTransactionalObject.h"
 #include "TransactionLibraryNameSpace.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 class CLObject;
 class CLTransactionalObject;
 
@@ -16,8 +18,9 @@ public:
 	~CLReadedObject();
 
 public:
-	inline void * GetUserObject();
+	inline void * GetUserObjectCopy();
 	inline LSATimeStamp GetUpperTime();
+	inline void * GetUserObjectNVMAddress();
 	inline CLTransactionalObject * GetTransactionalObject();
 
 private:
@@ -25,7 +28,7 @@ private:
 	SLObjectVersion * m_pUserObjectVersion;
 };
 
-inline void * CLReadedObject::GetUserObject()
+inline void * CLReadedObject::GetUserObjectCopy()
 {
 	return m_pUserObjectVersion->m_pUserObject;
 }
@@ -35,9 +38,15 @@ inline LSATimeStamp CLReadedObject::GetUpperTime()
 	return m_pUserObjectVersion->m_validUpperTime;
 }
 
+inline void * CLReadedObject::GetUserObjectNVMAddress()
+{
+	return m_pTransactionalObject->GetUserObjectNVMAddress();
+}
+
 inline CLTransactionalObject * CLReadedObject::GetTransactionalObject()
 {
 	return m_pTransactionalObject;
 }
 
+TRANSACTIONLIB_NS_END
 #endif

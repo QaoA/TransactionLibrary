@@ -1,5 +1,7 @@
 #include "CLMutex.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLMutex::CLMutex()
 {
 	pthread_mutex_init(&m_lock, NULL);
@@ -24,3 +26,5 @@ CLMutex::~CLMutex()
 {
 	pthread_mutex_destroy(&m_lock);
 }
+
+TRANSACTIONLIB_NS_END

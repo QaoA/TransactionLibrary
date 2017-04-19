@@ -3,6 +3,9 @@
 
 #include "CLRadixTree.h"
 #include "CLMutex.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLTransactionalObject;
 
@@ -35,4 +38,5 @@ private:
 	CLMutex m_lock;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

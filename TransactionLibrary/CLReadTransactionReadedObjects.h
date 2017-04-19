@@ -3,7 +3,9 @@
 
 #include "LSATimeStamp.h"
 #include "TransactionLibraryNameSpace.h"
-#include <list>
+#include <map>
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLReadedObject;
 
@@ -19,11 +21,16 @@ public:
 	LSATimeStamp GetMinValidUpper();
 	void Commit();
 	void Abort();
+	CLReadedObject * FindObject(void * pUserObject);
+
+public:
+	static bool CompareReadedObject(CLReadedObject * pObject1, CLReadedObject * pObject2);
 
 private:
-	std::list<CLReadedObject*> m_readSet;
+	std::map<void *, CLReadedObject*> m_readSet;
 	bool m_bIsClosed;
 	LSATimeStamp m_minValidUpper;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

@@ -1,6 +1,8 @@
 #include "CLTransaction.h"
 #include "CLTransactionAbort.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLTransaction::CLTransaction()
 {
 }
@@ -23,3 +25,5 @@ void CLTransaction::RunTransaction(TransactionFunc func, void * arg)
 	}
 	Uninitialize();
 }
+
+TRANSACTIONLIB_NS_END

@@ -4,6 +4,9 @@
 #include <atomic>
 #include "LSATimeStamp.h"
 #include "SLObjectVersion.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 #define TRANSACTIONAL_OBJECT_MAX_CACHE_VERSION_COUNT 3
 
@@ -54,6 +57,7 @@ public:
 
 public:
 	inline void * GetTentativeVersionUserObjectCopy();
+	inline void * GetUserObjectNVMAddress();
 
 private:
 	static inline bool TryOccupyObject(CLTransactionalObject * pObject, CLWriteTransaction * pOwner);
@@ -89,4 +93,10 @@ inline void * CLTransactionalObject::GetTentativeVersionUserObjectCopy()
 	return m_TentativeVersion->m_pUserObject;
 }
 
+inline void * CLTransactionalObject::GetUserObjectNVMAddress()
+{
+	return m_pNVMAddress;
+}
+
+TRANSACTIONLIB_NS_END
 #endif

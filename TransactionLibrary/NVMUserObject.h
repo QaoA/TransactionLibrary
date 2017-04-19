@@ -9,9 +9,9 @@
 
 #define NVM_OBJECT(ObjectType) \
 public:\
-static SLUserObjectInfo * GetUserObjectInfo()\
+static NVMTransaction::SLUserObjectInfo * GetUserObjectInfo()\
 {\
-	static SLUserObjectInfo userInfo = \
+	static NVMTransaction::SLUserObjectInfo userInfo = \
 		{\
 			.m_objectSize = sizeof(ObjectType)\
 		};\

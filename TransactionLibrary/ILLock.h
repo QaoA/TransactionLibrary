@@ -1,6 +1,10 @@
 #ifndef __LOCK_H__
 #define __LOCK_H__
 
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
+
 class ILLock
 {
 public:
@@ -8,5 +12,7 @@ public:
 	virtual void Unlock() = 0;
 	virtual bool TryLock() = 0;
 };
+
+TRANSACTIONLIB_NS_END
 
 #endif

@@ -13,9 +13,6 @@
     <ClCompile Include="CLLSAClock.cpp">
       <Filter>Source\LSA</Filter>
     </ClCompile>
-    <ClCompile Include="CLLSAReadAnalysiser.cpp">
-      <Filter>Source\LSA</Filter>
-    </ClCompile>
     <ClCompile Include="CLMutex.cpp">
       <Filter>Source\Tool\Lock</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="SLTransactionalObjectFlag.cpp">
-      <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="CLTransactionalObject.cpp">
       <Filter>Source\Object</Filter>
@@ -183,9 +177,6 @@
     <ClInclude Include="CLLSAClock.h">
       <Filter>Header\LSA</Filter>
     </ClInclude>
-    <ClInclude Include="CLLSAReadAnalysiser.h">
-      <Filter>Header\LSA</Filter>
-    </ClInclude>
     <ClInclude Include="CLMutex.h">
       <Filter>Header\Tool\Lock</Filter>
     </ClInclude>
@@ -249,9 +240,6 @@
     <ClInclude Include="ILLock.h">
       <Filter>Header\Tool\Lock</Filter>
     </ClInclude>
-    <ClInclude Include="SLTransactionalObjectFlag.h">
-      <Filter>Header\Object</Filter>
-    </ClInclude>
     <ClInclude Include="CLTransactionalObject.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
@@ -275,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="SLTList.h">
       <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionLibraryNameSpace.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

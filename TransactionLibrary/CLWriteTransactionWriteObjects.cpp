@@ -1,6 +1,8 @@
 #include "CLWriteTransactionWriteObjects.h"
 #include "CLTransactionalObject.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 using namespace std;
 
 CLWriteTransactionWriteObjects::CLWriteTransactionWriteObjects()
@@ -46,3 +48,5 @@ void CLWriteTransactionWriteObjects::CloseAll(CLWriteTransaction * pOwner)
 		m_writeSet.erase(it++);
 	}
 }
+
+TRANSACTIONLIB_NS_END

@@ -5,6 +5,9 @@
 #include "CLBasicData.h"
 #include "CLLSAClock.h"
 #include "BasicFunctions.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLSnapShot
 {
@@ -68,4 +71,5 @@ inline void CLSnapShot::ExtendUpper(LSATimeStamp readedObjectsValidUpper)
 	m_upper = Min(CLBasicData::GetInstance().GetLSAClock().GetClock(), readedObjectsValidUpper);
 }
 
+TRANSACTIONLIB_NS_END
 #endif

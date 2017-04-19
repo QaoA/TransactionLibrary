@@ -68,7 +68,6 @@
     <ClCompile Include="CLGarbageCollector.cpp" />
     <ClCompile Include="CLLogItemsSet.cpp" />
     <ClCompile Include="CLLSAClock.cpp" />
-    <ClCompile Include="CLLSAReadAnalysiser.cpp" />
     <ClCompile Include="CLMutex.cpp" />
     <ClCompile Include="CLRadixTreeNode.cpp" />
     <ClCompile Include="CLReadedObject.cpp" />
@@ -88,7 +87,6 @@
     <ClCompile Include="SLLList.cpp" />
     <ClCompile Include="SLObjectVersion.cpp" />
     <ClCompile Include="SLTList.cpp" />
-    <ClCompile Include="SLTransactionalObjectFlag.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.mak" />
@@ -105,7 +103,6 @@
     <ClInclude Include="CLGarbageCollector.h" />
     <ClInclude Include="CLLogItemsSet.h" />
     <ClInclude Include="CLLSAClock.h" />
-    <ClInclude Include="CLLSAReadAnalysiser.h" />
     <ClInclude Include="CLMutex.h" />
     <ClInclude Include="CLRadixTree.h" />
     <ClInclude Include="CLRadixTreeNode.h" />
@@ -133,8 +130,8 @@
     <ClInclude Include="SLTList.h" />
     <ClInclude Include="SLLList.h" />
     <ClInclude Include="SLObjectVersion.h" />
-    <ClInclude Include="SLTransactionalObjectFlag.h" />
     <ClInclude Include="SLUserObjectInfo.h" />
+    <ClInclude Include="TransactionLibraryNameSpace.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

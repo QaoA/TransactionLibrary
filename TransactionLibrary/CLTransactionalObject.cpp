@@ -9,6 +9,8 @@
 #include <cstring>
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLTransactionalObject::CLTransactionalObject(SLTransactionalObjectCreatArgs & args):
 m_pOwner(args.m_owner),
 m_pUserInfo(args.m_pUserObjectInfo),
@@ -235,3 +237,5 @@ SLObjectVersion * CLTransactionalObject::MakeANewVersion(void * pUserObject)
 	SLObjectVersion * pNewVersion = new SLObjectVersion(ObjectCopy, LSA_TIME_STAMP_START, nullptr);
 	return pNewVersion;
 }
+
+TRANSACTIONLIB_NS_END

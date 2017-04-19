@@ -1,6 +1,8 @@
 #include "CLWriteTransactionReadObjects.h"
 #include "CLTransactionalObject.h"
 
+TRANSACTIONLIB_NS_BEGIN
+
 using namespace std;
 
 CLWriteTransactionReadObjects::CLWriteTransactionReadObjects()
@@ -44,3 +46,5 @@ void CLWriteTransactionReadObjects::Abort(CLWriteTransaction * pOwner)
 		m_readSet.erase(it++);
 	}
 }
+
+TRANSACTIONLIB_NS_END

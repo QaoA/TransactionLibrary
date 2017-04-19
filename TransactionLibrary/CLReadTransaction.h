@@ -4,6 +4,9 @@
 #include "CLTransaction.h"
 #include "CLSnapShot.h"
 #include "CLReadTransactionReadedObjects.h"
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 struct SLUserObjectInfo;
 
@@ -27,4 +30,5 @@ private:
 	CLReadTransactionReadedObjects m_readSet;
 };
 
+TRANSACTIONLIB_NS_END
 #endif

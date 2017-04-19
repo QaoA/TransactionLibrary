@@ -2,6 +2,9 @@
 #define  __TLS_VARIABLE_H__
 
 #include <pthread.h>
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 typedef void(*TLSDestructorFunc)(void*);
 
@@ -44,4 +47,5 @@ T* CLTLSVariable<T>::Get()
 	return static_cast<T*>(pthread_getspecific(m_key));
 }
 
+TRANSACTIONLIB_NS_END
 #endif

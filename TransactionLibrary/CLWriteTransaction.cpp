@@ -7,6 +7,8 @@
 #include "CLLogArea.h"
 #include <cassert>
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLWriteTransaction::CLWriteTransaction()
 {
 }
@@ -86,3 +88,5 @@ void CLWriteTransaction::ConvertOpenModeReadToWrite(CLTransactionalObject * pObj
 		m_writeSet.AddObject(pObject);
 	}
 }
+
+TRANSACTIONLIB_NS_END

@@ -1,8 +1,11 @@
 #ifndef __WRITE_TRANSACTION_READ_OBJECTS_H__
 #define __WRITE_TRANSACTION_READ_OBJECTS_H__
 
+#include "TransactionLibraryNameSpace.h"
 #include <set>
 #include <cassert>
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLTransactionalObject;
 class CLWriteTransaction;
@@ -24,4 +27,5 @@ private:
 	std::set<CLTransactionalObject *> m_readSet;
 };
 
+TRANSACTIONLIB_NS_END
 #endif
