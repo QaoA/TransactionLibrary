@@ -4,6 +4,7 @@
 #include <atomic>
 #include "LSATimeStamp.h"
 #include "SLObjectVersion.h"
+#include "EMObjectOpenMode.h"
 #include "TransactionLibraryNameSpace.h"
 
 TRANSACTIONLIB_NS_BEGIN
@@ -15,17 +16,10 @@ struct SLUserObjectInfo;
 class CLLogItemsSet;
 class CLSnapShot;
 class CLReadTransactionReadedObjects;
-class CLReadedObject;
 
 class CLTransactionalObject
 {
 private:
-	enum EMObjectOpenMode
-	{
-		READ_ONLY = 0x1,
-		READ = 0x2,
-		WRITE = 0x4
-	};
 	struct SLTransactionalObjectCreatArgs
 	{
 		CLWriteTransaction * m_owner;
@@ -53,11 +47,14 @@ public:
 	void WriteClose(CLWriteTransaction * pOwner);
 	void WriteAbort(CLWriteTransaction * pOwner);
 	bool ConvertReadToWrite(CLWriteTransaction * pOwner);
-	CLReadedObject * ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
+	SLObjectVersion * ReadForReadTransaction(CLSnapShot & snapShot, CLReadTransactionReadedObjects & readSet);
 
 public:
 	inline void * GetTentativeVersionUserObjectCopy();
 	inline void * GetUserObjectNVMAddress();
+	inline void MarkRead();
+	inline void MarkWrite();
+	inline EMObjectOpenMode GetOpenMode();
 
 private:
 	static inline bool TryOccupyObject(CLTransactionalObject * pObject, CLWriteTransaction * pOwner);
@@ -76,6 +73,7 @@ private:
 	SLObjectVersion * m_TentativeVersion;
 	SLUserObjectInfo  * m_pUserInfo;
 	void * m_pNVMAddress;
+	EMObjectOpenMode m_openMode;
 };
 
 inline SLObjectVersion * CLTransactionalObject::FindNewestValidVersion()
@@ -96,6 +94,21 @@ inline void * CLTransactionalObject::GetTentativeVersionUserObjectCopy()
 inline void * CLTransactionalObject::GetUserObjectNVMAddress()
 {
 	return m_pNVMAddress;
+}
+
+inline void CLTransactionalObject::MarkRead()
+{
+	m_openMode &= OPEN_READ;
+}
+
+inline void CLTransactionalObject::MarkWrite()
+{
+	m_openMode &= OPEN_WRITE;
+}
+
+inline EMObjectOpenMode CLTransactionalObject::GetOpenMode()
+{
+	return m_openMode;
 }
 
 TRANSACTIONLIB_NS_END

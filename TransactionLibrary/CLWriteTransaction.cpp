@@ -19,21 +19,20 @@ CLWriteTransaction::~CLWriteTransaction()
 
 void CLWriteTransaction::Initialize()
 {
-	m_readSet.Reset();
-	m_writeSet.Reset();
+	m_objectSet.Reset();
 	m_itemSet.Reset();
 }
 
 void CLWriteTransaction::Uninitialize()
 {
-	m_writeSet.CloseAll(this);
+	m_objectSet.Close(this);
 	m_itemSet.ReleaseAllItems();
 }
 
 void CLWriteTransaction::OnCommit()
 {
 	LSATimeStamp commitTime = CLBasicData::GetInstance().GetLSAClock().Tick();
-	m_writeSet.Commit(m_itemSet, commitTime);
+	m_objectSet.Commit(this, m_itemSet, commitTime);
 
 	CLLogArea * logArea = NVMMalloc::AllocLogArea();
 	assert(logArea);
@@ -42,50 +41,59 @@ void CLWriteTransaction::OnCommit()
 	logArea->SetLogAreaDataValid();
 	m_itemSet.SetValues();
 	NVMMalloc::FreeLogArea(logArea);
-
-	m_readSet.Commit(this);
 }
 
 void CLWriteTransaction::OnAbort(CLTransactionAbort &)
 {
-	m_writeSet.Abort(this);
-	m_readSet.Abort(this);
+	m_objectSet.Abort(this);
 }
 
 CLTransactionalObject * CLWriteTransaction::OpenObjectRead(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
 {
 	assert(pUserObject);
-	CLTransactionalObject * pObject = CLTransactionalObject::ReadOpen(pUserObject, this, pUserObjectInfo);
+	CLTransactionalObject * pObject = m_objectSet.Find(pUserObject);
+	if (pObject)
+	{
+		goto markReadAndReturn;
+	}
+	pObject = CLTransactionalObject::ReadOpen(pUserObject, this, pUserObjectInfo);
 	if (pObject == nullptr)
 	{
 		throw CLTransactionAbort(OBJECT_OCCUPIED_BY_ANOTHER_WRITE_TRANSACTION);
 	}
-	m_readSet.AddObject(pObject);
+	m_objectSet.AddObject(pObject);
+
+markReadAndReturn:
+	pObject->MarkRead();
 	return pObject;
 }
 
 CLTransactionalObject * CLWriteTransaction::OpenObjectWrite(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
 {
 	assert(pUserObject);
-	CLTransactionalObject * pObject = CLTransactionalObject::WriteOpen(pUserObject, this, pUserObjectInfo);
+	CLTransactionalObject * pObject = m_objectSet.Find(pUserObject);
+	if (pObject)
+	{
+		goto markWriteAndReturn;
+	}
+	pObject = CLTransactionalObject::WriteOpen(pUserObject, this, pUserObjectInfo);
 	if (pObject == nullptr)
 	{
 		throw CLTransactionAbort(OBJECT_OCCUPIED_BY_ANOTHER_WRITE_TRANSACTION);
 	}
-	m_writeSet.AddObject(pObject);
+	m_objectSet.AddObject(pObject);
+
+markWriteAndReturn:
+	pObject->MarkWrite();
 	return pObject;
 }
 
 void CLWriteTransaction::ConvertOpenModeReadToWrite(CLTransactionalObject * pObject)
 {
 	assert(pObject);
-	if (m_readSet.RemoveObject(pObject))
+	if (!pObject->ConvertReadToWrite(this))
 	{
-		if (!pObject->ConvertReadToWrite(this))
-		{
-			throw CLTransactionAbort(UNEXPECTED_ERROR);
-		}
-		m_writeSet.AddObject(pObject);
+		throw CLTransactionAbort(UNEXPECTED_ERROR);
 	}
 }
 

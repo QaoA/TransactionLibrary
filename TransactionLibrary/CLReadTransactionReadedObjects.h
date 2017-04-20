@@ -7,7 +7,7 @@
 
 TRANSACTIONLIB_NS_BEGIN
 
-class CLReadedObject;
+struct SLObjectVersion;
 
 class CLReadTransactionReadedObjects
 {
@@ -17,17 +17,14 @@ public:
 
 public:
 	void Reset();
-	void AppendObject(CLReadedObject * pObject);
+	void AppendObject(SLObjectVersion * pVersion);
 	LSATimeStamp GetMinValidUpper();
 	void Commit();
 	void Abort();
-	CLReadedObject * FindObject(void * pUserObject);
-
-public:
-	static bool CompareReadedObject(CLReadedObject * pObject1, CLReadedObject * pObject2);
+	SLObjectVersion * FindObject(void * pUserObject);
 
 private:
-	std::map<void *, CLReadedObject*> m_readSet;
+	std::map<void *, SLObjectVersion*> m_readSet;
 	bool m_bIsClosed;
 	LSATimeStamp m_minValidUpper;
 };

@@ -1,7 +1,7 @@
 #ifndef __READ_ONLY_POINTER_H__
 #define __READ_ONLY_POINTER_H__
 
-#include "CLReadedObject.h"
+#include "SLObjectVersion.h"
 #include "CLThreadTransactionManager.h"
 #include "TransactionLibraryNameSpace.h"
 
@@ -11,12 +11,12 @@ template<typename T>
 class CLReadOnlyPointer
 {
 public:
-	CLReadOnlyPointer(void * pUserObject);
+	CLReadOnlyPointer(T * pUserObject);
 	~CLReadOnlyPointer();
 
 public:
 	const T * operator->();
-	const CLReadOnlyPointer<T> & operator=(void * pUserObject);
+	const CLReadOnlyPointer<T> & operator=(T * pUserObject);
 	const CLReadOnlyPointer<T> & operator=(const CLReadOnlyPointer &);
 	bool operator==(const CLReadOnlyPointer &);
 
@@ -24,11 +24,11 @@ public:
 	inline bool IsValid();
 
 private:
-	CLReadedObject * m_readedVersion;
+	SLObjectVersion * m_readedVersion;
 };
 
 template<typename T>
-CLReadOnlyPointer<T>::CLReadOnlyPointer(void * pUserObject):
+CLReadOnlyPointer<T>::CLReadOnlyPointer(T * pUserObject):
 m_readedVersion(nullptr)
 {
 	if (pUserObject != nullptr)
@@ -45,11 +45,11 @@ inline CLReadOnlyPointer<T>::~CLReadOnlyPointer()
 template<typename T>
 inline const T * CLReadOnlyPointer<T>::operator->()
 {
-	return static_cast<T *>(m_readedVersion->GetUserObjectCopy());
+	return static_cast<T *>(m_readedVersion->m_pUserObject);
 }
 
 template<typename T>
-const CLReadOnlyPointer<T> & CLReadOnlyPointer<T>::operator=(void * pUserObject)
+const CLReadOnlyPointer<T> & CLReadOnlyPointer<T>::operator=(T * pUserObject)
 {
 	if (pUserObject == nullptr)
 	{

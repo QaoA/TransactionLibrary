@@ -6,10 +6,12 @@
 
 TRANSACTIONLIB_NS_BEGIN
 
+class CLTransactionalObject;
+
 struct SLObjectVersion
 {
 public:
-	SLObjectVersion(void * pUserObject, LSATimeStamp commitTime, SLObjectVersion * pNextVersion);
+	SLObjectVersion(void * pUserObject, LSATimeStamp commitTime, SLObjectVersion * pNextVersion, CLTransactionalObject * pOwnerObject);
 	~SLObjectVersion();
 
 public:
@@ -17,6 +19,7 @@ public:
 	LSATimeStamp m_commitTime;
 	LSATimeStamp m_validUpperTime;
 	SLObjectVersion * m_pNextVersion;
+	CLTransactionalObject * m_pOwnerObject;
 };
 
 TRANSACTIONLIB_NS_END

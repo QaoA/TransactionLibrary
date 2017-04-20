@@ -70,7 +70,6 @@
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLMutex.cpp" />
     <ClCompile Include="CLRadixTreeNode.cpp" />
-    <ClCompile Include="CLReadedObject.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
     <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
     <ClCompile Include="CLSnapShot.cpp" />
@@ -81,8 +80,7 @@
     <ClCompile Include="CLTransactionalObject.cpp" />
     <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
     <ClCompile Include="CLWriteTransaction.cpp" />
-    <ClCompile Include="CLWriteTransactionReadObjects.cpp" />
-    <ClCompile Include="CLWriteTransactionWriteObjects.cpp" />
+    <ClCompile Include="CLWriteTransactionOpenedOjects.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SLLList.cpp" />
     <ClCompile Include="SLObjectVersion.cpp" />
@@ -106,7 +104,6 @@
     <ClInclude Include="CLMutex.h" />
     <ClInclude Include="CLRadixTree.h" />
     <ClInclude Include="CLRadixTreeNode.h" />
-    <ClInclude Include="CLReadedObject.h" />
     <ClInclude Include="CLReadOnlyPointer.h" />
     <ClInclude Include="CLReadPointer.h" />
     <ClInclude Include="CLReadTransaction.h" />
@@ -122,11 +119,11 @@
     <ClInclude Include="CLTransactionalObjectLookupTable.h" />
     <ClInclude Include="CLWritePointer.h" />
     <ClInclude Include="CLWriteTransaction.h" />
-    <ClInclude Include="CLWriteTransactionReadObjects.h" />
-    <ClInclude Include="CLWriteTransactionWriteObjects.h" />
+    <ClInclude Include="CLWriteTransactionOpenedOjects.h" />
     <ClInclude Include="ILLock.h" />
     <ClInclude Include="LSATimeStamp.h" />
     <ClInclude Include="NVMUserObject.h" />
+    <ClInclude Include="EMObjectOpenMode.h" />
     <ClInclude Include="SLTList.h" />
     <ClInclude Include="SLLList.h" />
     <ClInclude Include="SLObjectVersion.h" />

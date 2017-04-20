@@ -22,9 +22,6 @@
     <ClCompile Include="CLReadTransaction.cpp">
       <Filter>Source\Transaction</Filter>
     </ClCompile>
-    <ClCompile Include="CLReadedObject.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
     <ClCompile Include="CLReadTransactionReadedObjects.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
@@ -58,12 +55,6 @@
     <ClCompile Include="CLTransactionalObject.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CLWriteTransactionWriteObjects.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
-    <ClCompile Include="CLWriteTransactionReadObjects.cpp">
-      <Filter>Source\Container</Filter>
-    </ClCompile>
     <ClCompile Include="SLObjectVersion.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
@@ -72,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="SLTList.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="CLWriteTransactionOpenedOjects.cpp">
+      <Filter>Source\Container</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +180,6 @@
     <ClInclude Include="CLRadixTreeNode.h">
       <Filter>Header\Tool</Filter>
     </ClInclude>
-    <ClInclude Include="CLReadedObject.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
     <ClInclude Include="CLReadPointer.h">
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
@@ -249,12 +240,6 @@
     <ClInclude Include="CLReadWritePointer.h">
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
-    <ClInclude Include="CLWriteTransactionWriteObjects.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="CLWriteTransactionReadObjects.h">
-      <Filter>Header\Container</Filter>
-    </ClInclude>
     <ClInclude Include="SLObjectVersion.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
@@ -266,6 +251,12 @@
     </ClInclude>
     <ClInclude Include="TransactionLibraryNameSpace.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EMObjectOpenMode.h">
+      <Filter>Header\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CLWriteTransactionOpenedOjects.h">
+      <Filter>Header\Container</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

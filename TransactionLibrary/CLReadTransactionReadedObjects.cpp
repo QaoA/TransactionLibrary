@@ -1,6 +1,6 @@
 #include "CLReadTransactionReadedObjects.h"
-#include "CLReadedObject.h"
 #include "CLTransactionalObject.h"
+#include "SLObjectVersion.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -25,10 +25,10 @@ void CLReadTransactionReadedObjects::Reset()
 	m_minValidUpper = LSA_TIME_STAMP_INVALID;
 }
 
-void CLReadTransactionReadedObjects::AppendObject(CLReadedObject * pObject)
+void CLReadTransactionReadedObjects::AppendObject(SLObjectVersion * pVersion)
 {
-	assert(pObject);
-	m_readSet.insert(make_pair(pObject->GetUserObjectNVMAddress(),pObject));
+	assert(pVersion);
+	m_readSet.insert(make_pair(pVersion->m_pOwnerObject->GetUserObjectNVMAddress(), pVersion));
 }
 
 LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
@@ -42,13 +42,13 @@ LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
 	{
 		return LSA_TIME_STAMP_INFINITE;
 	}
-	LSATimeStamp minValidUpper = (m_readSet.begin()->second)->GetUpperTime();
-	for (pair<void * ,CLReadedObject *> it : m_readSet)
+	LSATimeStamp minValidUpper = (m_readSet.begin()->second)->m_validUpperTime;
+	for (pair<void * ,SLObjectVersion *> it : m_readSet)
 	{
-		CLReadedObject * pObject = it.second;
-		if (pObject->GetUpperTime() < minValidUpper)
+		SLObjectVersion * pVersion= it.second;
+		if(pVersion->m_validUpperTime < minValidUpper)
 		{
-			minValidUpper = pObject->GetUpperTime();
+			minValidUpper = pVersion->m_validUpperTime;
 		}
 	}
 
@@ -61,40 +61,33 @@ LSATimeStamp CLReadTransactionReadedObjects::GetMinValidUpper()
 
 void CLReadTransactionReadedObjects::Commit()
 {
-	for (map<void *, CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
+	for (map<void *, SLObjectVersion *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
 	{
-		CLReadedObject * pObject = it->second;
-		pObject->GetTransactionalObject()->ReadOnlyCommit();
-		delete pObject;
+		SLObjectVersion * pVersion = it->second;
+		pVersion->m_pOwnerObject->ReadOnlyCommit();
 		m_readSet.erase(it++);
 	}
 }
 
 void CLReadTransactionReadedObjects::Abort()
 {
-	for (map<void *, CLReadedObject *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
+	for (map<void *, SLObjectVersion *>::iterator it = m_readSet.begin(); it != m_readSet.end();)
 	{
-		CLReadedObject * pObject = it->second;
-		pObject->GetTransactionalObject()->ReadOnlyAbort();
-		delete pObject;
+		SLObjectVersion * pVersion = it->second;
+		pVersion->m_pOwnerObject->ReadOnlyAbort();
 		m_readSet.erase(it++);
 	}
 }
 
-CLReadedObject * CLReadTransactionReadedObjects::FindObject(void * pUserObject)
+SLObjectVersion * CLReadTransactionReadedObjects::FindObject(void * pUserObject)
 {
 	assert(pUserObject);
-	map<void *, CLReadedObject *>::iterator it = m_readSet.find(pUserObject);
+	map<void *, SLObjectVersion *>::iterator it = m_readSet.find(pUserObject);
 	if (it == m_readSet.end())
 	{
 		return nullptr;
 	}
 	return it->second;
-}
-
-bool CLReadTransactionReadedObjects::CompareReadedObject(CLReadedObject * pObject1, CLReadedObject * pObject2)
-{
-	assert(pObject1 && pObject2);
 }
 
 TRANSACTIONLIB_NS_END

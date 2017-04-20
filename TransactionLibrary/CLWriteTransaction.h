@@ -2,8 +2,7 @@
 #define __WRITE_TRANSACTION_H__
 
 #include "CLTransaction.h"
-#include "CLWriteTransactionReadObjects.h"
-#include "CLWriteTransactionWriteObjects.h"
+#include "CLWriteTransactionOpenedOjects.h"
 #include "CLLogItemsSet.h"
 #include "TransactionLibraryNameSpace.h"
 
@@ -29,9 +28,8 @@ public:
 	void ConvertOpenModeReadToWrite(CLTransactionalObject * pObject);
 	
 public:
-	CLWriteTransactionReadObjects m_readSet;
-	CLWriteTransactionWriteObjects m_writeSet;
 	CLLogItemsSet m_itemSet;
+	CLWriteTransactionOpenedOjects m_objectSet;
 };
 
 TRANSACTIONLIB_NS_END

@@ -23,7 +23,7 @@ public:
 	virtual void OnAbort(CLTransactionAbort &) override;
 
 public:
-	CLReadedObject * OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
+	SLObjectVersion * OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
 
 private:
 	CLSnapShot m_snapShot;

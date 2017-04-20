@@ -33,14 +33,14 @@ void CLReadTransaction::OnAbort(CLTransactionAbort &)
 	m_readSet.Abort();
 }
 
-CLReadedObject * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
+SLObjectVersion * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo)
 {
 	assert(pUserObjectInfo);
 
-	CLReadedObject * pReadedObject = m_readSet.FindObject(pUserObject);
-	if (pReadedObject)
+	SLObjectVersion * pReadedVersion = m_readSet.FindObject(pUserObject);
+	if (pReadedVersion)
 	{
-		return pReadedObject;
+		return pReadedVersion;
 	}
 
 	CLTransactionalObject * pObject = CLTransactionalObject::ReadOnlyOpen(pUserObject, pUserObjectInfo);
@@ -48,14 +48,14 @@ CLReadedObject * CLReadTransaction::OpenObject(void * pUserObject, SLUserObjectI
 	{
 		throw CLTransactionAbort(UNEXPECTED_ERROR);
 	}
-	pReadedObject = pObject->ReadForReadTransaction(m_snapShot, m_readSet);
-	if (pReadedObject == nullptr)
+	pReadedVersion = pObject->ReadForReadTransaction(m_snapShot, m_readSet);
+	if (pReadedVersion == nullptr)
 	{
 		pObject->ReadOnlyAbort();
 		throw CLTransactionAbort(NO_VALID_VERSION_IN_READ_TRANSACION);
 	}	
-	m_readSet.AppendObject(pReadedObject);
-	return pReadedObject;
+	m_readSet.AppendObject(pReadedVersion);
+	return pReadedVersion;
 }
 
 TRANSACTIONLIB_NS_END

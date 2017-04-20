@@ -50,7 +50,7 @@ void SLTList::ShowList(SLTList * pList)
 	} while (pTmp!= pHead);
 }
 
-void SLTList::ShowListReadOnly(SLTList * pList)
+void SLTList::ShowListReadOnly(void * pArg)
 {
 	//SLTList * pHead = pList;
 	//SLTList * pTmp = pHead;
@@ -59,11 +59,26 @@ void SLTList::ShowListReadOnly(SLTList * pList)
 	//	cout << pTmp->m_data << "\t" << endl; _
 	//		pTmp = pTmp->m_pNext;
 	//} while (pTmp != pHead);
+	SLTList * pList = (SLTList *)(pArg);
 	CLReadOnlyPointer<SLTList> pHead(pList);
 	CLReadOnlyPointer<SLTList> pTmp = pHead;
 	do 
 	{
 		cout << pTmp->m_data << "\t" << endl;
+		pTmp = pTmp->m_pNext;
+	} while (!(pTmp == pHead));
+}
+
+void SLTList::IncreaseAll(void * arg)
+{
+	SLTList * pList = (SLTList *)(arg);
+	CLWritePointer<SLTList> pHead(pList);
+	CLWritePointer<SLTList> pTmp = pHead;
+	do
+	{
+		cout << pTmp->m_data << " v1\t" << endl;
+		pTmp->m_data++;
+		cout << pTmp->m_data << " v2\t" << endl;
 		pTmp = pTmp->m_pNext;
 	} while (!(pTmp == pHead));
 }

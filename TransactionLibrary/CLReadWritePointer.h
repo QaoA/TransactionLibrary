@@ -4,6 +4,7 @@
 #include "CLTransactionalObject.h"
 #include "CLWriteTransaction.h"
 #include "TransactionLibraryNameSpace.h"
+#include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
 
@@ -11,13 +12,11 @@ template<typename T>
 class CLReadWritePointer
 {
 public:
-	CLReadWritePointer(void * pUserObject);
+	CLReadWritePointer(T * pUserObject);
 	~CLReadWritePointer();
 
 public:
 	inline const T * operator->();
-
-public:
 	inline bool IsValid();
 
 private:
@@ -25,7 +24,7 @@ private:
 };
 
 template<typename T>
-inline CLReadWritePointer<T>::CLReadWritePointer(void * pUserObject):
+inline CLReadWritePointer<T>::CLReadWritePointer(T * pUserObject):
 m_pObject(nullptr)
 {
 	if (pUserObject != nullptr)
