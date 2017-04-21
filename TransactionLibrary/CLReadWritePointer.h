@@ -29,7 +29,7 @@ m_pObject(nullptr)
 {
 	if (pUserObject != nullptr)
 	{
-		m_pObject = CLThreadTransactionManager::GetInstance().GetWriteTransaction().OpenObjectRead(pUserObject, T::GetUserObjectInfo());
+		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectRead(pUserObject, T::GetUserObjectInfo());
 	}
 }
 

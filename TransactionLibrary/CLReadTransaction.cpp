@@ -1,6 +1,7 @@
 #include "CLReadTransaction.h"
 #include "CLTransactionalObject.h"
 #include "CLTransactionAbort.h"
+#include "CLThreadTransactionManager.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN

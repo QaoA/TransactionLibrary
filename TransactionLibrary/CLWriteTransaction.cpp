@@ -5,6 +5,7 @@
 #include "CLBasicData.h"
 #include "CLLSAClock.h"
 #include "CLLogArea.h"
+#include "CLThreadTransactionManager.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN

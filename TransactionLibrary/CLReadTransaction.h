@@ -16,7 +16,7 @@ public:
 	CLReadTransaction();
 	virtual ~CLReadTransaction();
 
-public:
+private:
 	virtual void Initialize() override;
 	virtual void Uninitialize() override;
 	virtual void OnCommit() override;

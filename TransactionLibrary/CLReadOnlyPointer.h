@@ -33,7 +33,7 @@ m_readedVersion(nullptr)
 {
 	if (pUserObject != nullptr)
 	{
-		m_readedVersion = CLThreadTransactionManager::GetInstance().GetReadTransaction().OpenObject(pUserObject,T::GetUserObjectInfo());
+		m_readedVersion = CLThreadTransactionManager::GetReadTransaction()->OpenObject(pUserObject,T::GetUserObjectInfo());
 	}
 }
 
@@ -55,7 +55,7 @@ const CLReadOnlyPointer<T> & CLReadOnlyPointer<T>::operator=(T * pUserObject)
 	{
 		m_readedVersion = nullptr;
 	}
-	m_readedVersion = CLThreadTransactionManager::GetInstance().GetReadTransaction().OpenObject(pUserObject, T::GetUserObjectInfo());
+	m_readedVersion = CLThreadTransactionManager::GetReadTransaction()->OpenObject(pUserObject, T::GetUserObjectInfo());
 	return *this;
 }
 

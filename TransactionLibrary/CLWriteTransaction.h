@@ -16,7 +16,7 @@ public:
 	CLWriteTransaction();
 	virtual ~CLWriteTransaction();
 
-public:
+private:
 	virtual void Initialize() override;
 	virtual void Uninitialize() override;
 	virtual void OnCommit() override;

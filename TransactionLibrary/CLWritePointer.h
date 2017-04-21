@@ -38,7 +38,7 @@ m_pObject(nullptr)
 {
 	if (pUserObject != nullptr)
 	{
-		m_pObject = CLThreadTransactionManager::GetInstance().GetWriteTransaction().OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
+		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
 	}
 }
 
@@ -52,7 +52,7 @@ CLWritePointer<T>& CLWritePointer<T>::operator=(T * pUserObject)
 {
 	if (pUserObject != nullptr)
 	{
-		m_pObject = CLThreadTransactionManager::GetInstance().GetWriteTransaction().OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
+		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
 	}
 	else
 	{
@@ -70,7 +70,7 @@ CLWritePointer<T>& CLWritePointer<T>::operator=(const CLWritePointer & anotherPo
 template<typename T>
 CLWritePointer<T>& CLWritePointer<T>::operator=(const CLReadWritePointer<T> & anotherPointer)
 {
-	m_pObject = CLThreadTransactionManager::GetInstance().GetWriteTransaction().ConvertOpenModeReadToWrite(anotherPointer.m_pObject);
+	m_pObject = CLThreadTransactionManager::GetWriteTransaction()->ConvertOpenModeReadToWrite(anotherPointer.m_pObject);
 }
 
 template<typename T>
