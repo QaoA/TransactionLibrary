@@ -47,6 +47,7 @@ void CLWriteTransactionOpenedOjects::Commit(CLWriteTransaction * pOwner, CLLogIt
 			pObject->ReadCommit(pOwner);
 			m_objectSet.erase(it++);
 		}
+		assert(true);
 	}
 }
 
@@ -59,13 +60,12 @@ void CLWriteTransactionOpenedOjects::Abort(CLWriteTransaction * pOwner)
 		if (pObject->GetOpenMode() & OPEN_WRITE)
 		{
 			pObject->WriteAbort(pOwner);
-			it++;
 		}
 		else if (pObject->GetOpenMode() & OPEN_READ)
 		{
 			pObject->ReadAbort(pOwner);
-			m_objectSet.erase(it++);
 		}
+		m_objectSet.erase(it++);
 	}
 }
 

@@ -6,11 +6,11 @@
 #include "SLObjectVersion.h"
 #include "EMObjectOpenMode.h"
 #include "TransactionLibraryNameSpace.h"
-#include "CLLogArea.h"
 
 TRANSACTIONLIB_NS_BEGIN
 
 #define TRANSACTIONAL_OBJECT_MAX_CACHE_VERSION_COUNT 3
+#define OBJECT_OWNER_POISION (CLWriteTransaction *)(1)
 
 class CLWriteTransaction;
 struct SLUserObjectInfo;
@@ -44,7 +44,7 @@ public:
 	void ReadOnlyAbort();
 	void ReadCommit(CLWriteTransaction * pOwner);
 	void ReadAbort(CLWriteTransaction * pOwner);
-	void WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime, NVMMalloc::CLLogArea & logArea);
+	void WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime);
 	void WriteClose(CLWriteTransaction * pOwner);
 	void WriteAbort(CLWriteTransaction * pOwner);
 	bool ConvertReadToWrite(CLWriteTransaction * pOwner);
@@ -101,22 +101,22 @@ inline void * CLTransactionalObject::GetUserObjectNVMAddress()
 
 inline void CLTransactionalObject::MarkRead()
 {
-	m_openMode &= OPEN_READ;
+	m_openMode |= OPEN_READ;
 }
 
 inline void CLTransactionalObject::MarkWrite()
 {
-	m_openMode &= OPEN_WRITE;
+	m_openMode |= OPEN_WRITE;
 }
 
 inline void CLTransactionalObject::MarkNew()
 {
-	m_openMode &= OPEN_NEW;
+	m_openMode |= OPEN_NEW;
 }
 
 inline void CLTransactionalObject::MarkDelete()
 {
-	m_openMode &= OPEN_DELETE;
+	m_openMode |= OPEN_DELETE;
 }
 
 inline EMObjectOpenMode CLTransactionalObject::GetOpenMode()

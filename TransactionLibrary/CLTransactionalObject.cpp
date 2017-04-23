@@ -53,6 +53,10 @@ void CLTransactionalObject::ReleaseObject(CLTransactionalObject * pObject)
 		pCurrentVersion = pCurrentVersion->m_pNextVersion;
 		ReleaseVersion(pTmpVersion);
 	}
+	if (pObject->m_openMode & OPEN_DELETE)
+	{
+		NVMMalloc::FreeOnNVM(pObject->m_pNVMAddress);
+	}
 	delete pObject;
 }
 
@@ -94,7 +98,7 @@ void CLTransactionalObject::ReadCommit(CLWriteTransaction * pOwner)
 	assert(pOwner);
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
-	m_openMode = OPEN_NONE;
+	m_openMode &= OPEN_CLEAR_MASK;
 	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
 }
 
@@ -103,7 +107,7 @@ void CLTransactionalObject::ReadAbort(CLWriteTransaction * pOwner)
 	assert(pOwner);
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
-	m_openMode = OPEN_NONE;
+	m_openMode &= OPEN_CLEAR_MASK;
 	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
 }
 
@@ -125,35 +129,51 @@ CLTransactionalObject * CLTransactionalObject::WriteOpen(void * pNVMUserObject, 
 	return nullptr;
 }
 
-void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime, NVMMalloc::CLLogArea & logArea)
+void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime)
 {
-	if (m_openMode & OPEN_NEW)
+	if (m_openMode & OPEN_DELETE)
 	{
-		if (m_openMode & OPEN_DELETE)
+		if (m_openMode & OPEN_NEW)
 		{
 			return;
 		}
-		else
-		{
-			unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
-			unsigned int newReferenceCount = 1;
-			itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&newReferenceCount);
-		}
+
+		unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
+		assert(pObjectReferenceCount);
+		int rfcnt = 0;
+		itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&rfcnt);
+		return;
 	}
+	
 	m_TentativeVersion->m_commitTime = commitTime;
 	SLObjectVersion * pNextVersion = m_TentativeVersion->m_pNextVersion;
 	assert(pNextVersion);
 	pNextVersion->m_validUpperTime = commitTime - 1;
-	logArea.WriteLog(m_pNVMAddress, m_pUserInfo->m_objectSize, m_TentativeVersion->m_pUserObject);
-	TryCleanOldVersion();
+	itemsSet.AddItem(m_pNVMAddress, m_pUserInfo->m_objectSize, m_TentativeVersion->m_pUserObject);
+
+	if (m_openMode & OPEN_NEW)
+	{
+		unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
+		assert(pObjectReferenceCount);
+		int rfcnt = 1;
+		itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&rfcnt);
+	}
+	else
+	{
+		TryCleanOldVersion();
+	}
 }
 
 void CLTransactionalObject::WriteClose(CLWriteTransaction * pOwner)
 {
-	//放入到GC里
-	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
+	CLWriteTransaction * pNewOwner = nullptr;
+	if (m_openMode & OPEN_DELETE)
+	{
+		pNewOwner = OBJECT_OWNER_POISION;
+	}
+	bool ret = m_pOwner.compare_exchange_strong(pOwner, pNewOwner);
 	assert(ret == true);
-	m_openMode = OPEN_NONE;
+	m_openMode &= OPEN_CLEAR_MASK;
 	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
 }
 
@@ -162,6 +182,11 @@ void CLTransactionalObject::WriteAbort(CLWriteTransaction * pOwner)
 	SLObjectVersion * pCurrent = m_TentativeVersion;
 	m_TentativeVersion= pCurrent->m_pNextVersion;
 	CLGarbageCollector::GetInstance().CollectGarbage(pCurrent, ReleaseVersion);
+
+	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
+	assert(ret == true);
+	m_openMode &= OPEN_CLEAR_MASK;
+	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
 }
 
 bool CLTransactionalObject::ConvertReadToWrite(CLWriteTransaction * pOwner)
@@ -184,7 +209,7 @@ SLObjectVersion * CLTransactionalObject::ReadForReadTransaction(CLSnapShot & sna
 		snapShot.ExtendUpper(readSet.GetMinValidUpper());
 	}
 
-	do 
+	do
 	{
 		if (pTmpVersion->m_commitTime <= snapShot.GetUpper())
 		{

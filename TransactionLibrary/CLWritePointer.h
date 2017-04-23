@@ -25,14 +25,15 @@ public:
 	CLWritePointer<T> & operator=(T * pUserObject);
 	CLWritePointer<T> & operator=(const CLWritePointer &);
 	CLWritePointer<T> & operator=(const CLReadWritePointer<T> &);
-	bool operator==(const CLWritePointer &);
+	bool operator==(const CLWritePointer & anotherPointer);
+	inline T * operator->();
+	inline operator T * ();
 
 public:
 	static CLWritePointer MakeNewObjectPointer(T * pUserObject);
-	static void DeleteObjectByPointer(CLWritePointer<T> & writePointer);
+	static void DeleteObjectByPointer(CLWritePointer & writePointer);
 	
 public:
-	inline T * operator->();
 	inline bool IsValid();
 
 private:
@@ -57,7 +58,7 @@ m_pObject(nullptr)
 	{
 		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
 	}
-	m_pObject &= OPEN_NEW;
+	m_pObject->MarkNew();
 }
 template<typename T>
 CLWritePointer<T>::~CLWritePointer()
@@ -97,13 +98,13 @@ inline bool CLWritePointer<T>::operator==(const CLWritePointer & anotherPointer)
 }
 
 template<typename T>
-CLWritePointer CLWritePointer<T>::MakeNewObjectPointer(T * pUserObject)
+CLWritePointer<T> CLWritePointer<T>::MakeNewObjectPointer(T * pUserObject)
 {
 	return CLWritePointer(pUserObject, true);
 }
 
 template<typename T>
-void CLWritePointer<T>::DeleteObjectByPointer(CLWritePointer<T> & writePointer)
+void CLWritePointer<T>::DeleteObjectByPointer(CLWritePointer & writePointer)
 {
 	writePointer.MarkDelete();
 	writePointer.m_pObject = nullptr;
@@ -114,6 +115,12 @@ inline T * CLWritePointer<T>::operator->()
 {
 	assert(m_pObject);
 	return static_cast<T *>(m_pObject->GetTentativeVersionUserObjectCopy());
+}
+
+template<typename T>
+inline CLWritePointer<T>::operator T*()
+{
+	return static_cast<T *>(m_pObject->GetUserObjectNVMAddress());
 }
 
 template<typename T>

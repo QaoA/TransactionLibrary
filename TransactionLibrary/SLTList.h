@@ -3,6 +3,8 @@
 
 #include "NVMUserObject.h"
 
+using namespace NVMTransaction;
+
 struct SLTList
 {
 	NVM_OBJECT(SLTList)
@@ -13,13 +15,14 @@ public:
 	int m_data;
 
 public:
-	void Append(SLTList * pList);
+	//void Append(SLTList * pList);
 
 public:
-	static SLTList * MakeList(const int min, const int max);
+	static void MakeList(void *);
 	static void ShowList(SLTList * pList);
 	static void ShowListReadOnly(void * pList);
 	static void IncreaseAll(void * arg);
+	static void Append(CLWritePointer<SLTList> pPrevious, CLWritePointer<SLTList> pNext);
 };
 
 #endif

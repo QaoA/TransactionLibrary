@@ -13,6 +13,7 @@ typedef unsigned int EMObjectOpenMode;
 #define OPEN_WRITE (EMObjectOpenMode)(0x4)
 #define OPEN_NEW (EMObjectOpenMode)(0x8)
 #define OPEN_DELETE (EMObjectOpenMode)(0x10)
+#define OPEN_CLEAR_MASK (OPEN_DELETE)
 
 TRANSACTIONLIB_NS_END
 #endif

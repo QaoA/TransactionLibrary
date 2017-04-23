@@ -1,4 +1,5 @@
 #include "SLTList.h"
+#include "CLWritePointer.h"
 #include "CLReadOnlyPointer.h"
 #include <iostream>
 
@@ -12,31 +13,47 @@ SLTList::SLTList(int data) :
 {
 }
 
-void SLTList::Append(SLTList * pList)
-{
-	pList->m_pNext = m_pNext;
-	pList->m_pPrevious = this;
-	m_pNext->m_pPrevious = pList;
-	m_pNext = pList;
-}
+//void SLTList::Append(SLTList * pList)
+//{
+//	pList->m_pNext = m_pNext;
+//	pList->m_pPrevious = this;
+//	m_pNext->m_pPrevious = pList;
+//	m_pNext = pList;
+//}
 
-SLTList * SLTList::MakeList(const int min, const int max)
+void SLTList::MakeList(void *)
 {
-	SLTList * pList;
+	//SLTList * pList;
+	//for (int i = min; i < max; ++i)
+	//{
+	//	if (i == min)
+	//	{
+	//		pList = new SLTList(i);
+	//	}
+	//	else
+	//	{
+	//		SLTList * pTmpList = new SLTList(i);
+	//		NVMMalloc::NotifyNVMMemoryGet(pTmpList);
+	//		pList->Append(pTmpList);
+	//	}
+	//}
+	
+	int min = 0;
+	int max = 5;
+	
+	CLWritePointer<SLTList> pList(nullptr);
 	for (int i = min; i < max; ++i)
 	{
 		if (i == min)
 		{
-			pList = new SLTList(i);
+			pList = CLWritePointer<SLTList>::MakeNewObjectPointer(new SLTList(i));
 		}
 		else
 		{
-			SLTList * pTmpList = new SLTList(i);
-			NVMMalloc::NotifyNVMMemoryGet(pTmpList);
-			pList->Append(pTmpList);
+			CLWritePointer<SLTList> pTmpList = CLWritePointer<SLTList>::MakeNewObjectPointer(new SLTList(i));
+			Append(pList, pTmpList);
 		}
 	}
-	return pList;
 }
 
 void SLTList::ShowList(SLTList * pList)
@@ -80,5 +97,17 @@ void SLTList::IncreaseAll(void * arg)
 		pTmp->m_data++;
 		cout << pTmp->m_data << " v2\t" << endl;
 		pTmp = pTmp->m_pNext;
-	} while (!(pTmp == pHead));
+	} while (pTmp != pHead);
+}
+
+void SLTList::Append(CLWritePointer<SLTList> pPrevious, CLWritePointer<SLTList> pNext)
+{
+	CLWritePointer<SLTList> pOldNext = pPrevious->m_pNext;
+	pNext->m_pNext = pOldNext;
+	pNext->m_pPrevious = pPrevious;
+	pPrevious->m_pNext = pNext;
+	if (pOldNext != nullptr)
+	{
+		pOldNext->m_pPrevious = pNext;
+	}
 }

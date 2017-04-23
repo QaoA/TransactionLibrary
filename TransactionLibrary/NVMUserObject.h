@@ -17,7 +17,7 @@ static NVMTransaction::SLUserObjectInfo * GetUserObjectInfo()\
 		};\
 	return &userInfo;\
 }\
-static void * operator new(std::size_t size) throw(std::bad_alloc)\
+static void * operator new(size_t size) throw(std::bad_alloc)\
 {\
 	void * ptr = NVMMalloc::MallocOnNVM(size);\
 	if(ptr == nullptr)\
@@ -25,7 +25,7 @@ static void * operator new(std::size_t size) throw(std::bad_alloc)\
 		throw std::bad_alloc();\
 	}\
 }\
-static void operator delete(void * ptr,std::size_t size) throw()\
+static void operator delete(void * ptr,size_t size) throw()\
 {\
 	if(ptr == nullptr)\
 	{\

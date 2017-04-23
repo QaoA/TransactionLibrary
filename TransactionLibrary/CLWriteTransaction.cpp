@@ -33,12 +33,11 @@ void CLWriteTransaction::OnCommit()
 {
 	LSATimeStamp commitTime = CLLSAClock::GetInstance().Tick();
 	m_objectSet.Commit(this, m_itemSet, commitTime);
-
 	CLLogArea * logArea = NVMMalloc::AllocLogArea();
 	assert(logArea);
-	logArea->SetLogAreaDataInvalid();
+	logArea->WriteLogStart();
 	m_itemSet.WriteLogs(*logArea);
-	logArea->SetLogAreaDataValid();
+	logArea->WriteLogEnd();
 	m_itemSet.SetValues();
 	NVMMalloc::FreeLogArea(logArea);
 }
