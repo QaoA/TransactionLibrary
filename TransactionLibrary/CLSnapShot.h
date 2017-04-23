@@ -2,7 +2,6 @@
 #define __SNAPSHOT_H__
 
 #include "LSATimeStamp.h"
-#include "CLBasicData.h"
 #include "CLLSAClock.h"
 #include "BasicFunctions.h"
 #include "TransactionLibraryNameSpace.h"
@@ -50,7 +49,7 @@ inline void CLSnapShot::TrySetUpper(LSATimeStamp time)
 {
 	if (time == LSA_TIME_STAMP_INFINITE)
 	{
-		time = CLBasicData::GetInstance().GetLSAClock().GetClock();
+		time = CLLSAClock::GetInstance().GetClock();
 	}
 	if (m_upper > time)
 	{
@@ -68,7 +67,7 @@ inline void CLSnapShot::TrySetLower(LSATimeStamp time)
 
 inline void CLSnapShot::ExtendUpper(LSATimeStamp readedObjectsValidUpper)
 {
-	m_upper = Min(CLBasicData::GetInstance().GetLSAClock().GetClock(), readedObjectsValidUpper);
+	m_upper = Min(CLLSAClock::GetInstance().GetClock(), readedObjectsValidUpper);
 }
 
 TRANSACTIONLIB_NS_END

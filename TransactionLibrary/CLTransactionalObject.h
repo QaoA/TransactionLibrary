@@ -6,6 +6,7 @@
 #include "SLObjectVersion.h"
 #include "EMObjectOpenMode.h"
 #include "TransactionLibraryNameSpace.h"
+#include "CLLogArea.h"
 
 TRANSACTIONLIB_NS_BEGIN
 
@@ -43,7 +44,7 @@ public:
 	void ReadOnlyAbort();
 	void ReadCommit(CLWriteTransaction * pOwner);
 	void ReadAbort(CLWriteTransaction * pOwner);
-	void WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime);
+	void WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime, NVMMalloc::CLLogArea & logArea);
 	void WriteClose(CLWriteTransaction * pOwner);
 	void WriteAbort(CLWriteTransaction * pOwner);
 	bool ConvertReadToWrite(CLWriteTransaction * pOwner);
@@ -54,6 +55,8 @@ public:
 	inline void * GetUserObjectNVMAddress();
 	inline void MarkRead();
 	inline void MarkWrite();
+	inline void MarkNew();
+	inline void MarkDelete();
 	inline EMObjectOpenMode GetOpenMode();
 
 private:
@@ -104,6 +107,16 @@ inline void CLTransactionalObject::MarkRead()
 inline void CLTransactionalObject::MarkWrite()
 {
 	m_openMode &= OPEN_WRITE;
+}
+
+inline void CLTransactionalObject::MarkNew()
+{
+	m_openMode &= OPEN_NEW;
+}
+
+inline void CLTransactionalObject::MarkDelete()
+{
+	m_openMode &= OPEN_DELETE;
 }
 
 inline EMObjectOpenMode CLTransactionalObject::GetOpenMode()

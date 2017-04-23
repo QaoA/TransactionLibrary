@@ -5,6 +5,8 @@
 #include "CLLogItemsSet.h"
 #include "CLSnapShot.h"
 #include "CLReadTransactionReadedObjects.h"
+#include "NVMMalloc.h"
+#include "CLLogArea.h"
 #include <cstring>
 #include <cassert>
 
@@ -123,18 +125,32 @@ CLTransactionalObject * CLTransactionalObject::WriteOpen(void * pNVMUserObject, 
 	return nullptr;
 }
 
-void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime)
+void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp commitTime, NVMMalloc::CLLogArea & logArea)
 {
+	if (m_openMode & OPEN_NEW)
+	{
+		if (m_openMode & OPEN_DELETE)
+		{
+			return;
+		}
+		else
+		{
+			unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
+			unsigned int newReferenceCount = 1;
+			itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&newReferenceCount);
+		}
+	}
 	m_TentativeVersion->m_commitTime = commitTime;
 	SLObjectVersion * pNextVersion = m_TentativeVersion->m_pNextVersion;
 	assert(pNextVersion);
 	pNextVersion->m_validUpperTime = commitTime - 1;
-	itemsSet.AddItem(m_pNVMAddress, m_pUserInfo->m_objectSize, m_TentativeVersion->m_pUserObject);
+	logArea.WriteLog(m_pNVMAddress, m_pUserInfo->m_objectSize, m_TentativeVersion->m_pUserObject);
 	TryCleanOldVersion();
 }
 
 void CLTransactionalObject::WriteClose(CLWriteTransaction * pOwner)
 {
+	//放入到GC里
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
 	m_openMode = OPEN_NONE;

@@ -2,7 +2,6 @@
 #include "CLTransactionalObject.h"
 #include "CLTransactionAbort.h"
 #include "NVMMalloc.h"
-#include "CLBasicData.h"
 #include "CLLSAClock.h"
 #include "CLLogArea.h"
 #include "CLThreadTransactionManager.h"
@@ -32,7 +31,7 @@ void CLWriteTransaction::Uninitialize()
 
 void CLWriteTransaction::OnCommit()
 {
-	LSATimeStamp commitTime = CLBasicData::GetInstance().GetLSAClock().Tick();
+	LSATimeStamp commitTime = CLLSAClock::GetInstance().Tick();
 	m_objectSet.Commit(this, m_itemSet, commitTime);
 
 	CLLogArea * logArea = NVMMalloc::AllocLogArea();

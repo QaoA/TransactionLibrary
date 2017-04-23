@@ -9,9 +9,16 @@ TRANSACTIONLIB_NS_BEGIN
 
 class CLLSAClock
 {
-public:
+private:
 	CLLSAClock();
+	CLLSAClock(const CLLSAClock &);
+	CLLSAClock & operator=(const CLLSAClock &);
+
+public:
 	~CLLSAClock();
+
+public:
+	static CLLSAClock & GetInstance();
 
 public:
 	LSATimeStamp Tick();

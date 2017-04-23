@@ -63,7 +63,6 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CLBasicData.cpp" />
     <ClCompile Include="CLCriticalSection.cpp" />
     <ClCompile Include="CLGarbageCollector.cpp" />
     <ClCompile Include="CLLogItemsSet.cpp" />
@@ -96,7 +95,6 @@
   <ItemGroup>
     <ClInclude Include="AtomicOperation.h" />
     <ClInclude Include="BasicFunctions.h" />
-    <ClInclude Include="CLBasicData.h" />
     <ClInclude Include="CLCriticalSection.h" />
     <ClInclude Include="CLGarbageCollector.h" />
     <ClInclude Include="CLLogItemsSet.h" />

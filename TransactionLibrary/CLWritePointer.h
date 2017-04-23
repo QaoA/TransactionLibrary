@@ -18,12 +18,19 @@ public:
 	CLWritePointer(T * pUserObject);
 	~CLWritePointer();
 
+private:
+	CLWritePointer(T * pUserObject, bool newFlag);
+
 public:
 	CLWritePointer<T> & operator=(T * pUserObject);
 	CLWritePointer<T> & operator=(const CLWritePointer &);
 	CLWritePointer<T> & operator=(const CLReadWritePointer<T> &);
 	bool operator==(const CLWritePointer &);
 
+public:
+	static CLWritePointer MakeNewObjectPointer(T * pUserObject);
+	static void DeleteObjectByPointer(CLWritePointer<T> & writePointer);
+	
 public:
 	inline T * operator->();
 	inline bool IsValid();
@@ -42,6 +49,16 @@ m_pObject(nullptr)
 	}
 }
 
+template<typename T>
+inline CLWritePointer<T>::CLWritePointer(T * pUserObject, bool newFlag) :
+m_pObject(nullptr)
+{
+	if (pUserObject != nullptr)
+	{
+		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
+	}
+	m_pObject &= OPEN_NEW;
+}
 template<typename T>
 CLWritePointer<T>::~CLWritePointer()
 {
@@ -77,6 +94,19 @@ template<typename T>
 inline bool CLWritePointer<T>::operator==(const CLWritePointer & anotherPointer)
 {
 	return m_pObject == anotherPointer.m_pObject;
+}
+
+template<typename T>
+CLWritePointer CLWritePointer<T>::MakeNewObjectPointer(T * pUserObject)
+{
+	return CLWritePointer(pUserObject, true);
+}
+
+template<typename T>
+void CLWritePointer<T>::DeleteObjectByPointer(CLWritePointer<T> & writePointer)
+{
+	writePointer.MarkDelete();
+	writePointer.m_pObject = nullptr;
 }
 
 template<typename T>

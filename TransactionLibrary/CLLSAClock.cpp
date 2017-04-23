@@ -11,6 +11,12 @@ CLLSAClock::~CLLSAClock()
 {
 }
 
+CLLSAClock & CLLSAClock::GetInstance()
+{
+	static CLLSAClock instance;
+	return instance;
+}
+
 LSATimeStamp CLLSAClock::Tick()
 {
 	return ++m_clock;
