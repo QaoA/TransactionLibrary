@@ -2,6 +2,8 @@
 
 using namespace std;
 
+TRANSACTIONLIB_NS_BEGIN
+
 CLQuiescentStateManager::CLQuiescentStateManager()
 {
 }
@@ -64,3 +66,5 @@ bool CLQuiescentStateManager::CompareTwoThreadsVersionSnapshot(ThreadsVersionsSn
 	}
 	return true;
 }
+
+TRANSACTIONLIB_NS_END

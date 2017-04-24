@@ -107,7 +107,7 @@ void CLTransactionalObject::ReadAbort(CLWriteTransaction * pOwner)
 	assert(pOwner);
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
-	m_openMode &= OPEN_CLEAR_MASK;
+	m_openMode = OPEN_NONE;
 	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
 }
 
@@ -179,6 +179,12 @@ void CLTransactionalObject::WriteClose(CLWriteTransaction * pOwner)
 
 void CLTransactionalObject::WriteAbort(CLWriteTransaction * pOwner)
 {
+	if (m_openMode & OPEN_NEW)
+	{
+		ReleaseObject(this);
+		return;
+	}
+	
 	SLObjectVersion * pCurrent = m_TentativeVersion;
 	m_TentativeVersion= pCurrent->m_pNextVersion;
 	CLGarbageCollector::GetInstance().CollectGarbage(pCurrent, ReleaseVersion);

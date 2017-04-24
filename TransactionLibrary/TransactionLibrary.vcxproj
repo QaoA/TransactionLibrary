@@ -64,10 +64,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CLCriticalSection.cpp" />
+    <ClCompile Include="CLDeletedObjectSet.cpp" />
     <ClCompile Include="CLGarbageCollector.cpp" />
     <ClCompile Include="CLLogItemsSet.cpp" />
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLMutex.cpp" />
+    <ClCompile Include="CLQuiescentStateManager.cpp" />
     <ClCompile Include="CLRadixTreeNode.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
     <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
@@ -96,10 +98,12 @@
     <ClInclude Include="AtomicOperation.h" />
     <ClInclude Include="BasicFunctions.h" />
     <ClInclude Include="CLCriticalSection.h" />
+    <ClInclude Include="CLDeletedObjectSet.h" />
     <ClInclude Include="CLGarbageCollector.h" />
     <ClInclude Include="CLLogItemsSet.h" />
     <ClInclude Include="CLLSAClock.h" />
     <ClInclude Include="CLMutex.h" />
+    <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLRadixTree.h" />
     <ClInclude Include="CLRadixTreeNode.h" />
     <ClInclude Include="CLReadOnlyPointer.h" />

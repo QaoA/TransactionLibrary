@@ -4,8 +4,11 @@
 #include <pthread.h>
 #include <map>
 #include <list>
-#include <time.h>
+#include <ctime>
 #include <cassert>
+#include "TransactionLibraryNameSpace.h"
+
+TRANSACTIONLIB_NS_BEGIN
 
 class CLQuiescentStateManager
 {
@@ -52,6 +55,8 @@ bool CLQuiescentStateManager::IsQuiescentStateAppeared(int firstVersion, int sec
 	}
 	return true;
 }
+
+TRANSACTIONLIB_NS_END
 
 #endif
 
