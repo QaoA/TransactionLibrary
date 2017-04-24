@@ -30,9 +30,24 @@ void CLLogItemsSet::AddItem(void * pNVMAddress, unsigned long size, void * pValu
 	m_itemsSet.push_back(new CLLogItem(pNVMAddress, size, pValue));
 }
 
-void CLLogItemsSet::AddItem(void * pNVMAddress, unsigned long size, char * value)
+void CLLogItemsSet::AddItem(void * pNVMAddress, uint64_t value)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, size, value));
+	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+}
+
+void CLLogItemsSet::AddItem(void * pNVMAddress, uint32_t value)
+{
+	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+}
+
+void CLLogItemsSet::AddItem(void * pNVMAddress, uint16_t value)
+{
+	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+}
+
+void CLLogItemsSet::AddItem(void * pNVMAddress, uint8_t value)
+{
+	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
 }
 
 void CLLogItemsSet::WriteLogs(CLLogArea & logArea)

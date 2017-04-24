@@ -6,7 +6,8 @@ TRANSACTIONLIB_NS_BEGIN
 static __thread CLReadTransaction * m_pReadTransaction = nullptr;
 static __thread CLWriteTransaction * m_pWriteTransaction = nullptr;
 
-CLThreadTransactionManager::CLThreadTransactionManager()
+CLThreadTransactionManager::CLThreadTransactionManager():
+m_threadTransactions(ReleaseThreadTransactions)
 {
 }
 
@@ -18,6 +19,11 @@ CLThreadTransactionManager & CLThreadTransactionManager::GetInstance()
 {
 	static CLThreadTransactionManager instance;
 	return instance;
+}
+
+void CLThreadTransactionManager::ReleaseThreadTransactions(void * pThreadTransactions)
+{
+	delete(SLThreadTransactions *)(pThreadTransactions);
 }
 
 CLReadTransaction * CLThreadTransactionManager::GetReadTransaction()

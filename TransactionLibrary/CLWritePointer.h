@@ -106,7 +106,7 @@ CLWritePointer<T> CLWritePointer<T>::MakeNewObjectPointer(T * pUserObject)
 template<typename T>
 void CLWritePointer<T>::DeleteObjectByPointer(CLWritePointer & writePointer)
 {
-	writePointer.MarkDelete();
+	writePointer.m_pObject->MarkDelete();
 	writePointer.m_pObject = nullptr;
 }
 

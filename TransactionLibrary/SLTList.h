@@ -23,6 +23,7 @@ public:
 	static void ShowListReadOnly(void * pList);
 	static void IncreaseAll(void * arg);
 	static void Append(CLWritePointer<SLTList> pPrevious, CLWritePointer<SLTList> pNext);
+	static void ReleaseAll(void * arg);
 };
 
 #endif

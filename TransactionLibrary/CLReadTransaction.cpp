@@ -2,6 +2,7 @@
 #include "CLTransactionalObject.h"
 #include "CLTransactionAbort.h"
 #include "CLThreadTransactionManager.h"
+#include "CLGarbageCollector.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -16,12 +17,14 @@ CLReadTransaction::~CLReadTransaction()
 
 void CLReadTransaction::Initialize()
 {
+	CLGarbageCollector::GetInstance().NotifyTransactionBegin();
 	m_snapShot.Reset();
 	m_readSet.Reset();
 }
 
 void CLReadTransaction::Uninitialize()
 {
+	CLGarbageCollector::GetInstance().NotifyTransactionEnd();
 }
 
 void CLReadTransaction::OnCommit()

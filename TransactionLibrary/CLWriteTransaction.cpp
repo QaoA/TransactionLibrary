@@ -5,6 +5,7 @@
 #include "CLLSAClock.h"
 #include "CLLogArea.h"
 #include "CLThreadTransactionManager.h"
+#include "CLGarbageCollector.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -19,14 +20,16 @@ CLWriteTransaction::~CLWriteTransaction()
 
 void CLWriteTransaction::Initialize()
 {
+	CLGarbageCollector::GetInstance().NotifyTransactionBegin();
 	m_objectSet.Reset();
 	m_itemSet.Reset();
 }
 
 void CLWriteTransaction::Uninitialize()
 {
-	m_objectSet.Close(this);
 	m_itemSet.ReleaseAllItems();
+	m_objectSet.Close(this);
+	CLGarbageCollector::GetInstance().NotifyTransactionEnd();
 }
 
 void CLWriteTransaction::OnCommit()

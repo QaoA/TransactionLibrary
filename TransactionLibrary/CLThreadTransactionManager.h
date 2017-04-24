@@ -30,6 +30,9 @@ public:
 	static CLWriteTransaction * GetWriteTransaction();
 	static CLThreadTransactionManager & GetInstance();
 	
+private:
+	static void ReleaseThreadTransactions(void * pThreadTransactions);
+	
 public:
 	void RunReadTransaction(TransactionFunc func, void * arg);
 	void RunWriteTransaction(TransactionFunc func, void * arg);

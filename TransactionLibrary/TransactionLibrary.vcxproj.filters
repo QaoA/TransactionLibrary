@@ -64,8 +64,12 @@
     <ClCompile Include="CLWriteTransactionOpenedOjects.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
-    <ClCompile Include="CLDeletedObjectSet.cpp" />
-    <ClCompile Include="CLQuiescentStateManager.cpp" />
+    <ClCompile Include="CLQuiescentStateManager.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
+    <ClCompile Include="CLDeletedObjectSet.cpp">
+      <Filter>Source\GC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -248,7 +252,11 @@
     <ClInclude Include="CLWriteTransactionOpenedOjects.h">
       <Filter>Header\Container</Filter>
     </ClInclude>
-    <ClInclude Include="CLDeletedObjectSet.h" />
-    <ClInclude Include="CLQuiescentStateManager.h" />
+    <ClInclude Include="CLQuiescentStateManager.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
+    <ClInclude Include="CLDeletedObjectSet.h">
+      <Filter>Header\GC</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

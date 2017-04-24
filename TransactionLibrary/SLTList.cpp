@@ -111,3 +111,15 @@ void SLTList::Append(CLWritePointer<SLTList> pPrevious, CLWritePointer<SLTList> 
 		pOldNext->m_pPrevious = pNext;
 	}
 }
+
+void SLTList::ReleaseAll(void * arg)
+{
+	CLWritePointer<SLTList> pHead((SLTList*)arg);
+	CLWritePointer<SLTList> pIt(pHead);
+	do
+	{
+		CLWritePointer<SLTList> tmp = pIt;
+		pIt = pIt->m_pNext;
+		CLWritePointer<SLTList>::DeleteObjectByPointer(tmp);
+	} while (pIt != pHead);
+}

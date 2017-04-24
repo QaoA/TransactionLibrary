@@ -21,7 +21,10 @@ public:
 	void Reset();
 	void AddItem(CLLogItem * item);
 	void AddItem(void * pNVMAddress, unsigned long size, void * pValue);
-	void AddItem(void * pNVMAddress, unsigned long size, char * value);
+	void AddItem(void * pNVMAddress, uint64_t value);
+	void AddItem(void * pNVMAddress, uint32_t value);
+	void AddItem(void * pNVMAddress, uint16_t value);
+	void AddItem(void * pNVMAddress, uint8_t value);
 	void WriteLogs(CLLogArea & logArea);
 	void SetValues();
 	void ReleaseAllItems();

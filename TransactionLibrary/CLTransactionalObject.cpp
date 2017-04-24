@@ -140,8 +140,8 @@ void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp c
 
 		unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
 		assert(pObjectReferenceCount);
-		int rfcnt = 0;
-		itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&rfcnt);
+		unsigned int rfcnt = 0;
+		itemsSet.AddItem(pObjectReferenceCount, rfcnt);
 		return;
 	}
 	
@@ -155,8 +155,8 @@ void CLTransactionalObject::WriteCommit(CLLogItemsSet & itemsSet, LSATimeStamp c
 	{
 		unsigned int * pObjectReferenceCount = NVMMalloc::GetReferenceCountAddress(m_pNVMAddress);
 		assert(pObjectReferenceCount);
-		int rfcnt = 1;
-		itemsSet.AddItem(pObjectReferenceCount, sizeof(unsigned int), (char *)&rfcnt);
+		uint32_t rfcnt = 1;
+		itemsSet.AddItem(pObjectReferenceCount, rfcnt);
 	}
 	else
 	{
