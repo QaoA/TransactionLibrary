@@ -9,14 +9,6 @@
 
 #define NVM_OBJECT(ObjectType) \
 public:\
-static NVMTransaction::SLUserObjectInfo * GetUserObjectInfo()\
-{\
-	static NVMTransaction::SLUserObjectInfo userInfo = \
-		{\
-			.m_objectSize = sizeof(ObjectType)\
-		};\
-	return &userInfo;\
-}\
 static void * operator new(size_t size) throw(std::bad_alloc)\
 {\
 	void * ptr = NVMMalloc::MallocOnNVM(size);\
@@ -33,15 +25,20 @@ static void operator delete(void * ptr,size_t size) throw()\
 	}\
 	NVMMalloc::FreeOnNVM(ptr);\
 }\
+static void ReleaseObject(void * pObject)\
+{\
+	delete (ObjectType *)(pObject);\
+}\
+static NVMTransaction::SLUserObjectInfo * GetUserObjectInfo()\
+{\
+	static NVMTransaction::SLUserObjectInfo userInfo = \
+		{\
+			.m_objectSize = sizeof(ObjectType),\
+			.m_objectReleaseFunc = ReleaseObject\
+		};\
+	return &userInfo;\
+}\
 private:\
-
-
-//#define NVM_NEW() \
-////T * pt = new T(xxx);
-////CLWritePointer<T> ptrName(pt);
-//
-//#define NVM_DELETE\
-
 
 #endif
 

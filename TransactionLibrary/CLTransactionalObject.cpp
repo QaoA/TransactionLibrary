@@ -55,7 +55,7 @@ void CLTransactionalObject::ReleaseObject(CLTransactionalObject * pObject)
 	}
 	if (pObject->m_openMode & OPEN_DELETE)
 	{
-		NVMMalloc::FreeOnNVM(pObject->m_pNVMAddress);
+		pObject->m_pUserInfo->m_objectReleaseFunc(pObject->m_pNVMAddress);
 	}
 	delete pObject;
 }

@@ -6,9 +6,12 @@
 
 TRANSACTIONLIB_NS_BEGIN
 
+typedef void(*objectReleaseFunc)(void *);
+
 struct SLUserObjectInfo
 {
 	size_t m_objectSize;
+	objectReleaseFunc m_objectReleaseFunc;
 };
 
 TRANSACTIONLIB_NS_END
