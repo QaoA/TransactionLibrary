@@ -55,7 +55,7 @@ CLTransactionalObject * CLTransactionalObjectRadixTree::GetAndRemove(void * pNVM
 	unsigned int index = key & mask;
 	assert(pNode && !IsTimeStamp(pNode->m_slots[index].m_lastCommitTimeStamp));
 	CLTransactionalObject * pObject = pNode->m_slots[index].m_object;
-	pNode->m_slots[index].m_lastCommitTimeStamp = pNode->m_slots[index].m_object->GetLastCommitTimeStamp();
+	pNode->m_slots[index].m_lastCommitTimeStamp = MakeTimeStamp(pNode->m_slots[index].m_object->GetLastCommitTimeStamp());
 	return pObject;
 }
 
