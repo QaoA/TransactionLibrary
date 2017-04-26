@@ -19,31 +19,28 @@ CLTransactionalObjectLookupTable & CLTransactionalObjectLookupTable::GetInstance
 	return instance;
 }
 
-CLTransactionalObject * CLTransactionalObjectLookupTable::GetOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs)
+CLTransactionalObject * CLTransactionalObjectLookupTable::GetOrCreate(void * pNVMObject, SLTransactionalObjectCreatArgs * pArgs)
 {
-	assert(pNVMObject);
 	CLCriticalSection cs(&m_lock);
-	SLTransactionalObjectWrapper * pWrapper = m_objectTree.Get(pNVMObject);
-	if (pWrapper == nullptr)
-	{
-		pWrapper = new SLTransactionalObjectWrapper{ CLTransactionalObject::MakeObject(transactionalObjectCreateArgs),0 };;
-		m_objectTree.Insert(pWrapper, pNVMObject);
-	}
-	pWrapper->m_referenceCount++;
-	return pWrapper->m_pObject;
+	CLTransactionalObject * pObject = m_objectTree.FindOrCreate(pNVMObject, pArgs);
+	pObject->IncreaseReferenceCount();
+	return pObject;
 }
 
-void CLTransactionalObjectLookupTable::Put(void * pNVMObject)
+void CLTransactionalObjectLookupTable::Put(CLTransactionalObject * pObject, bool CanDelete)
 {
-	assert(pNVMObject);
 	CLCriticalSection cs(&m_lock);
-	SLTransactionalObjectWrapper * pWrapper = m_objectTree.GetAndRemove(pNVMObject);
-	assert(pWrapper != nullptr);
-	if (pWrapper->m_referenceCount == 1)
+	if (pObject->DecreaseReferenceCount() == 0)
 	{
-		CLTransactionalObject::ReleaseObject(pWrapper->m_pObject);
+		if (CanDelete == true)
+		{
+			m_objectTree.GetAndDelete(pObject->GetUserObjectNVMAddress());
+		}
+		else
+		{
+			m_objectTree.GetAndRemove(pObject->GetUserObjectNVMAddress());
+		}
 	}
-	delete pWrapper;
 }
 
 TRANSACTIONLIB_NS_END

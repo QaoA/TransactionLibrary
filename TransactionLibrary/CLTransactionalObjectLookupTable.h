@@ -1,8 +1,8 @@
 #ifndef __TRANSACTIONAL_OBJECT_LOOKUP_TABLE_H__
 #define __TRANSACTIONAL_OBJECT_LOOKUP_TABLE_H__
 
-#include "CLRadixTree.h"
 #include "CLMutex.h"
+#include "CLTransactionalObjectRadixTree.h"
 #include "TransactionLibraryNameSpace.h"
 
 TRANSACTIONLIB_NS_BEGIN
@@ -11,13 +11,6 @@ class CLTransactionalObject;
 
 class CLTransactionalObjectLookupTable
 {
-private:
-	struct SLTransactionalObjectWrapper
-	{
-		CLTransactionalObject * m_pObject;
-		unsigned long m_referenceCount;
-	};
-
 private:
 	CLTransactionalObjectLookupTable();
 	CLTransactionalObjectLookupTable(const CLTransactionalObjectLookupTable &);
@@ -30,11 +23,11 @@ public:
 	static CLTransactionalObjectLookupTable & GetInstance();
 
 public:
-	CLTransactionalObject * GetOrCreate(void * pNVMObject, void * transactionalObjectCreateArgs);
-	void Put(void * pNVMObject);
+	CLTransactionalObject * GetOrCreate(void * pNVMObject, SLTransactionalObjectCreatArgs * pArgs);
+	void Put(CLTransactionalObject * pObject, bool CanDelete);
 
 private:
-	CLRadixTree<SLTransactionalObjectWrapper> m_objectTree;
+	CLTransactionalObjectRadixTree m_objectTree;
 	CLMutex m_lock;
 };
 

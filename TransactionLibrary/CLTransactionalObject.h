@@ -17,23 +17,15 @@ struct SLUserObjectInfo;
 class CLLogItemsSet;
 class CLSnapShot;
 class CLReadTransactionReadedObjects;
+struct SLTransactionalObjectCreatArgs;
 
 class CLTransactionalObject
 {
 private:
-	struct SLTransactionalObjectCreatArgs
-	{
-		CLWriteTransaction * m_owner;
-		void * m_pNVMUserObject;
-		SLUserObjectInfo * m_pUserObjectInfo;
-		EMObjectOpenMode m_openMode;
-	};
-
-private:
-	CLTransactionalObject(SLTransactionalObjectCreatArgs & args);
+	CLTransactionalObject(SLTransactionalObjectCreatArgs & args, LSATimeStamp lastValidVersion);
 
 public:
-	static CLTransactionalObject * MakeObject(void * pArgs);
+	static CLTransactionalObject * MakeObject(SLTransactionalObjectCreatArgs * pArgs, LSATimeStamp lastValidVersion);
 	static void ReleaseObject(CLTransactionalObject * pObject);
 	static CLTransactionalObject * ReadOnlyOpen(void * pNVMUserObject, SLUserObjectInfo * pUserObjectInfo);
 	static CLTransactionalObject * ReadOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo);
@@ -58,6 +50,9 @@ public:
 	inline void MarkNew();
 	inline void MarkDelete();
 	inline EMObjectOpenMode GetOpenMode();
+	inline unsigned int IncreaseReferenceCount();
+	inline unsigned int DecreaseReferenceCount();
+	inline LSATimeStamp GetLastCommitTimeStamp();
 
 private:
 	static inline bool TryOccupyObject(CLTransactionalObject * pObject, CLWriteTransaction * pOwner);
@@ -69,7 +64,7 @@ private:
 
 private:
 	SLObjectVersion * CloneANewVersion(SLObjectVersion * pVersion);
-	SLObjectVersion * MakeANewVersion(void * pUserObject);
+	SLObjectVersion * MakeANewVersion(void * pUserObject, LSATimeStamp lastValidVersion);
 
 private:
 	std::atomic<CLWriteTransaction *> m_pOwner;
@@ -77,6 +72,7 @@ private:
 	SLUserObjectInfo  * m_pUserInfo;
 	void * m_pNVMAddress;
 	EMObjectOpenMode m_openMode;
+	unsigned int m_objectReferenceCount;
 };
 
 inline SLObjectVersion * CLTransactionalObject::FindNewestValidVersion()
@@ -122,6 +118,26 @@ inline void CLTransactionalObject::MarkDelete()
 inline EMObjectOpenMode CLTransactionalObject::GetOpenMode()
 {
 	return m_openMode;
+}
+
+inline unsigned int CLTransactionalObject::IncreaseReferenceCount()
+{
+	return ++m_objectReferenceCount;
+}
+
+inline unsigned int CLTransactionalObject::DecreaseReferenceCount()
+{
+	return --m_objectReferenceCount;
+}
+
+inline LSATimeStamp CLTransactionalObject::GetLastCommitTimeStamp()
+{
+	LSATimeStamp commitTime = m_TentativeVersion->m_commitTime;
+	if (commitTime != LSA_TIME_STAMP_INFINITE)
+	{
+		return commitTime;
+	}
+	return m_TentativeVersion->m_pNextVersion->m_commitTime;
 }
 
 TRANSACTIONLIB_NS_END

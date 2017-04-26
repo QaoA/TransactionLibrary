@@ -70,7 +70,6 @@
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLMutex.cpp" />
     <ClCompile Include="CLQuiescentStateManager.cpp" />
-    <ClCompile Include="CLRadixTreeNode.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
     <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
     <ClCompile Include="CLSnapShot.cpp" />
@@ -80,12 +79,14 @@
     <ClCompile Include="CLTransactionAbort.cpp" />
     <ClCompile Include="CLTransactionalObject.cpp" />
     <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
+    <ClCompile Include="CLTransactionalObjectRadixTree.cpp" />
     <ClCompile Include="CLWriteTransaction.cpp" />
     <ClCompile Include="CLWriteTransactionOpenedOjects.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SLLList.cpp" />
     <ClCompile Include="SLObjectVersion.cpp" />
     <ClCompile Include="SLTList.cpp" />
+    <ClCompile Include="SLTransactionalObjectCreateArgs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.mak" />
@@ -104,8 +105,6 @@
     <ClInclude Include="CLLSAClock.h" />
     <ClInclude Include="CLMutex.h" />
     <ClInclude Include="CLQuiescentStateManager.h" />
-    <ClInclude Include="CLRadixTree.h" />
-    <ClInclude Include="CLRadixTreeNode.h" />
     <ClInclude Include="CLReadOnlyPointer.h" />
     <ClInclude Include="CLReadPointer.h" />
     <ClInclude Include="CLReadTransaction.h" />
@@ -119,6 +118,7 @@
     <ClInclude Include="CLTransactionAbort.h" />
     <ClInclude Include="CLTransactionalObject.h" />
     <ClInclude Include="CLTransactionalObjectLookupTable.h" />
+    <ClInclude Include="CLTransactionalObjectRadixTree.h" />
     <ClInclude Include="CLWritePointer.h" />
     <ClInclude Include="CLWriteTransaction.h" />
     <ClInclude Include="CLWriteTransactionOpenedOjects.h" />

@@ -1,10 +1,11 @@
-#include "CLTransactionalObject.h"
 #include "CLTransactionalObjectLookupTable.h"
+#include "SLTransactionalObjectCreateArgs.h"
+#include "CLReadTransactionReadedObjects.h"
+#include "CLTransactionalObject.h"
 #include "SLUserObjectInfo.h"
 #include "CLGarbageCollector.h"
 #include "CLLogItemsSet.h"
 #include "CLSnapShot.h"
-#include "CLReadTransactionReadedObjects.h"
 #include "NVMMalloc.h"
 #include "CLLogArea.h"
 #include <cstring>
@@ -12,11 +13,12 @@
 
 TRANSACTIONLIB_NS_BEGIN
 
-CLTransactionalObject::CLTransactionalObject(SLTransactionalObjectCreatArgs & args):
+CLTransactionalObject::CLTransactionalObject(SLTransactionalObjectCreatArgs & args, LSATimeStamp lastValidVersion):
 m_pOwner(args.m_owner),
 m_pUserInfo(args.m_pUserObjectInfo),
 m_pNVMAddress(args.m_pNVMUserObject),
-m_openMode(OPEN_NONE)
+m_openMode(OPEN_NONE),
+m_objectReferenceCount(0)
 {
 	switch (args.m_openMode)
 	{
@@ -31,13 +33,13 @@ m_openMode(OPEN_NONE)
 	default:
 		break;
 	}
-	m_TentativeVersion = MakeANewVersion(args.m_pNVMUserObject);
+	m_TentativeVersion = MakeANewVersion(args.m_pNVMUserObject, lastValidVersion);
 }
 
-CLTransactionalObject * CLTransactionalObject::MakeObject(void * pArgs)
+CLTransactionalObject * CLTransactionalObject::MakeObject(SLTransactionalObjectCreatArgs * pArgs, LSATimeStamp lastValidVersion)
 {
 	assert(pArgs);
-	return new CLTransactionalObject(*(SLTransactionalObjectCreatArgs *)(pArgs));
+	return new CLTransactionalObject(*pArgs, lastValidVersion);
 }
 
 void CLTransactionalObject::ReleaseObject(CLTransactionalObject * pObject)
@@ -66,12 +68,12 @@ CLTransactionalObject * CLTransactionalObject::ReadOnlyOpen(void * pNVMUserObjec
 
 void CLTransactionalObject::ReadOnlyCommit()
 {
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(this, m_openMode & OPEN_DELETE);
 }
 
 void CLTransactionalObject::ReadOnlyAbort()
 {
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(this, m_openMode & OPEN_DELETE);
 }
 
 CLTransactionalObject * CLTransactionalObject::ReadOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo)
@@ -86,7 +88,7 @@ CLTransactionalObject * CLTransactionalObject::ReadOpen(void * pNVMUserObject, C
 		pObject->m_openMode &= OPEN_READ;
 		return pObject;
 	}
-	CLTransactionalObjectLookupTable::GetInstance().Put(pObject->m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(pObject,true);
 	return nullptr;
 }
 
@@ -96,7 +98,7 @@ void CLTransactionalObject::ReadCommit(CLWriteTransaction * pOwner)
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
 	m_openMode &= OPEN_CLEAR_MASK;
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(this,m_openMode & OPEN_DELETE);
 }
 
 void CLTransactionalObject::ReadAbort(CLWriteTransaction * pOwner)
@@ -104,8 +106,8 @@ void CLTransactionalObject::ReadAbort(CLWriteTransaction * pOwner)
 	assert(pOwner);
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
-	m_openMode = OPEN_NONE;
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	m_openMode &= OPEN_CLEAR_MASK;
+	CLTransactionalObjectLookupTable::GetInstance().Put(this, m_openMode & OPEN_DELETE);
 }
 
 CLTransactionalObject * CLTransactionalObject::WriteOpen(void * pNVMUserObject, CLWriteTransaction * pOwner, SLUserObjectInfo * pUserObjectInfo)
@@ -122,7 +124,7 @@ CLTransactionalObject * CLTransactionalObject::WriteOpen(void * pNVMUserObject, 
 		pObject->m_openMode &= OPEN_WRITE;
 		return pObject;
 	}
-	CLTransactionalObjectLookupTable::GetInstance().Put(pObject->m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(pObject,false);
 	return nullptr;
 }
 
@@ -171,7 +173,7 @@ void CLTransactionalObject::WriteClose(CLWriteTransaction * pOwner)
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, pNewOwner);
 	assert(ret == true);
 	m_openMode &= OPEN_CLEAR_MASK;
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	CLTransactionalObjectLookupTable::GetInstance().Put(this,m_openMode & OPEN_DELETE);
 }
 
 void CLTransactionalObject::WriteAbort(CLWriteTransaction * pOwner)
@@ -188,8 +190,8 @@ void CLTransactionalObject::WriteAbort(CLWriteTransaction * pOwner)
 
 	bool ret = m_pOwner.compare_exchange_strong(pOwner, nullptr);
 	assert(ret == true);
-	m_openMode &= OPEN_CLEAR_MASK;
-	CLTransactionalObjectLookupTable::GetInstance().Put(m_pNVMAddress);
+	m_openMode = OPEN_NONE;
+	CLTransactionalObjectLookupTable::GetInstance().Put(this,m_openMode & OPEN_DELETE);
 }
 
 bool CLTransactionalObject::ConvertReadToWrite(CLWriteTransaction * pOwner)
@@ -286,12 +288,12 @@ SLObjectVersion * CLTransactionalObject::CloneANewVersion(SLObjectVersion * pVer
 	return pNewVersion;
 }
 
-SLObjectVersion * CLTransactionalObject::MakeANewVersion(void * pUserObject)
+SLObjectVersion * CLTransactionalObject::MakeANewVersion(void * pUserObject, LSATimeStamp lastValidVersion)
 {
 	assert(pUserObject);
 	void * ObjectCopy = new char[m_pUserInfo->m_objectSize];
 	memcpy(ObjectCopy, pUserObject, m_pUserInfo->m_objectSize);
-	SLObjectVersion * pNewVersion = new SLObjectVersion(ObjectCopy, LSA_TIME_STAMP_START, nullptr,this);
+	SLObjectVersion * pNewVersion = new SLObjectVersion(ObjectCopy, lastValidVersion, nullptr,this);
 	return pNewVersion;
 }
 

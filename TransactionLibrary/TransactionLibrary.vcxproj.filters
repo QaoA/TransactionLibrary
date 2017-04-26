@@ -13,9 +13,6 @@
     <ClCompile Include="CLMutex.cpp">
       <Filter>Source\Tool\Lock</Filter>
     </ClCompile>
-    <ClCompile Include="CLRadixTreeNode.cpp">
-      <Filter>Source\Tool</Filter>
-    </ClCompile>
     <ClCompile Include="CLReadTransaction.cpp">
       <Filter>Source\Transaction</Filter>
     </ClCompile>
@@ -70,6 +67,8 @@
     <ClCompile Include="CLDeletedObjectSet.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
+    <ClCompile Include="CLTransactionalObjectRadixTree.cpp" />
+    <ClCompile Include="SLTransactionalObjectCreateArgs.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -168,12 +167,6 @@
     <ClInclude Include="CLMutex.h">
       <Filter>Header\Tool\Lock</Filter>
     </ClInclude>
-    <ClInclude Include="CLRadixTree.h">
-      <Filter>Header\Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="CLRadixTreeNode.h">
-      <Filter>Header\Tool</Filter>
-    </ClInclude>
     <ClInclude Include="CLReadPointer.h">
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
@@ -258,5 +251,6 @@
     <ClInclude Include="CLDeletedObjectSet.h">
       <Filter>Header\GC</Filter>
     </ClInclude>
+    <ClInclude Include="CLTransactionalObjectRadixTree.h" />
   </ItemGroup>
 </Project>
