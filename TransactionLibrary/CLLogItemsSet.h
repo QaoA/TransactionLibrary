@@ -19,7 +19,6 @@ public:
 
 public:
 	void Reset();
-	void AddItem(CLLogItem * item);
 	void AddItem(void * pNVMAddress, unsigned long size, void * pValue);
 	void AddItem(void * pNVMAddress, uint64_t value);
 	void AddItem(void * pNVMAddress, uint32_t value);
@@ -30,7 +29,7 @@ public:
 	void ReleaseAllItems();
 
 private:
-	std::list<CLLogItem *> m_itemsSet;
+	std::list<CLLogItem> m_itemsSet;
 };
 
 TRANSACTIONLIB_NS_END

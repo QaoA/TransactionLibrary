@@ -22,19 +22,16 @@ m_openMode(OPEN_NONE)
 	{
 	case OPEN_READ:
 		m_openMode = OPEN_READ;
+		break;
 	case OPEN_READ_ONLY:
-		m_TentativeVersion = MakeANewVersion(args.m_pNVMUserObject);
 		break;
 	case OPEN_WRITE:
-		{
-			m_openMode = OPEN_WRITE;
-			SLObjectVersion * pReadVersion = MakeANewVersion(args.m_pNVMUserObject);
-			m_TentativeVersion = CloneANewVersion(pReadVersion);
-			break;
-		}
+		m_openMode = OPEN_WRITE;
+		break;
 	default:
 		break;
 	}
+	m_TentativeVersion = MakeANewVersion(args.m_pNVMUserObject);
 }
 
 CLTransactionalObject * CLTransactionalObject::MakeObject(void * pArgs)

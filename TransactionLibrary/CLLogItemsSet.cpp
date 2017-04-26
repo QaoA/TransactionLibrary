@@ -20,58 +20,49 @@ void CLLogItemsSet::Reset()
 	assert(m_itemsSet.empty());
 }
 
-void CLLogItemsSet::AddItem(CLLogItem * item)
-{
-	m_itemsSet.push_back(item);
-}
-
 void CLLogItemsSet::AddItem(void * pNVMAddress, unsigned long size, void * pValue)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, size, pValue));
+	m_itemsSet.push_back(CLLogItem(pNVMAddress, size, pValue));
 }
 
 void CLLogItemsSet::AddItem(void * pNVMAddress, uint64_t value)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+	m_itemsSet.push_back(CLLogItem(pNVMAddress, value));
 }
 
 void CLLogItemsSet::AddItem(void * pNVMAddress, uint32_t value)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+	m_itemsSet.push_back(CLLogItem(pNVMAddress, value));
 }
 
 void CLLogItemsSet::AddItem(void * pNVMAddress, uint16_t value)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+	m_itemsSet.push_back(CLLogItem(pNVMAddress, value));
 }
 
 void CLLogItemsSet::AddItem(void * pNVMAddress, uint8_t value)
 {
-	m_itemsSet.push_back(new CLLogItem(pNVMAddress, value));
+	m_itemsSet.push_back(CLLogItem(pNVMAddress, value));
 }
 
 void CLLogItemsSet::WriteLogs(CLLogArea & logArea)
 {
-	for (CLLogItem * pItem : m_itemsSet)
+	for (CLLogItem item : m_itemsSet)
 	{
-		logArea.WriteLog(*pItem);
+		logArea.WriteLog(item);
 	}
 }
 
 void CLLogItemsSet::SetValues()
 {
-	for (CLLogItem * pItem : m_itemsSet)
+	for (CLLogItem item : m_itemsSet)
 	{
-		pItem->SetValues();
+		item.SetValues();
 	}
 }
 
 void CLLogItemsSet::ReleaseAllItems()
 {
-	for (CLLogItem * pItem : m_itemsSet)
-	{
-		delete pItem;
-	}
 	m_itemsSet.erase(m_itemsSet.begin(), m_itemsSet.end());
 }
 
