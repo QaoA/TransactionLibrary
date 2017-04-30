@@ -7,7 +7,6 @@
 #include "CLLogItemsSet.h"
 #include "CLSnapShot.h"
 #include "NVMMalloc.h"
-#include "CLLogArea.h"
 #include <cstring>
 #include <cassert>
 

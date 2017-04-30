@@ -1,6 +1,5 @@
 #include "CLLogItemsSet.h"
 #include "CLLogItem.h"
-#include "CLLogArea.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -45,11 +44,11 @@ void CLLogItemsSet::AddItem(void * pNVMAddress, uint8_t value)
 	m_itemsSet.push_back(CLLogItem(pNVMAddress, value));
 }
 
-void CLLogItemsSet::WriteLogs(CLLogArea & logArea)
+void CLLogItemsSet::WriteLogs(NVMMalloc::CLLogArea & logArea)
 {
 	for (CLLogItem item : m_itemsSet)
 	{
-		logArea.WriteLog(item);
+		item.WriteLog(&logArea);
 	}
 }
 

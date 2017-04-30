@@ -2,7 +2,6 @@
 #define __NVM_USER_OBJECT_H__
 
 #include "SLUserObjectInfo.h"
-#include "CLWritePointer.h"
 #include "NVMMalloc.h"
 #include <cstddef>
 #include <new>

@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0004\MallocOnNVM;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0004\MallocOnNVM;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(ProjectDir);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
@@ -69,6 +69,10 @@
     <ClCompile Include="CLLogItemsSet.cpp" />
     <ClCompile Include="CLLSAClock.cpp" />
     <ClCompile Include="CLMutex.cpp" />
+    <ClCompile Include="CLNameAddressPair.cpp" />
+    <ClCompile Include="CLNameAddressPairSet.cpp" />
+    <ClCompile Include="CLNameServer.cpp" />
+    <ClCompile Include="SLNVMNameAddressPair.cpp" />
     <ClCompile Include="CLQuiescentStateManager.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
     <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
@@ -104,9 +108,12 @@
     <ClInclude Include="CLLogItemsSet.h" />
     <ClInclude Include="CLLSAClock.h" />
     <ClInclude Include="CLMutex.h" />
+    <ClInclude Include="CLNameAddressPair.h" />
+    <ClInclude Include="CLNameAddressPairSet.h" />
+    <ClInclude Include="CLNameServer.h" />
+    <ClInclude Include="SLNVMNameAddressPair.h" />
     <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLReadOnlyPointer.h" />
-    <ClInclude Include="CLReadPointer.h" />
     <ClInclude Include="CLReadTransaction.h" />
     <ClInclude Include="CLReadTransactionReadedObjects.h" />
     <ClInclude Include="CLReadWritePointer.h" />

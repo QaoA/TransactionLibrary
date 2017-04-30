@@ -3,9 +3,11 @@
 #include "CLTransactionAbort.h"
 #include "NVMMalloc.h"
 #include "CLLSAClock.h"
-#include "CLLogArea.h"
 #include "CLThreadTransactionManager.h"
 #include "CLGarbageCollector.h"
+#include "CLLogArea.h"
+#include "CLNameServer.h"
+#include "SLNVMNameAddressPair.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -36,7 +38,7 @@ void CLWriteTransaction::OnCommit()
 {
 	LSATimeStamp commitTime = CLLSAClock::GetInstance().Tick();
 	m_objectSet.Commit(this, m_itemSet, commitTime);
-	CLLogArea * logArea = NVMMalloc::AllocLogArea();
+	NVMMalloc::CLLogArea * logArea = NVMMalloc::AllocLogArea();
 	assert(logArea);
 	logArea->WriteLogStart();
 	m_itemSet.WriteLogs(*logArea);
@@ -97,6 +99,22 @@ void CLWriteTransaction::ConvertOpenModeReadToWrite(CLTransactionalObject * pObj
 	{
 		throw CLTransactionAbort(UNEXPECTED_ERROR);
 	}
+}
+
+bool CLWriteTransaction::SetName(char * strName, void * address)
+{
+	assert(strName);
+	
+}
+
+SLNVMNameAddressPair * CLWriteTransaction::FindNameAddressPairByName(char * strName)
+{
+	assert(strName);
+}
+
+void * CLWriteTransaction::FindByName(char * strName)
+{
+	return nullptr;
 }
 
 TRANSACTIONLIB_NS_END

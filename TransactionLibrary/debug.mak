@@ -13,7 +13,7 @@ OBJCOPY := objcopy
 
 #Additional flags
 PREPROCESSOR_MACROS := DEBUG=1
-INCLUDE_DIRS := /home/mq/workspace/NVM/MallocOnNVM
+INCLUDE_DIRS := /home/mq/workspace/NVM/MallocOnNVM .
 LIBRARY_DIRS := /home/mq/workspace/NVM/MallocOnNVM
 LIBRARY_NAMES := MallocOnNVM rt
 ADDITIONAL_LINKER_INPUTS := 

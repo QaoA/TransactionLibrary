@@ -67,8 +67,16 @@
     <ClCompile Include="CLDeletedObjectSet.cpp">
       <Filter>Source\GC</Filter>
     </ClCompile>
-    <ClCompile Include="CLTransactionalObjectRadixTree.cpp" />
-    <ClCompile Include="SLTransactionalObjectCreateArgs.h" />
+    <ClCompile Include="CLTransactionalObjectRadixTree.cpp">
+      <Filter>Source\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="SLTransactionalObjectCreateArgs.h">
+      <Filter>Header\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CLNameServer.cpp" />
+    <ClCompile Include="SLNVMNameAddressPair.cpp" />
+    <ClCompile Include="CLNameAddressPairSet.cpp" />
+    <ClCompile Include="CLNameAddressPair.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -167,9 +175,6 @@
     <ClInclude Include="CLMutex.h">
       <Filter>Header\Tool\Lock</Filter>
     </ClInclude>
-    <ClInclude Include="CLReadPointer.h">
-      <Filter>Header\SmartPointer</Filter>
-    </ClInclude>
     <ClInclude Include="CLReadTransaction.h">
       <Filter>Header\Transaction</Filter>
     </ClInclude>
@@ -251,6 +256,12 @@
     <ClInclude Include="CLDeletedObjectSet.h">
       <Filter>Header\GC</Filter>
     </ClInclude>
-    <ClInclude Include="CLTransactionalObjectRadixTree.h" />
+    <ClInclude Include="CLTransactionalObjectRadixTree.h">
+      <Filter>Header\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CLNameServer.h" />
+    <ClInclude Include="SLNVMNameAddressPair.h" />
+    <ClInclude Include="CLNameAddressPairSet.h" />
+    <ClInclude Include="CLNameAddressPair.h" />
   </ItemGroup>
 </Project>

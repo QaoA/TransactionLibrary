@@ -2,14 +2,11 @@
 #define __LOG_ITEMS_SET_H__
 
 #include <list>
-#include "CLLogArea.h"
 #include "CLLogItem.h"
+#include "NVMMallocNameSpace.h"
 #include "TransactionLibraryNameSpace.h"
 
 TRANSACTIONLIB_NS_BEGIN
-
-using NVMMalloc::CLLogItem;
-using NVMMalloc::CLLogArea;
 
 class CLLogItemsSet
 {
@@ -24,12 +21,12 @@ public:
 	void AddItem(void * pNVMAddress, uint32_t value);
 	void AddItem(void * pNVMAddress, uint16_t value);
 	void AddItem(void * pNVMAddress, uint8_t value);
-	void WriteLogs(CLLogArea & logArea);
+	void WriteLogs(NVMMalloc::CLLogArea & logArea);
 	void SetValues();
 	void ReleaseAllItems();
 
 private:
-	std::list<CLLogItem> m_itemsSet;
+	std::list<NVMMalloc::CLLogItem> m_itemsSet;
 };
 
 TRANSACTIONLIB_NS_END
