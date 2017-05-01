@@ -27,12 +27,9 @@ private:
 public:
 	CLTransactionalObject * OpenObjectRead(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
 	CLTransactionalObject * OpenObjectWrite(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
-	void ConvertOpenModeReadToWrite(CLTransactionalObject * pObject);
-	bool SetName(char * strName, void * address);
-	void * FindByName(char * strName);
-	
-private:
-	SLNVMNameAddressPair * FindNameAddressPairByName(char * strName);
+	CLTransactionalObject * ConvertOpenModeReadToWrite(CLTransactionalObject * pObject);
+	bool SetAddressByName(char * strName, void * address);
+	void * GetAddressByName(char * strName);
 	
 private:
 	CLLogItemsSet m_itemSet;

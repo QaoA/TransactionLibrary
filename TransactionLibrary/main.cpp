@@ -1,24 +1,34 @@
 #include <iostream>
-#include "SLTList.h"
-#include "CLThreadTransactionManager.h"
-
+#include "CLTransactionAPIs.h"
+#include "TSLList.h"
+#include "NVMMalloc.h"
 
 using namespace std;
 using namespace NVMTransaction;
 
+void DoFunc(void *)
+{
+	TSLList * pHead = TSLList::MakeList();
+	CLTransactionAPIs::SetAddressByName("listHead", pHead);
+	TSLList::Show(pHead);
+}
+
+void DoFunc2(void *)
+{
+	TSLList * pHead = (TSLList *)CLTransactionAPIs::GetAddressByName("listHead");
+	TSLList::Show(pHead);
+}
+
+void DoFunc3(void *)
+{
+	NVMMalloc::Recovery();
+	TSLList * pHead = (TSLList *)CLTransactionAPIs::GetAddressByName("listHead");
+	TSLList::Show(pHead);
+}
+
 int main()
 {
-	//CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::MakeList, (void *)0x7fffb6fd8fe0);
-	//CLThreadTransactionManager::GetInstance().RunReadTransaction(SLTList::ShowListReadOnly, (void *)0x7fffb6fd8fe0);
-	
-	NVMMalloc::Recovery();
-	CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::IncreaseAll, (void *)0x7fffb6fd8fe0);
-	CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::IncreaseAll, (void *)0x7fffb6fd8fe0);
-	CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::IncreaseAll, (void *)0x7fffb6fd8fe0);
-	//CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::IncreaseAll, (void *)0x7fffb6fd8fe0);
-	//CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::IncreaseAll, (void *)0x7fffb6fd8fe0);
-	//CLThreadTransactionManager::GetInstance().RunReadTransaction(SLTList::ShowListReadOnly, (void *)0x7fffb6fd8fe0);
-
-	//CLThreadTransactionManager::GetInstance().RunWriteTransaction(SLTList::ReleaseAll, (void *)0x7fffb6fd8fe0);
+	//CLTransactionAPIs::RunWriteTransaction(DoFunc, nullptr);
+	CLTransactionAPIs::RunReadTransaction(DoFunc3, nullptr);
     return 0;
 }

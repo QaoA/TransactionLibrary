@@ -22,7 +22,7 @@ protected:
 	virtual void OnAbort(CLTransactionAbort &) = 0;
 	
 public:
-	void RunTransaction(TransactionFunc func, void * arg);
+	bool RunTransaction(TransactionFunc func, void * arg);
 };
 
 TRANSACTIONLIB_NS_END

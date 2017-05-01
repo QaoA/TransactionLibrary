@@ -55,9 +55,6 @@
     <ClCompile Include="CLLogItemsSet.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
-    <ClCompile Include="SLTList.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
     <ClCompile Include="CLWriteTransactionOpenedOjects.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
@@ -73,10 +70,31 @@
     <ClCompile Include="SLTransactionalObjectCreateArgs.h">
       <Filter>Header\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CLNameServer.cpp" />
-    <ClCompile Include="SLNVMNameAddressPair.cpp" />
-    <ClCompile Include="CLNameAddressPairSet.cpp" />
-    <ClCompile Include="CLNameAddressPair.cpp" />
+    <ClCompile Include="CLNameAddressPair.cpp">
+      <Filter>Source\NameServer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLNameAddressPairSet.cpp">
+      <Filter>Source\NameServer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLNameServer.cpp">
+      <Filter>Source\NameServer</Filter>
+    </ClCompile>
+    <ClCompile Include="SLNVMNameAddressPair.cpp">
+      <Filter>Source\NameServer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLTransactionAPIs.cpp" />
+    <ClCompile Include="CLReadOnlyPointerImplementator.cpp">
+      <Filter>Source\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLReadWritePointerImplementator.cpp">
+      <Filter>Source\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLWritePointerImplementator.cpp">
+      <Filter>Source\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="TSLList.cpp">
+      <Filter>Test\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -141,6 +159,21 @@
     </Filter>
     <Filter Include="Makefile">
       <UniqueIdentifier>{a9344de4-5607-4839-b044-7d5ebd683f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\NameServer">
+      <UniqueIdentifier>{d10728d9-09f6-4f79-b727-56e9703cc599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NameServer">
+      <UniqueIdentifier>{3585e440-8df1-44dc-ac94-b9eabe717c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SmartPointer">
+      <UniqueIdentifier>{0ef7c743-c5c2-4587-8b95-4128dd4b108a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\Header">
+      <UniqueIdentifier>{73fb75d8-f5d6-49be-85a8-de93e85d083b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\Source">
+      <UniqueIdentifier>{7b4dee2b-90be-4182-a3dc-a8a3cdadb460}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,20 +259,11 @@
     <ClInclude Include="CLTransactionalObject.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CLReadOnlyPointer.h">
-      <Filter>Header\SmartPointer</Filter>
-    </ClInclude>
-    <ClInclude Include="CLReadWritePointer.h">
-      <Filter>Header\SmartPointer</Filter>
-    </ClInclude>
     <ClInclude Include="SLObjectVersion.h">
       <Filter>Header\Object</Filter>
     </ClInclude>
     <ClInclude Include="CLLogItemsSet.h">
       <Filter>Header\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="SLTList.h">
-      <Filter>Test</Filter>
     </ClInclude>
     <ClInclude Include="TransactionLibraryNameSpace.h">
       <Filter>Header</Filter>
@@ -259,9 +283,33 @@
     <ClInclude Include="CLTransactionalObjectRadixTree.h">
       <Filter>Header\Container</Filter>
     </ClInclude>
-    <ClInclude Include="CLNameServer.h" />
-    <ClInclude Include="SLNVMNameAddressPair.h" />
-    <ClInclude Include="CLNameAddressPairSet.h" />
-    <ClInclude Include="CLNameAddressPair.h" />
+    <ClInclude Include="CLNameAddressPair.h">
+      <Filter>Header\NameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLNameAddressPairSet.h">
+      <Filter>Header\NameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLNameServer.h">
+      <Filter>Header\NameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="SLNVMNameAddressPair.h">
+      <Filter>Header\NameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadPointer.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadOnlyPointerImplementator.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLReadWritePointerImplementator.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLTransactionAPIs.h" />
+    <ClInclude Include="CLWritePointerImplementator.h">
+      <Filter>Header\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="TSLList.h">
+      <Filter>Test\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

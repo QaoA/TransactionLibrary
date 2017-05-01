@@ -3,6 +3,8 @@
 #include "CLTransactionAbort.h"
 #include "CLThreadTransactionManager.h"
 #include "CLGarbageCollector.h"
+#include "CLNameServer.h"
+#include "SLNVMNameAddressPair.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -60,6 +62,21 @@ SLObjectVersion * CLReadTransaction::OpenObject(void * pUserObject, SLUserObject
 	}	
 	m_readSet.AppendObject(pReadedVersion);
 	return pReadedVersion;
+}
+
+void * NVMTransaction::CLReadTransaction::GetAddressByName(char * strName)
+{
+	if (strName == nullptr)
+	{
+		return nullptr;
+	}
+	
+	SLNVMNameAddressPair * pPair = CLNameServer::GetInstance().Find(strName);
+	if (pPair == nullptr)
+	{
+		return nullptr;
+	}
+	return pPair->m_pAddress;
 }
 
 TRANSACTIONLIB_NS_END

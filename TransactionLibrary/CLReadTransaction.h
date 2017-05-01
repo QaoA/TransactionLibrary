@@ -24,6 +24,7 @@ private:
 
 public:
 	SLObjectVersion * OpenObject(void * pUserObject, SLUserObjectInfo * pUserObjectInfo);
+	void * GetAddressByName(char * strName);
 
 private:
 	CLSnapShot m_snapShot;

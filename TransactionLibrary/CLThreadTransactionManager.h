@@ -29,13 +29,15 @@ public:
 	static CLReadTransaction * GetReadTransaction();
 	static CLWriteTransaction * GetWriteTransaction();
 	static CLThreadTransactionManager & GetInstance();
+	static bool IsInWrite();
+	static bool IsInRead();
 	
 private:
 	static void ReleaseThreadTransactions(void * pThreadTransactions);
 	
 public:
-	void RunReadTransaction(TransactionFunc func, void * arg);
-	void RunWriteTransaction(TransactionFunc func, void * arg);
+	bool RunReadTransaction(TransactionFunc func, void * arg);
+	bool RunWriteTransaction(TransactionFunc func, void * arg);
 	
 private:
 	SLThreadTransactions * GetThreadTransactions();

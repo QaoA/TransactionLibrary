@@ -28,28 +28,30 @@ void CLThreadTransactionManager::ReleaseThreadTransactions(void * pThreadTransac
 
 CLReadTransaction * CLThreadTransactionManager::GetReadTransaction()
 {
-	assert(m_pReadTransaction);
+	assert(m_pReadTransaction && "cannot read only in write transaction");
 	return m_pReadTransaction;
 }
 
 CLWriteTransaction * CLThreadTransactionManager::GetWriteTransaction()
 {
-	assert(m_pWriteTransaction);
+	assert(m_pWriteTransaction && "cannot write NVM object in read transaction");
 	return m_pWriteTransaction;
 }
 
-void CLThreadTransactionManager::RunReadTransaction(TransactionFunc func, void * arg)
+bool CLThreadTransactionManager::RunReadTransaction(TransactionFunc func, void * arg)
 {
 	m_pReadTransaction = &GetThreadTransactions()->m_readTransaction;
-	m_pReadTransaction->RunTransaction(func, arg);
+	bool ret = m_pReadTransaction->RunTransaction(func, arg);
 	m_pReadTransaction = nullptr;
+	return ret;
 }
 
-void CLThreadTransactionManager::RunWriteTransaction(TransactionFunc func, void * arg)
+bool CLThreadTransactionManager::RunWriteTransaction(TransactionFunc func, void * arg)
 {
 	m_pWriteTransaction = &GetThreadTransactions()->m_writeTransaction;
-	m_pWriteTransaction->RunTransaction(func, arg);
+	bool ret = m_pWriteTransaction->RunTransaction(func, arg);
 	m_pWriteTransaction = nullptr;
+	return ret;
 }
 
 CLThreadTransactionManager::SLThreadTransactions * CLThreadTransactionManager::GetThreadTransactions()
@@ -61,6 +63,16 @@ CLThreadTransactionManager::SLThreadTransactions * CLThreadTransactionManager::G
 		m_threadTransactions.Set(pTransactions);
 	}
 	return pTransactions;
+}
+
+bool NVMTransaction::CLThreadTransactionManager::IsInWrite()
+{
+	return !!m_pWriteTransaction;
+}
+
+bool NVMTransaction::CLThreadTransactionManager::IsInRead()
+{
+	return !!m_pReadTransaction;
 }
 
 TRANSACTIONLIB_NS_END

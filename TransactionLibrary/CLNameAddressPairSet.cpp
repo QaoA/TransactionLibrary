@@ -60,4 +60,9 @@ void CLNameAddressPairSet::Close()
 	}
 }
 
+void CLNameAddressPairSet::Reset()
+{
+	assert(m_set.empty());
+}
+
 TRANSACTIONLIB_NS_END

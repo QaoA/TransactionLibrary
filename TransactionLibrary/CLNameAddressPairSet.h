@@ -22,6 +22,7 @@ public:
 	void Commit(CLLogItemsSet & logItemSet);
 	void Abort();
 	void Close();
+	void Reset();
 
 private:
 	std::vector<CLNameAddressPair *> m_set;

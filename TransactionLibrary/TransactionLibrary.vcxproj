@@ -72,6 +72,10 @@
     <ClCompile Include="CLNameAddressPair.cpp" />
     <ClCompile Include="CLNameAddressPairSet.cpp" />
     <ClCompile Include="CLNameServer.cpp" />
+    <ClCompile Include="CLReadOnlyPointerImplementator.cpp" />
+    <ClCompile Include="CLReadWritePointerImplementator.cpp" />
+    <ClCompile Include="CLTransactionAPIs.cpp" />
+    <ClCompile Include="CLWritePointerImplementator.cpp" />
     <ClCompile Include="SLNVMNameAddressPair.cpp" />
     <ClCompile Include="CLQuiescentStateManager.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
@@ -89,8 +93,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SLLList.cpp" />
     <ClCompile Include="SLObjectVersion.cpp" />
-    <ClCompile Include="SLTList.cpp" />
     <ClCompile Include="SLTransactionalObjectCreateArgs.h" />
+    <ClCompile Include="TSLList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.mak" />
@@ -111,12 +115,15 @@
     <ClInclude Include="CLNameAddressPair.h" />
     <ClInclude Include="CLNameAddressPairSet.h" />
     <ClInclude Include="CLNameServer.h" />
+    <ClInclude Include="CLReadOnlyPointerImplementator.h" />
+    <ClInclude Include="CLReadPointer.h" />
+    <ClInclude Include="CLReadWritePointerImplementator.h" />
+    <ClInclude Include="CLTransactionAPIs.h" />
+    <ClInclude Include="CLWritePointerImplementator.h" />
     <ClInclude Include="SLNVMNameAddressPair.h" />
     <ClInclude Include="CLQuiescentStateManager.h" />
-    <ClInclude Include="CLReadOnlyPointer.h" />
     <ClInclude Include="CLReadTransaction.h" />
     <ClInclude Include="CLReadTransactionReadedObjects.h" />
-    <ClInclude Include="CLReadWritePointer.h" />
     <ClInclude Include="CLSnapShot.h" />
     <ClInclude Include="CLSpinLock.h" />
     <ClInclude Include="CLThreadTransactionManager.h" />
@@ -133,11 +140,11 @@
     <ClInclude Include="LSATimeStamp.h" />
     <ClInclude Include="NVMUserObject.h" />
     <ClInclude Include="EMObjectOpenMode.h" />
-    <ClInclude Include="SLTList.h" />
     <ClInclude Include="SLLList.h" />
     <ClInclude Include="SLObjectVersion.h" />
     <ClInclude Include="SLUserObjectInfo.h" />
     <ClInclude Include="TransactionLibraryNameSpace.h" />
+    <ClInclude Include="TSLList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

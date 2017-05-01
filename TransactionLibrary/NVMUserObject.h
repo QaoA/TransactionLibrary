@@ -3,12 +3,11 @@
 
 #include "SLUserObjectInfo.h"
 #include "NVMMalloc.h"
-#include <cstddef>
 #include <new>
 
 #define NVM_OBJECT(ObjectType) \
 public:\
-static void * operator new(size_t size) throw(std::bad_alloc)\
+static void * operator new(size_t size)\
 {\
 	void * ptr = NVMMalloc::MallocOnNVM(size);\
 	if(ptr == nullptr)\

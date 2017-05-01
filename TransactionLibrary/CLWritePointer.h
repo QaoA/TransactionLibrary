@@ -1,12 +1,10 @@
 #ifndef __WRITE_POINTER_H__
 #define __WRITE_POINTER_H__
 
-#include "CLTransactionalObject.h"
-#include "CLThreadTransactionManager.h"
-#include "CLTransactionAbort.h"
-#include "CLWriteTransaction.h"
 #include "TransactionLibraryNameSpace.h"
-#include "CLReadWritePointer.h"
+#include "CLReadWritePointerImplementator.h"
+#include "CLWritePointerImplementator.h"
+#include "CLReadPointer.h"
 #include <cassert>
 
 TRANSACTIONLIB_NS_BEGIN
@@ -15,118 +13,90 @@ template<typename T>
 class CLWritePointer
 {
 public:
-	CLWritePointer(T * pUserObject);
+	CLWritePointer();
+	CLWritePointer(T * pNVMObject);
+	CLWritePointer<T> & operator=(T * pNVMObject);
+	CLWritePointer<T> & operator=(CLReadPointer<T> &);
+	operator T *();
 	~CLWritePointer();
 
 private:
-	CLWritePointer(T * pUserObject, bool newFlag);
+	CLWritePointer(T * pNVMObject, bool newFlag);
 
 public:
-	CLWritePointer<T> & operator=(T * pUserObject);
-	CLWritePointer<T> & operator=(const CLWritePointer &);
-	CLWritePointer<T> & operator=(const CLReadWritePointer<T> &);
-	bool operator==(const CLWritePointer & anotherPointer);
-	inline T * operator->();
-	inline operator T * ();
-
-public:
-	static CLWritePointer MakeNewObjectPointer(T * pUserObject);
-	static void DeleteObjectByPointer(CLWritePointer & writePointer);
+	static CLWritePointer MakeNewPointer(T * pNVMObject);
+	static void DeleteByPointer(CLWritePointer & writePointer);
 	
 public:
-	inline bool IsValid();
+	inline T * operator->();
+	inline T * Get();
 
 private:
-	CLTransactionalObject * m_pObject;
+	CLWritePointerImplementator m_writePointer;
 };
 
 template<typename T>
-CLWritePointer<T>::CLWritePointer(T * pUserObject) :
-m_pObject(nullptr)
-{
-	if (pUserObject != nullptr)
-	{
-		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
-	}
-}
-
-template<typename T>
-inline CLWritePointer<T>::CLWritePointer(T * pUserObject, bool newFlag) :
-m_pObject(nullptr)
-{
-	if (pUserObject != nullptr)
-	{
-		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
-	}
-	m_pObject->MarkNew();
-}
-template<typename T>
-CLWritePointer<T>::~CLWritePointer()
+inline CLWritePointer<T>::CLWritePointer()
 {
 }
 
 template<typename T>
-CLWritePointer<T>& CLWritePointer<T>::operator=(T * pUserObject)
+inline CLWritePointer<T>::CLWritePointer(T * pNVMObject)
 {
-	if (pUserObject != nullptr)
-	{
-		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectWrite(pUserObject, T::GetUserObjectInfo());
-	}
-	else
-	{
-		m_pObject = nullptr;
-	}
-	return *this;
+	m_writePointer.Set(pNVMObject, T::GetUserObjectInfo());
 }
 
 template<typename T>
-CLWritePointer<T>& CLWritePointer<T>::operator=(const CLWritePointer & anotherPointer)
+inline CLWritePointer<T>& CLWritePointer<T>::operator=(T * pNVMObject)
 {
-	m_pObject = anotherPointer.m_pObject;
+	m_writePointer.Set(pNVMObject, T::GetUserObjectInfo());
 }
 
 template<typename T>
-CLWritePointer<T>& CLWritePointer<T>::operator=(const CLReadWritePointer<T> & anotherPointer)
+inline CLWritePointer<T>& CLWritePointer<T>::operator=(CLReadPointer<T> & readPointer)
 {
-	m_pObject = CLThreadTransactionManager::GetWriteTransaction()->ConvertOpenModeReadToWrite(anotherPointer.m_pObject);
-}
-
-template<typename T>
-inline bool CLWritePointer<T>::operator==(const CLWritePointer & anotherPointer)
-{
-	return m_pObject == anotherPointer.m_pObject;
-}
-
-template<typename T>
-CLWritePointer<T> CLWritePointer<T>::MakeNewObjectPointer(T * pUserObject)
-{
-	return CLWritePointer(pUserObject, true);
-}
-
-template<typename T>
-void CLWritePointer<T>::DeleteObjectByPointer(CLWritePointer & writePointer)
-{
-	writePointer.m_pObject->MarkDelete();
-	writePointer.m_pObject = nullptr;
-}
-
-template<typename T>
-inline T * CLWritePointer<T>::operator->()
-{
-	assert(m_pObject);
-	return static_cast<T *>(m_pObject->GetTentativeVersionUserObjectCopy());
+	m_writePointer.Set(readPointer.m_readWritePointer);
 }
 
 template<typename T>
 inline CLWritePointer<T>::operator T*()
 {
-	return static_cast<T *>(m_pObject->GetUserObjectNVMAddress());
+	return Get();
 }
 
 template<typename T>
-inline bool CLWritePointer<T>::IsValid()
+inline CLWritePointer<T>::~CLWritePointer()
 {
-	return !!m_pObject;
+}
+
+template<typename T>
+inline CLWritePointer<T>::CLWritePointer(T * pNVMObject, bool newFlag)
+{
+	m_writePointer.Set(pNVMObject, T::GetUserObjectInfo(),true);
+}
+
+template<typename T>
+inline CLWritePointer<T> CLWritePointer<T>::MakeNewPointer(T * pNVMObject)
+{
+	return CLWritePointer<T>(pNVMObject,true);
+}
+
+template<typename T>
+inline void CLWritePointer<T>::DeleteByPointer(CLWritePointer & writePointer)
+{
+	writePointer.m_writePointer.SetRelease();
+}
+
+template<typename T>
+inline T * CLWritePointer<T>::operator->()
+{
+	return (T *)m_writePointer.operator ->();
+}
+
+template<typename T>
+inline T * CLWritePointer<T>::Get()
+{
+	return (T *)m_writePointer.Get();
 }
 
 TRANSACTIONLIB_NS_END

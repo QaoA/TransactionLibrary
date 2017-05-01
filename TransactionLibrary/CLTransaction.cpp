@@ -11,19 +11,22 @@ CLTransaction::~CLTransaction()
 {
 }
 
-void CLTransaction::RunTransaction(TransactionFunc func, void * arg)
+bool CLTransaction::RunTransaction(TransactionFunc func, void * arg)
 {
+	bool ret = false;
 	Initialize();
 	try
 	{
 		func(arg);
 		OnCommit();
+		ret = true;
 	}
 	catch (CLTransactionAbort & transactionAbort)
 	{
 		OnAbort(transactionAbort);
 	}
 	Uninitialize();
+	return ret;
 }
 
 TRANSACTIONLIB_NS_END

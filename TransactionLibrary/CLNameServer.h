@@ -2,7 +2,7 @@
 #define __NAME_SERVER_H__
 
 #include "CLNameServerArea.h"
-#include "CLSpinLock.cpp"
+#include "CLSpinLock.h"
 #include "TransactionLibraryNameSpace.h"
 #include <list>
 
