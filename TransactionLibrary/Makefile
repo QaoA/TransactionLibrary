@@ -35,7 +35,7 @@ error:
 	$(error Invalid configuration, please check your inputs)
 endif
 
-SOURCEFILES := CLCriticalSection.cpp CLDeletedObjectSet.cpp CLGarbageCollector.cpp CLLogItemsSet.cpp CLLSAClock.cpp CLMutex.cpp CLNameAddressPair.cpp CLNameAddressPairSet.cpp CLNameServer.cpp CLReadOnlyPointerImplementator.cpp CLReadWritePointerImplementator.cpp CLTransactionAPIs.cpp CLWritePointerImplementator.cpp SLNVMNameAddressPair.cpp CLQuiescentStateManager.cpp CLReadTransaction.cpp CLReadTransactionReadedObjects.cpp CLSnapShot.cpp CLSpinLock.cpp CLThreadTransactionManager.cpp CLTransaction.cpp CLTransactionAbort.cpp CLTransactionalObject.cpp CLTransactionalObjectLookupTable.cpp CLTransactionalObjectRadixTree.cpp CLWriteTransaction.cpp CLWriteTransactionOpenedOjects.cpp main.cpp SLLList.cpp SLObjectVersion.cpp TSLList.cpp
+SOURCEFILES := CLCriticalSection.cpp CLDeletedObjectSet.cpp CLGarbageCollector.cpp CLLogItemsSet.cpp CLLSAClock.cpp CLMutex.cpp CLNameAddressPair.cpp CLNameAddressPairSet.cpp CLNameServer.cpp CLReadOnlyPointerImplementator.cpp CLReadWritePointerImplementator.cpp CLTransactionAPIs.cpp CLWritePointerImplementator.cpp TCLTimeCount.cpp TSLNormalList.cpp SLNVMNameAddressPair.cpp CLQuiescentStateManager.cpp CLReadTransaction.cpp CLReadTransactionReadedObjects.cpp CLSnapShot.cpp CLSpinLock.cpp CLThreadTransactionManager.cpp CLTransaction.cpp CLTransactionAbort.cpp CLTransactionalObject.cpp CLTransactionalObjectLookupTable.cpp CLTransactionalObjectRadixTree.cpp CLWriteTransaction.cpp CLWriteTransactionOpenedOjects.cpp main.cpp SLLList.cpp SLObjectVersion.cpp TSLList.cpp
 EXTERNAL_LIBS := 
 EXTERNAL_LIBS_COPIED := $(foreach lib, $(EXTERNAL_LIBS),$(BINARYDIR)/$(notdir $(lib)))
 

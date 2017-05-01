@@ -95,6 +95,12 @@
     <ClCompile Include="TSLList.cpp">
       <Filter>Test\Source</Filter>
     </ClCompile>
+    <ClCompile Include="TSLNormalList.cpp">
+      <Filter>Test\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TCLTimeCount.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -309,6 +315,12 @@
       <Filter>Header\SmartPointer</Filter>
     </ClInclude>
     <ClInclude Include="TSLList.h">
+      <Filter>Test\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TCLTimeCount.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TSLNormalList.h">
       <Filter>Test\Header</Filter>
     </ClInclude>
   </ItemGroup>

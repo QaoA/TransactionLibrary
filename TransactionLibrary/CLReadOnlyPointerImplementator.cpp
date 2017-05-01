@@ -2,6 +2,7 @@
 #include "SLObjectVersion.h"
 #include "CLTransactionalObject.h"
 #include "CLThreadTransactionManager.h"
+#include "CLTransactionAbort.h"
 
 TRANSACTIONLIB_NS_BEGIN
 
@@ -19,6 +20,10 @@ void CLReadOnlyPointerImplementator::Set(void * pNVMUserObject, SLUserObjectInfo
 	if (pNVMUserObject != nullptr)
 	{
 		m_readedVersion = CLThreadTransactionManager::GetReadTransaction()->OpenObject(pNVMUserObject, pUserObjectInfo);
+		if (m_readedVersion == nullptr)
+		{
+			throw CLTransactionAbort(NO_VALID_VERSION_IN_READ_TRANSACION);
+		}
 		return;
 	}
 	pNVMUserObject = nullptr;

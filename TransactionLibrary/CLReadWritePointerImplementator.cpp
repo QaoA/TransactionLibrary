@@ -2,6 +2,7 @@
 #include "CLThreadTransactionManager.h"
 #include "SLUserObjectInfo.h"
 #include "CLTransactionalObject.h"
+#include "CLTransactionAbort.h"
 
 TRANSACTIONLIB_NS_BEGIN
 	
@@ -19,6 +20,10 @@ void CLReadWritePointerImplementator::Set(void * pNVMUserObject, SLUserObjectInf
 	if (pNVMUserObject != nullptr)
 	{
 		m_pObject = CLThreadTransactionManager::GetWriteTransaction()->OpenObjectRead(pNVMUserObject, pUserObjectInfo);
+		if (m_pObject == nullptr)
+		{
+			throw CLTransactionAbort(OBJECT_OCCUPIED_BY_ANOTHER_WRITE_TRANSACTION);
+		}
 		return;
 	}
 	m_pObject = nullptr;

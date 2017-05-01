@@ -29,17 +29,17 @@ void TSLList::Show(TSLList * pList)
 	CLReadPointer<TSLList> pTmp(pHead);
 	do 
 	{
-		cout << pTmp->m_data << "\t";
+		//cout << pTmp->m_data << "\t";
 		pTmp = pTmp->m_pNext;
 	} while (pTmp.Get() != pList);
-	cout << endl;
+	//cout << endl;
 }
 
 TSLList * TSLList::MakeList()
 {
 	CLWritePointer<TSLList> pHead = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
 	TSLList::Init(pHead, 0);
-	for (int i = 1; i < 10; ++i)
+	for (int i = 1; i < 1000; ++i)
 	{
 		CLWritePointer<TSLList> pTmp = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
 		TSLList::Init(pTmp, i);

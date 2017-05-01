@@ -76,6 +76,8 @@
     <ClCompile Include="CLReadWritePointerImplementator.cpp" />
     <ClCompile Include="CLTransactionAPIs.cpp" />
     <ClCompile Include="CLWritePointerImplementator.cpp" />
+    <ClCompile Include="TCLTimeCount.cpp" />
+    <ClCompile Include="TSLNormalList.cpp" />
     <ClCompile Include="SLNVMNameAddressPair.cpp" />
     <ClCompile Include="CLQuiescentStateManager.cpp" />
     <ClCompile Include="CLReadTransaction.cpp" />
@@ -120,6 +122,7 @@
     <ClInclude Include="CLReadWritePointerImplementator.h" />
     <ClInclude Include="CLTransactionAPIs.h" />
     <ClInclude Include="CLWritePointerImplementator.h" />
+    <ClInclude Include="TSLNormalList.h" />
     <ClInclude Include="SLNVMNameAddressPair.h" />
     <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLReadTransaction.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="SLUserObjectInfo.h" />
     <ClInclude Include="TransactionLibraryNameSpace.h" />
     <ClInclude Include="TSLList.h" />
+    <ClInclude Include="TCLTimeCount.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
