@@ -31,15 +31,11 @@ void TSLNormalList::Show(TSLNormalList * pList)
 	//cout << endl;
 }
 
-TSLNormalList * TSLNormalList::MakeList()
+void TSLNormalList::Remove(TSLNormalList * pPrevious)
 {
-	TSLNormalList * pHead = new TSLNormalList;
-	TSLNormalList::Init(pHead, 0);
-	for (int i = 1; i < 1000; ++i)
-	{
-		TSLNormalList * pTmp = new TSLNormalList;
-		TSLNormalList::Init(pTmp, i);
-		TSLNormalList::Append(pTmp, pHead);
-	}
-	return pHead;
+	TSLNormalList * pList = pPrevious->m_pNext;
+	TSLNormalList * pNext = pList->m_pNext;
+	pPrevious->m_pNext = pNext;
+	pNext->m_pPrevious = pPrevious;
+	delete pList;
 }

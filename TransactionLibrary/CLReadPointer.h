@@ -20,6 +20,8 @@ public:
 	CLReadPointer(T * pNVMObject);
 	CLReadPointer(CLReadPointer &);
 	CLReadPointer<T> & operator=(T * pNVMObject);
+	bool operator==(CLReadPointer &);
+	bool operator!=(CLReadPointer &);
 	~CLReadPointer();
 	
 public:
@@ -76,6 +78,25 @@ CLReadPointer<T> & CLReadPointer<T>::operator=(T * pNVMObject)
 	{
 		m_readWritePointer.Set(pNVMObject, T::GetUserObjectInfo());
 	}
+}
+
+template<typename T>
+inline bool CLReadPointer<T>::operator==(CLReadPointer & anotherOne)
+{
+	if (CLTransactionAPIs::IsInReading())
+	{
+		return anotherOne.m_readOnlyPointer.Get() == m_readOnlyPointer.Get();
+	}
+	else
+	{
+		return anotherOne.m_readWritePointer.Get() == m_readWritePointer.Get();
+	}
+}
+
+template<typename T>
+inline bool CLReadPointer<T>::operator!=(CLReadPointer & anotherOne)
+{
+	return !operator==(anotherOne);
 }
 
 template<typename T>

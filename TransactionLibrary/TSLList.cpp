@@ -1,49 +1,39 @@
 #include "TSLList.h"
-#include "CLWritePointer.h"
 #include <iostream>
 
 using namespace std;
 
-void TSLList::Init(TSLList * pList, int data)
+void TSLList::Init(CLWritePointer<TSLList> pList, int data)
 {
-	CLWritePointer<TSLList> ThisNode(pList);
-	ThisNode->m_data = data;
-	ThisNode->m_pNext = pList;
-	ThisNode->m_pPrevious = pList;
+	pList->m_data = data;
+	pList->m_pNext = pList;
+	pList->m_pPrevious = pList;
 }
 
-void TSLList::Append(TSLList * pList, TSLList * pPreviousNode)
+void TSLList::Append(CLWritePointer<TSLList> pList, CLWritePointer<TSLList> pPrevious)
 {
-	CLWritePointer<TSLList> ThisNode(pList);
-	CLWritePointer<TSLList> pPrevious(pPreviousNode);
-	CLWritePointer<TSLList> pNext(pPrevious->m_pNext);
-	ThisNode->m_pNext = pNext;
-	ThisNode->m_pPrevious = pPrevious;
+	CLWritePointer<TSLList> pNext = CLWritePointer<TSLList>(pPrevious->m_pNext);
+	pList->m_pPrevious = pPrevious;
+	pList->m_pNext = pNext;
 	pPrevious->m_pNext = pList;
 	pNext->m_pPrevious = pList;
 }
 
-void TSLList::Show(TSLList * pList)
+void TSLList::Remove(CLWritePointer<TSLList> pPrevious)
 {
-	CLReadPointer<TSLList> pHead(pList);
-	CLReadPointer<TSLList> pTmp(pHead);
-	do 
+	CLWritePointer<TSLList> pList = CLWritePointer<TSLList>(pPrevious->m_pNext);
+	CLWritePointer<TSLList> pNext = CLWritePointer<TSLList>(pList->m_pNext);
+	pPrevious->m_pNext = pNext;
+	pNext->m_pPrevious = pPrevious;
+	CLWritePointer<TSLList>::DeleteByPointer(pList);
+}
+
+void TSLList::Show(CLReadPointer<TSLList> pList)
+{
+	CLReadPointer<TSLList> pTmp(pList);
+	do
 	{
 		//cout << pTmp->m_data << "\t";
 		pTmp = pTmp->m_pNext;
-	} while (pTmp.Get() != pList);
-	//cout << endl;
-}
-
-TSLList * TSLList::MakeList()
-{
-	CLWritePointer<TSLList> pHead = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
-	TSLList::Init(pHead, 0);
-	for (int i = 1; i < 1000; ++i)
-	{
-		CLWritePointer<TSLList> pTmp = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
-		TSLList::Init(pTmp, i);
-		TSLList::Append(pTmp, pHead);
-	}
-	return pHead;
+	} while (pTmp != pList);
 }

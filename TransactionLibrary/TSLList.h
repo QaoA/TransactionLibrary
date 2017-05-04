@@ -2,6 +2,8 @@
 #define __TEST_LIST_H__
 
 #include "NVMUserObject.h"
+#include "CLWritePointer.h"
+#include "CLReadPointer.h"
 
 using namespace NVMTransaction;
 
@@ -14,10 +16,10 @@ public:
 	int m_data;
 
 public:
-	static void Init(TSLList * pList, int data);
-	static void Append(TSLList * pList, TSLList * pPrevious);
-	static void Show(TSLList * pList);
-	static TSLList * MakeList();
+	static void Init(CLWritePointer<TSLList> pList, int data);
+	static void Append(CLWritePointer<TSLList> pList, CLWritePointer<TSLList> pPrevious);
+	static void Remove(CLWritePointer<TSLList> pPrevious);
+	static void Show(CLReadPointer<TSLList> pList);
 };
 
 #endif

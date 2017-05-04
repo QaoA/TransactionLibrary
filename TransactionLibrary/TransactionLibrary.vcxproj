@@ -122,6 +122,8 @@
     <ClInclude Include="CLReadWritePointerImplementator.h" />
     <ClInclude Include="CLTransactionAPIs.h" />
     <ClInclude Include="CLWritePointerImplementator.h" />
+    <ClInclude Include="ListTestFuncs.h" />
+    <ClInclude Include="TestFuncs.h" />
     <ClInclude Include="TSLNormalList.h" />
     <ClInclude Include="SLNVMNameAddressPair.h" />
     <ClInclude Include="CLQuiescentStateManager.h" />

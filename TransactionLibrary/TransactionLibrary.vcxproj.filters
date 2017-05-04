@@ -323,5 +323,11 @@
     <ClInclude Include="TSLNormalList.h">
       <Filter>Test\Header</Filter>
     </ClInclude>
+    <ClInclude Include="ListTestFuncs.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFuncs.h">
+      <Filter>Test</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
