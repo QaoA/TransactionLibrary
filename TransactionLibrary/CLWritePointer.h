@@ -15,6 +15,7 @@ class CLWritePointer
 public:
 	CLWritePointer();
 	CLWritePointer(T * pNVMObject);
+	CLWritePointer(CLWritePointer &);
 	CLWritePointer<T> & operator=(T * pNVMObject);
 	CLWritePointer<T> & operator=(CLReadPointer<T> &);
 	operator T *();
@@ -47,6 +48,12 @@ inline CLWritePointer<T>::CLWritePointer(T * pNVMObject)
 }
 
 template<typename T>
+inline CLWritePointer<T>::CLWritePointer(CLWritePointer & anotherOne):
+m_writePointer(anotherOne.m_writePointer)
+{
+}
+
+template<typename T>
 inline CLWritePointer<T>& CLWritePointer<T>::operator=(T * pNVMObject)
 {
 	m_writePointer.Set(pNVMObject, T::GetUserObjectInfo());
@@ -76,7 +83,7 @@ inline CLWritePointer<T>::CLWritePointer(T * pNVMObject, bool newFlag)
 }
 
 template<typename T>
-inline CLWritePointer<T> CLWritePointer<T>::MakeNewPointer(T * pNVMObject)
+CLWritePointer<T> CLWritePointer<T>::MakeNewPointer(T * pNVMObject)
 {
 	return CLWritePointer<T>(pNVMObject,true);
 }

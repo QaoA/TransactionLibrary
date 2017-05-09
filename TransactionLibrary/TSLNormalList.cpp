@@ -23,12 +23,15 @@ void TSLNormalList::Show(TSLNormalList * pList)
 {
 	TSLNormalList * pHead = pList;
 	TSLNormalList * pTmp = pHead;
+	int i = 0;
 	do
 	{
 		//cout << pTmp->m_data << "\t";
 		pTmp = pTmp->m_pNext;
+		i += pTmp->m_data;
 	} while (pTmp != pList);
 	//cout << endl;
+	//cout << "i = " << i << endl;
 }
 
 void TSLNormalList::Remove(TSLNormalList * pPrevious)

@@ -4,15 +4,18 @@
 #include "TSLList.h"
 #include "TSLNormalList.h"
 
-#define LIST_LENGTH 100
+#define LIST_LENGTH 1000
+
+#include <stdio.h>
 
 CLWritePointer<TSLList> MakeListNVM()
 {
-	CLWritePointer<TSLList> head = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
+	TSLList * pHead = new TSLList();
+	CLWritePointer<TSLList> head = CLWritePointer<TSLList>::MakeNewPointer(pHead);
 	TSLList::Init(head, -1);
 	for (int i = 0; i < LIST_LENGTH; ++i)
 	{
-		CLWritePointer<TSLList> newNode = CLWritePointer<TSLList>::MakeNewPointer(new TSLList);
+		CLWritePointer<TSLList> newNode = CLWritePointer<TSLList>::MakeNewPointer(new TSLList());
 		newNode->m_data = i;
 		TSLList::Append(newNode, head);
 	}
@@ -32,12 +35,15 @@ TSLNormalList * MakeListNormal()
 {
 	TSLNormalList * head = new TSLNormalList;
 	TSLNormalList::Init(head, -1);
-	for (int i = 0; i < 100; ++i)
+	NVMMalloc::NotifyNVMMemoryGet(head);
+	for (int i = 0; i < LIST_LENGTH; ++i)
 	{
 		TSLNormalList * newNode = new TSLNormalList;
 		newNode->m_data = i;
 		TSLNormalList::Append(newNode, head);
+		NVMMalloc::NotifyNVMMemoryGet(newNode);
 	}
+	return head;
 }
 
 void ReleaseListNormal(TSLNormalList * head)
@@ -47,6 +53,16 @@ void ReleaseListNormal(TSLNormalList * head)
 		TSLNormalList::Remove(head);
 	}
 	TSLNormalList::Remove(head);
+}
+
+void TranverseListNVM(CLReadPointer<TSLList> head)
+{
+	TSLList::Show(head);
+}
+
+void TranverseListNormal(TSLNormalList * head)
+{
+	TSLNormalList::Show(head);
 }
 
 #endif

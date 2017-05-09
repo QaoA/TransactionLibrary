@@ -24,10 +24,10 @@ void CLWritePointerImplementator::Set(void * pNVMUserObject, SLUserObjectInfo * 
 		{
 			throw CLTransactionAbort(OBJECT_OCCUPIED_BY_ANOTHER_WRITE_TRANSACTION);
 		}
-	}
-	if (IsNew)
-	{
-		m_pObject->MarkNew();
+		if (IsNew)
+		{
+			m_pObject->MarkNew();
+		}
 	}
 }
 

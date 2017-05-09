@@ -14,6 +14,7 @@ static void * operator new(size_t size)\
 	{\
 		throw std::bad_alloc();\
 	}\
+	return ptr;\
 }\
 static void operator delete(void * ptr,size_t size) throw()\
 {\

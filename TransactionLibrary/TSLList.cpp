@@ -31,9 +31,11 @@ void TSLList::Remove(CLWritePointer<TSLList> pPrevious)
 void TSLList::Show(CLReadPointer<TSLList> pList)
 {
 	CLReadPointer<TSLList> pTmp(pList);
+	int i = 0;
 	do
 	{
 		//cout << pTmp->m_data << "\t";
 		pTmp = pTmp->m_pNext;
+		i += pTmp->m_data;
 	} while (pTmp != pList);
 }

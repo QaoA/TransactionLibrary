@@ -34,13 +34,12 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
       <DeleteDisappearedFiles>true</DeleteDisappearedFiles>
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
-    <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
+    <SkipBuildIfNoSourceFilesChanged>true</SkipBuildIfNoSourceFilesChanged>
     <IgnoreFileTransferErrors>false</IgnoreFileTransferErrors>
-    <RemoveRemoteDirectoryOnClean>false</RemoveRemoteDirectoryOnClean>
+    <RemoveRemoteDirectoryOnClean>true</RemoveRemoteDirectoryOnClean>
     <SkipDeploymentTests>false</SkipDeploymentTests>
     <MainSourceDirectoryForLocalBuilds>$(ProjectDir)</MainSourceDirectoryForLocalBuilds>
   </Project>
