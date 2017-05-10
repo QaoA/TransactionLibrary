@@ -38,6 +38,4 @@ void TSLList::Show(CLReadPointer<TSLList> pList)
 		pTmp = pTmp->m_pNext;
 		i++;
 	} while (pTmp != pList);
-	cout << endl;
-	cout << "list length : " << i << endl;
 }

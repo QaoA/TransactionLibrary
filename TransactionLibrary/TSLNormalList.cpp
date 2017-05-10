@@ -28,10 +28,10 @@ void TSLNormalList::Show(TSLNormalList * pList)
 	{
 		//cout << pTmp->m_data << "\t";
 		pTmp = pTmp->m_pNext;
-		i += pTmp->m_data;
+		i++;
 	} while (pTmp != pList);
 	//cout << endl;
-	//cout << "i = " << i << endl;
+//	cout << "i = " << i << endl;
 }
 
 void TSLNormalList::Remove(TSLNormalList * pPrevious)

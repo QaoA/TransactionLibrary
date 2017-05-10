@@ -13,9 +13,9 @@ OBJCOPY := objcopy
 
 #Additional flags
 PREPROCESSOR_MACROS := NDEBUG=1 RELEASE=1
-INCLUDE_DIRS := 
-LIBRARY_DIRS := 
-LIBRARY_NAMES := 
+INCLUDE_DIRS := /home/mq/workspace/NVM/MallocOnNVM
+LIBRARY_DIRS := /home/mq/workspace/NVM/MallocOnNVM
+LIBRARY_NAMES := MallocOnNVM pthread rt
 ADDITIONAL_LINKER_INPUTS := 
 MACOS_FRAMEWORKS := 
 LINUX_PACKAGES := 
