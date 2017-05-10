@@ -18,7 +18,7 @@ class CLReadPointer
 public:
 	CLReadPointer();
 	CLReadPointer(T * pNVMObject);
-	CLReadPointer(CLReadPointer &);
+	CLReadPointer(const CLReadPointer &);
 	CLReadPointer<T> & operator=(T * pNVMObject);
 	bool operator==(CLReadPointer &);
 	bool operator!=(CLReadPointer &);
@@ -55,16 +55,9 @@ CLReadPointer<T>::CLReadPointer(T * pNVMObject)
 }
 
 template<typename T>
-inline CLReadPointer<T>::CLReadPointer(CLReadPointer & anotherOne)
+CLReadPointer<T>::CLReadPointer(const CLReadPointer & anotherOne):
+m_readOnlyPointer(anotherOne.m_readOnlyPointer)
 {
-	if (CLTransactionAPIs::IsInReading())
-	{
-		m_readOnlyPointer.Set(anotherOne.m_readOnlyPointer);
-	}
-	else
-	{
-		m_readWritePointer.Set(anotherOne.m_readWritePointer);
-	}
 }
 
 template<typename T>

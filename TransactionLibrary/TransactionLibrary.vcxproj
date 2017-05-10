@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}</ProjectGuid>
+    <ProjectGuid>{EA5F6F00-3776-4859-AD98-0463634C1044}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0004\MallocOnNVM;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(ProjectDir);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0004\MallocOnNVM;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
@@ -49,8 +49,9 @@
     <NMakePreprocessorDefinitions>__VisualGDB_CFG_Debug;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0004\MallocOnNVM;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu\c++\4.8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\c++\4.8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.56.2\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Release.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakePreprocessorDefinitions>__VisualGDB_CFG_Release;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /rebuild "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeReBuildCommandLine>
@@ -58,46 +59,9 @@
     <IncludePath />
     <ReferencePath />
     <LibraryPath />
-    <NMakePreprocessorDefinitions>__VisualGDB_CFG_Release;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="CLCriticalSection.cpp" />
-    <ClCompile Include="CLDeletedObjectSet.cpp" />
-    <ClCompile Include="CLGarbageCollector.cpp" />
-    <ClCompile Include="CLLogItemsSet.cpp" />
-    <ClCompile Include="CLLSAClock.cpp" />
-    <ClCompile Include="CLMutex.cpp" />
-    <ClCompile Include="CLNameAddressPair.cpp" />
-    <ClCompile Include="CLNameAddressPairSet.cpp" />
-    <ClCompile Include="CLNameServer.cpp" />
-    <ClCompile Include="CLReadOnlyPointerImplementator.cpp" />
-    <ClCompile Include="CLReadWritePointerImplementator.cpp" />
-    <ClCompile Include="CLTransactionAPIs.cpp" />
-    <ClCompile Include="CLWritePointerImplementator.cpp" />
-    <ClCompile Include="TCLTimeCount.cpp" />
-    <ClCompile Include="TSLNormalList.cpp" />
-    <ClCompile Include="SLNVMNameAddressPair.cpp" />
-    <ClCompile Include="CLQuiescentStateManager.cpp" />
-    <ClCompile Include="CLReadTransaction.cpp" />
-    <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
-    <ClCompile Include="CLSnapShot.cpp" />
-    <ClCompile Include="CLSpinLock.cpp" />
-    <ClCompile Include="CLThreadTransactionManager.cpp" />
-    <ClCompile Include="CLTransaction.cpp" />
-    <ClCompile Include="CLTransactionAbort.cpp" />
-    <ClCompile Include="CLTransactionalObject.cpp" />
-    <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
-    <ClCompile Include="CLTransactionalObjectRadixTree.cpp" />
-    <ClCompile Include="CLWriteTransaction.cpp" />
-    <ClCompile Include="CLWriteTransactionOpenedOjects.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="SLLList.cpp" />
-    <ClCompile Include="SLObjectVersion.cpp" />
-    <ClCompile Include="SLTransactionalObjectCreateArgs.h" />
-    <ClCompile Include="TSLList.cpp" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="debug.mak" />
     <None Include="Makefile" />
@@ -117,18 +81,12 @@
     <ClInclude Include="CLNameAddressPair.h" />
     <ClInclude Include="CLNameAddressPairSet.h" />
     <ClInclude Include="CLNameServer.h" />
+    <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLReadOnlyPointerImplementator.h" />
     <ClInclude Include="CLReadPointer.h" />
-    <ClInclude Include="CLReadWritePointerImplementator.h" />
-    <ClInclude Include="CLTransactionAPIs.h" />
-    <ClInclude Include="CLWritePointerImplementator.h" />
-    <ClInclude Include="ListTestFuncs.h" />
-    <ClInclude Include="TestFuncs.h" />
-    <ClInclude Include="TSLNormalList.h" />
-    <ClInclude Include="SLNVMNameAddressPair.h" />
-    <ClInclude Include="CLQuiescentStateManager.h" />
     <ClInclude Include="CLReadTransaction.h" />
     <ClInclude Include="CLReadTransactionReadedObjects.h" />
+    <ClInclude Include="CLReadWritePointerImplementator.h" />
     <ClInclude Include="CLSnapShot.h" />
     <ClInclude Include="CLSpinLock.h" />
     <ClInclude Include="CLThreadTransactionManager.h" />
@@ -138,19 +96,61 @@
     <ClInclude Include="CLTransactionalObject.h" />
     <ClInclude Include="CLTransactionalObjectLookupTable.h" />
     <ClInclude Include="CLTransactionalObjectRadixTree.h" />
+    <ClInclude Include="CLTransactionAPIs.h" />
     <ClInclude Include="CLWritePointer.h" />
+    <ClInclude Include="CLWritePointerImplementator.h" />
     <ClInclude Include="CLWriteTransaction.h" />
     <ClInclude Include="CLWriteTransactionOpenedOjects.h" />
+    <ClInclude Include="EMObjectOpenMode.h" />
     <ClInclude Include="ILLock.h" />
+    <ClInclude Include="ListTestFuncs.h" />
     <ClInclude Include="LSATimeStamp.h" />
     <ClInclude Include="NVMUserObject.h" />
-    <ClInclude Include="EMObjectOpenMode.h" />
     <ClInclude Include="SLLList.h" />
+    <ClInclude Include="SLNVMNameAddressPair.h" />
     <ClInclude Include="SLObjectVersion.h" />
+    <ClInclude Include="SLTransactionalObjectCreateArgs.h" />
     <ClInclude Include="SLUserObjectInfo.h" />
+    <ClInclude Include="TCLTimeCount.h" />
+    <ClInclude Include="TestFuncs.h" />
     <ClInclude Include="TransactionLibraryNameSpace.h" />
     <ClInclude Include="TSLList.h" />
-    <ClInclude Include="TCLTimeCount.h" />
+    <ClInclude Include="TSLNormalList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CLCriticalSection.cpp" />
+    <ClCompile Include="CLDeletedObjectSet.cpp" />
+    <ClCompile Include="CLGarbageCollector.cpp" />
+    <ClCompile Include="CLLogItemsSet.cpp" />
+    <ClCompile Include="CLLSAClock.cpp" />
+    <ClCompile Include="CLMutex.cpp" />
+    <ClCompile Include="CLNameAddressPair.cpp" />
+    <ClCompile Include="CLNameAddressPairSet.cpp" />
+    <ClCompile Include="CLNameServer.cpp" />
+    <ClCompile Include="CLQuiescentStateManager.cpp" />
+    <ClCompile Include="CLReadOnlyPointerImplementator.cpp" />
+    <ClCompile Include="CLReadTransaction.cpp" />
+    <ClCompile Include="CLReadTransactionReadedObjects.cpp" />
+    <ClCompile Include="CLReadWritePointerImplementator.cpp" />
+    <ClCompile Include="CLSnapShot.cpp" />
+    <ClCompile Include="CLSpinLock.cpp" />
+    <ClCompile Include="CLThreadTransactionManager.cpp" />
+    <ClCompile Include="CLTransaction.cpp" />
+    <ClCompile Include="CLTransactionAbort.cpp" />
+    <ClCompile Include="CLTransactionalObject.cpp" />
+    <ClCompile Include="CLTransactionalObjectLookupTable.cpp" />
+    <ClCompile Include="CLTransactionalObjectRadixTree.cpp" />
+    <ClCompile Include="CLTransactionAPIs.cpp" />
+    <ClCompile Include="CLWritePointerImplementator.cpp" />
+    <ClCompile Include="CLWriteTransaction.cpp" />
+    <ClCompile Include="CLWriteTransactionOpenedOjects.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SLLList.cpp" />
+    <ClCompile Include="SLNVMNameAddressPair.cpp" />
+    <ClCompile Include="SLObjectVersion.cpp" />
+    <ClCompile Include="TCLTimeCount.cpp" />
+    <ClCompile Include="TSLList.cpp" />
+    <ClCompile Include="TSLNormalList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

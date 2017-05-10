@@ -67,9 +67,6 @@
     <ClCompile Include="CLTransactionalObjectRadixTree.cpp">
       <Filter>Source\Container</Filter>
     </ClCompile>
-    <ClCompile Include="SLTransactionalObjectCreateArgs.h">
-      <Filter>Header\Object</Filter>
-    </ClCompile>
     <ClCompile Include="CLNameAddressPair.cpp">
       <Filter>Source\NameServer</Filter>
     </ClCompile>
@@ -329,5 +326,6 @@
     <ClInclude Include="TestFuncs.h">
       <Filter>Test</Filter>
     </ClInclude>
+    <ClInclude Include="SLTransactionalObjectCreateArgs.h" />
   </ItemGroup>
 </Project>

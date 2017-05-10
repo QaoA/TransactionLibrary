@@ -47,6 +47,7 @@ void CLWriteTransaction::OnCommit()
 	m_itemSet.WriteLogs(*logArea);
 	logArea->WriteLogEnd();
 	m_itemSet.SetValues();
+	logArea->SetValueEnd();
 	
 	NVMMalloc::FreeLogArea(logArea);
 }

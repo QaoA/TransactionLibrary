@@ -1,28 +1,22 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TransactionLibrary", "TransactionLibrary\TransactionLibrary.vcxproj", "{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TransactionLibrary", "TransactionLibrary\TransactionLibrary.vcxproj", "{EA5F6F00-3776-4859-AD98-0463634C1044}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|ARM = Release|ARM
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Debug|ARM.ActiveCfg = Debug|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Debug|x64.ActiveCfg = Debug|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Debug|x86.ActiveCfg = Debug|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Debug|x86.Build.0 = Debug|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Release|ARM.ActiveCfg = Release|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Release|x64.ActiveCfg = Release|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Release|x86.ActiveCfg = Release|Win32
-		{8EAC7431-1AAB-411B-817A-B3B20FFA94FD}.Release|x86.Build.0 = Release|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Debug|x64.ActiveCfg = Debug|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Debug|x86.ActiveCfg = Debug|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Debug|x86.Build.0 = Debug|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Release|x64.ActiveCfg = Release|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Release|x86.ActiveCfg = Release|Win32
+		{EA5F6F00-3776-4859-AD98-0463634C1044}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

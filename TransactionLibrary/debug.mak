@@ -13,9 +13,9 @@ OBJCOPY := objcopy
 
 #Additional flags
 PREPROCESSOR_MACROS := DEBUG=1
-INCLUDE_DIRS := /home/mq/workspace/NVM/MallocOnNVM .
+INCLUDE_DIRS := /home/mq/workspace/NVM/MallocOnNVM
 LIBRARY_DIRS := /home/mq/workspace/NVM/MallocOnNVM
-LIBRARY_NAMES := MallocOnNVM rt
+LIBRARY_NAMES := MallocOnNVM pthread rt
 ADDITIONAL_LINKER_INPUTS := 
 MACOS_FRAMEWORKS := 
 LINUX_PACKAGES := 
@@ -23,7 +23,7 @@ LINUX_PACKAGES :=
 CFLAGS := -ggdb -ffunction-sections -O0
 CXXFLAGS := -std=gnu++11 -ggdb -ffunction-sections -O0
 ASFLAGS := 
-LDFLAGS := -Wl,-gc-sections -pthread
+LDFLAGS := -Wl,-gc-sections
 COMMONFLAGS := 
 LINKER_SCRIPT := 
 
