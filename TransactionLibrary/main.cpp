@@ -9,83 +9,85 @@
 using namespace std;
 using namespace NVMTransaction;
 
-//TSLList * head;
-//
-//void PreFunc(void *)
-//{
-//	CLWritePointer<TSLList> pHead =  CLWritePointer<TSLList>::MakeNewPointer(new TSLList());
-//	TSLList::Init(pHead,0);
-//	head = pHead.Get();
-//}
-//
-//void append(void * arg)
-//{
-//	CLWritePointer<TSLList> pHead(head);
-//	unsigned long data = (unsigned long)arg;
-//	CLWritePointer<TSLList> newNode = CLWritePointer<TSLList>::MakeNewPointer(new TSLList());
-//	newNode->m_data = data;
-//	TSLList::Append(newNode, pHead);
-//}
-//
-//void Find(void * arg)
-//{
-//	//CLReadPointer<TSLList> header(head);
-//	//TSLList::Show(header);
-//	TSLList::Show(CLReadPointer<TSLList>(head));
-//}
-//
-//void * ReadThreadFunc(void *)
-//{
-//	RunReadTransaction(Find, nullptr);
-//}
-//
-//void * WriteThreadFunc(void *)
-//{
-//	for (int i = 0; i < 1000; ++i)
-//	{
-//		while (!RunWriteTransaction(append, (void *)i));
-//	}
-//}
+TSLList * head;
 
-TSLNormalList * headPure;
-CLMutex m_lock;
-
-void PreFuncPure(void *)
+void PreFunc(void *)
 {
-	headPure = new TSLNormalList();
-	TSLNormalList::Init(headPure, 0);
+	CLWritePointer<TSLList> pHead =  CLWritePointer<TSLList>::MakeNewPointer(new TSLList());
+	TSLList::Init(pHead,0);
+	head = pHead.Get();
 }
 
-void appendPure(void * arg)
+void append(void * arg)
 {
-	unsigned long data = (unsigned long)(arg);
-	TSLNormalList * pNewNode = new TSLNormalList();
-	pNewNode->m_data = data;
-	m_lock.Lock();
-	TSLNormalList::Append(pNewNode, headPure);
-	m_lock.Unlock();
+	CLWritePointer<TSLList> pHead(head);
+	unsigned long data = (unsigned long)arg;
+	CLWritePointer<TSLList> newNode = CLWritePointer<TSLList>::MakeNewPointer(new TSLList());
+	newNode->m_data = data;
+	TSLList::Append(newNode, pHead);
 }
 
-void FindPure(void * arg)
+void Find(void * arg)
 {
-	m_lock.Lock();
-	TSLNormalList::Show(headPure);
-	m_lock.Unlock();
+	//CLReadPointer<TSLList> header(head);
+	//TSLList::Show(header);
+	TSLList::Show(CLReadPointer<TSLList>(head));
 }
 
 void * ReadThreadFunc(void *)
 {
-	FindPure(nullptr);
+	RunReadTransaction(Find, nullptr);
 }
 
 void * WriteThreadFunc(void *)
 {
-	int i = 0;
-	for (i = 0; i < 1000; ++i)
+	cout << "thread " << pthread_self() << " : append begin" << endl;
+	for (int i = 0; i < 1000; ++i)
 	{
-		appendPure((void *)i);
+		while (!RunWriteTransaction(append, (void *)i));
 	}
+	cout << "thread " << pthread_self() << " : append end" << endl;
 }
+
+//TSLNormalList * headPure;
+//CLMutex m_lock;
+//
+//void PreFuncPure(void *)
+//{
+//	headPure = new TSLNormalList();
+//	TSLNormalList::Init(headPure, 0);
+//}
+//
+//void appendPure(void * arg)
+//{
+//	unsigned long data = (unsigned long)(arg);
+//	TSLNormalList * pNewNode = new TSLNormalList();
+//	pNewNode->m_data = data;
+//	m_lock.Lock();
+//	TSLNormalList::Append(pNewNode, headPure);
+//	m_lock.Unlock();
+//}
+//
+//void FindPure(void * arg)
+//{
+//	m_lock.Lock();
+//	TSLNormalList::Show(headPure);
+//	m_lock.Unlock();
+//}
+//
+//void * ReadThreadFunc(void *)
+//{
+//	FindPure(nullptr);
+//}
+//
+//void * WriteThreadFunc(void *)
+//{
+//	int i = 0;
+//	for (i = 0; i < 1000; ++i)
+//	{
+//		appendPure((void *)i);
+//	}
+//}
 
 #define THREAD_NUM 4
 #define THREAD_WRITE_NUM 4
@@ -93,9 +95,9 @@ void * WriteThreadFunc(void *)
 int main()
 {	
 	pthread_t threads[THREAD_NUM];
-	RunWriteTransaction(PreFuncPure, nullptr);
-	TCLTimeCount timeCounter;
-	timeCounter.TimeCountStart();
+	RunWriteTransaction(PreFunc, nullptr);
+//	TCLTimeCount timeCounter;
+//	timeCounter.TimeCountStart();
 
 	for (int i = 0; i < THREAD_WRITE_NUM; ++i)
 	{
@@ -111,10 +113,11 @@ int main()
 	{
 		pthread_join(threads[i], NULL);
 	}
+	
+	RunWriteTransaction(Find, nullptr);
 
-	timeCounter.TimeCountEnd();
-	cout << timeCounter.GetDelta() << endl;
-	ReadThreadFunc(nullptr);
+//	timeCounter.TimeCountEnd();
+//	cout << timeCounter.GetDelta() << endl;
 
     return 0;
 }

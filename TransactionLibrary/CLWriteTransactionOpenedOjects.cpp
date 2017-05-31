@@ -46,8 +46,11 @@ void CLWriteTransactionOpenedOjects::Commit(CLWriteTransaction * pOwner, CLLogIt
 		{
 			pObject->ReadCommit(pOwner);
 			m_objectSet.erase(it++);
+		}else
+		{
+			char *i = 0;
+			*i = 'a';
 		}
-		assert(true);
 	}
 }
 

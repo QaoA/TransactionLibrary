@@ -9,6 +9,10 @@
 #include "CLNameServer.h"
 #include "CLNameAddressPair.h"
 #include <cassert>
+#include <iostream>
+#include <pthread.h>
+
+using namespace std;
 
 TRANSACTIONLIB_NS_BEGIN
 
@@ -48,7 +52,6 @@ void CLWriteTransaction::OnCommit()
 	logArea->WriteLogEnd();
 	m_itemSet.SetValues();
 	logArea->SetValueEnd();
-	
 	NVMMalloc::FreeLogArea(logArea);
 }
 
